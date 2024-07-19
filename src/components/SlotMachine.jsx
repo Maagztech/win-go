@@ -16,7 +16,7 @@ const SlotMachine = () => {
   }, [hasSpun]);
 
   return (
-    <div className="mt-[28px] flex flex-col items-center">
+    <div className="mt-[18px] flex flex-col items-center">
       {showScore ? (
         <div className="relative mb-[20px]">
           <img
