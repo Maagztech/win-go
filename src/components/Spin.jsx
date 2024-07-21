@@ -83,7 +83,7 @@ const JackpotGame = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center">
+    <div className="fixed bottom-[40px] flex flex-col items-center justify-center">
       <div className="spin-frame flex items-center justify-center">
         <div className="flex gap-[55px] items-center justify-center h-full py-[12px]">
           {[leftIcons, middleIcons, rightIcons].map((column, colIdx) => (
