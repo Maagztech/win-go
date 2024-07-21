@@ -83,7 +83,7 @@ const JackpotGame = () => {
   };
 
   return (
-    <div className="fixed bottom-[40px] flex flex-col items-center justify-center">
+    <div className="absolute bottom-[40px] flex flex-col items-center justify-center">
       <div className="spin-frame flex items-center justify-center">
         <div className="flex gap-[55px] items-center justify-center h-full py-[12px]">
           {[leftIcons, middleIcons, rightIcons].map((column, colIdx) => (
@@ -105,10 +105,10 @@ const JackpotGame = () => {
           ))}
         </div>
       </div>
-      <p className="text-[#737476] text-[8.41px] leading-[10.18px] mt-[20px]">
+      <p className="text-[#737476] text-[8.41px] leading-[10.18px] mt-[10px]">
         0/1 spin left
       </p>
-      <button onClick={handleSpinClick} className="mt-[15px]">
+      <button onClick={handleSpinClick} className="mt-[10px]">
         <img src={SpinButton.src} alt="Spin" />
       </button>
       

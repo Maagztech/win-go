@@ -19,8 +19,8 @@ const SlotMachine = () => {
   return (
     <div className="mt-[25px] flex flex-col items-center w-full">
       {showScore ? (
-        <div className="relative mb-[20px] w-full">
-          <img src={ScoreFrame.src} alt="Score Frame" className="w-full" />
+        <div className="relative mb-[20px] w-full flex justify-center">
+          <img src={ScoreFrame.src} alt="Score Frame"/>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-white">
             <div className="text-[#C5C5C5] text-[13.9px] leading-[16.83px] font-semibold">
               You Won!
