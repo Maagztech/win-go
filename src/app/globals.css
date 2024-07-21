@@ -30,13 +30,13 @@ body {
 .mintDetailsContainer {
   border-radius: 12px;
   border: 1px solid rgba(242, 242, 245, 0.3);
-  background: #00000000;
+  background: #000000;
   /* padding: 2rem; */
   /* display: flex; */
 }
 
 .spin-frame {
-  background-image: url("../assets/spinFrame.svg"); /* Update this path to match your file structure */
+  background-image: url("../assets/spinFrame.png"); /* Update this path to match your file structure */
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
