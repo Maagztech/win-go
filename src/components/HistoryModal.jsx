@@ -56,7 +56,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
         />
 
         {/* Modal Content */}
-        <div className="h-[350px] sticky top-0 rounded-b-[35px] successBg shadow-lg shadow-slate-500 relative z-10">
+        <div className="h-[350px] sticky top-0 rounded-b-[35px] successBg shadow-lg shadow-slate-500 z-10">
           <img
             src={Back.src}
             alt="Back Button"
