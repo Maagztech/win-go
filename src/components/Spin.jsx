@@ -16,6 +16,8 @@ import Rupey from "@/assets/RectangleRupey.svg";
 import RulesModal from "./RulesModal";
 import ShareModal from "./ShareModal";
 import TopupModal from "./TopupModal";
+import ScoreModal from "./Score";
+import HistoryModal from "./HistoryModal";
 
 const icons = [Icon1, Icon2, Icon3, Icon4, Icon5];
 
@@ -53,12 +55,14 @@ const JackpotGame = () => {
   const [ruleVisible, setRuleVisible] = useState(false);
   const [shareVisible, setShareVisible] = useState(false);
   const [topupVisible, setTopupVisible] = useState(false);
+  const [scoreVisible, setScoreVisible] = useState(false);
+  const [historyVisible, setHistoryVisible] = useState(false);
 
   const handleSpinClick = () => {
     if (spinning) return;
     setSpinning(true);
 
-    const spinDurations = [4000, 5000, 6000]; // Longer durations for each column
+    const spinDurations = [2000, 3000, 4000]; // Longer durations for each column
     const spinIntervals = [];
     let totalValue = 0;
 
@@ -91,6 +95,7 @@ const JackpotGame = () => {
             0
           );
           handleSpin(totalValue);
+          setScoreVisible(true); // Show the ScoreModal after calculating the score
         }
       }, duration);
     });
@@ -151,8 +156,11 @@ const JackpotGame = () => {
         0/1 spin left
       </p>
       <div
-        className="relative mt-[16px] bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC]"
+        className="cursor-pointer relative mt-[16px] bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC]"
         style={{ fontFamily: "Oxanium" }}
+        onClick={() => {
+          setHistoryVisible(true);
+        }}
       >
         <img
           src={Rupey.src}
@@ -164,6 +172,13 @@ const JackpotGame = () => {
       <RulesModal visible={ruleVisible} setvisible={setRuleVisible} />
       <ShareModal visible={shareVisible} setvisible={setShareVisible} />
       <TopupModal visible={topupVisible} setvisible={setTopupVisible} />
+      <ScoreModal visible={scoreVisible} setvisible={setScoreVisible} />
+      <HistoryModal
+        visible={historyVisible}
+        setvisible={setHistoryVisible}
+        setTopup={setTopupVisible}
+        setShare={setShareVisible}
+      />
     </div>
   );
 };

@@ -66,3 +66,7 @@ body {
 .bottomShadow {
   box-shadow: 0px -4px 4px 0px #00000040;
 }
+
+.successBg {
+  background: linear-gradient(135deg, #81fbb8 0%, #28c76f 100%);
+}

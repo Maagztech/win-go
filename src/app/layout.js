@@ -3,6 +3,7 @@ import "./globals.css";
 import "./font.css"
 import { SpinProvider } from '@/contexts/spinContext';
 import { GlobalProvider } from "@/contexts/globalContext";
+import { Toaster } from 'react-hot-toast';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <GlobalProvider>
         <SpinProvider>
+          <Toaster />
           <body className={inter.className}>{children}</body>
         </SpinProvider>
       </GlobalProvider>
