@@ -7,7 +7,7 @@ const SpinContext = createContext();
 export const SpinProvider = ({ children }) => {
   const [spinResult, setSpinResult] = useState(null);
   const [hasSpun, setHasSpun] = useState(false);
-
+  
   const handleSpin = (result) => {
     setSpinResult(result);
     setHasSpun(true);

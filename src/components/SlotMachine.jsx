@@ -1,9 +1,8 @@
 "use client";
-
 import React, { useState, useEffect } from "react";
 import Berry from "@/assets/card header.png";
 import BerryCard from "@/assets/berryCard.svg";
-import ScoreFrame from "@/assets/scoreFrame.svg"; // Ensure this path is correct
+import ScoreFrame from "@/assets/scoreFrame.svg";
 import { useSpin } from "@/contexts/spinContext";
 
 const SlotMachine = () => {

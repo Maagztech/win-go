@@ -1,13 +1,16 @@
+/* Tailwind base, components, and utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Root CSS variables for color schemes */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
+/* Dark mode preference */
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
@@ -16,33 +19,50 @@
   }
 }
 
+/* Body styles */
 body {
-  color: rgb(var(--foreground-rgb));
-  background: black;
+  background: url("../assets/mainBg.gif") no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+  font-family: "Overpass", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  color: white;
 }
 
+/* Tailwind custom utilities */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 }
 
+/* Custom class for mint details container */
 .mintDetailsContainer {
-  /* border-radius: 12px; */
-  /* border: 1px solid rgba(242, 242, 245, 0.3); */
   background: #000000;
-  /* padding: 2rem; */
-  /* display: flex; */
 }
 
-.spin-frame {
-  background-image: url("../assets/spinFrame.png"); /* Update this path to match your file structure */
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 330px;
-  height: 200px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.Modal {
+  position: absolute;
+  border: 1px;
+  background-color: black;
+}
+
+.Modal:focus {
+  outline: 0;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow-y: auto;
+}
+
+.bottomShadow {
+  box-shadow: 0px -4px 4px 0px #00000040;
 }
