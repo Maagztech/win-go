@@ -2,13 +2,13 @@ import { useGlobal } from "@/contexts/globalContext";
 import React from "react";
 import Modal from "react-modal";
 import Line from "@/assets/modalLine.svg";
-import Icon1 from "@/assets/icon1berry.svg";
+import Icon1 from "@/assets/icon1Berry.svg";
 import Icon2 from "@/assets/icon2.svg";
 import Icon3 from "@/assets/icon3.svg";
 import Icon4 from "@/assets/icon4.svg";
 import Icon5 from "@/assets/icon5.svg";
 import Okay from "@/assets/Okay.svg";
-import LongLine from "@/assets/LongLine.svg";
+import LongLine from "@/assets/longLine.svg";
 
 const RulesModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();

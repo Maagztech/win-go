@@ -6,9 +6,7 @@ import Onramp from "@/assets/onramp.svg";
 import Onmeta from "@/assets/onmeta.svg";
 import Moonpay from "@/assets/moonpay.svg";
 import Continue from "@/assets/continue.svg";
-import LongLine from "@/assets/LongLine.svg";
-import Selected from "@/assets/filledRadio.svg";
-import Unselected from "@/assets/unfillRadio.svg";
+import LongLine from "@/assets/longLine.svg";
 import Points from "@/assets/points.svg";
 import GreenTick from "@/assets/ticklshare.svg";
 const ShareModal = ({ visible, setvisible }) => {

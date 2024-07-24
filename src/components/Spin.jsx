@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { useSpin } from "@/contexts/spinContext";
 import SpinButton from "@/assets/spinButton.svg";
-import Icon1 from "@/assets/icon1berry.svg";
+import Icon1 from "@/assets/icon1Berry.svg";
 import Icon2 from "@/assets/icon2.svg";
 import Icon3 from "@/assets/icon3.svg";
 import Icon4 from "@/assets/icon4.svg";
