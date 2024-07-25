@@ -102,7 +102,7 @@ const JackpotGame = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center mt-[25px]">
+    <div className="flex flex-col items-center justify-center mt-[10px]">
       <div className="flex items-center justify-center relative mx-[20px]">
         <img src={SpinFrame.src} alt="Spin Frame" />
         <div className="flex gap-[55px] items-center justify-center h-full py-[12px] absolute">
@@ -156,7 +156,7 @@ const JackpotGame = () => {
         0/1 spin left
       </p>
       <div
-        className="cursor-pointer relative mt-[16px] bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC]"
+        className="cursor-pointer relative mt-[10px] bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC]"
         style={{ fontFamily: "Oxanium" }}
         onClick={() => {
           setHistoryVisible(true);

@@ -15,7 +15,7 @@ const Group = ({ img, text }) => (
 );
 
 const AccountHolding = () => (
-  <div className="flex justify-end items-center mt-[30px] mx-[18px] gap-[19px]">
+  <div className="flex justify-end items-center mt-[20px] mx-[18px] gap-[19px]">
     <Group img={CircularCoin.src} text="17,44,213" />
     <Group img={RectangularMoney.src} text="300" />
     <Group img={GreenLight.src} text="15" />

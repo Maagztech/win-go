@@ -33,7 +33,7 @@ const TimeandBar = () => {
 
   const Time = ({ time, label }) => {
     return (
-      <div className="bg-[#06050D] px-[18px] pb-[10px] pt-[6px] w-[75px]">
+      <div className="bg-[#06050D] pb-[10px] pt-[6px] w-[75px]">
         <p
           style={{ fontFamily: "Oxanium, sans-serif" }}
           className={`text-[30px] font-bold text-center ${
@@ -61,8 +61,8 @@ const TimeandBar = () => {
   const barPercentage = 70; // Example percentage, update this value as needed
 
   return (
-    <div className="mx-[24.58px] mt-[24px]">
-      <div className="mx-[7.14px] flex justify-around">
+    <div className="mx-[24.58px] mt-[15px]">
+      <div className="mx-[7.14px] flex justify-around gap-[7.14px]">
         <Time time={time.days} label="DAYS" />
         <Time time={time.hours} label="HRS" />
         <Time time={time.minutes} label="MIN" />
