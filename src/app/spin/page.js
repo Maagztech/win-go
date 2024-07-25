@@ -2,7 +2,7 @@
 
 import AccountHolding from "@/components/AcccontHolding";
 import Ads from "@/components/Ads";
-import JackpotGame from "@/components/Spin";
+import JackpotGame from "@/components/JackpotGame";
 import TimeandBar from "@/components/TimeandBar";
 import { useGlobal } from "@/contexts/globalContext";
 import PoweredBy from "@/assets/poweredBy.svg";
@@ -11,7 +11,7 @@ export default function Home() {
     const { isMobile } = useGlobal();
 
     return (
-        <main className="h-[100vh] bg-black bg-opacity-40 overflow-hidden flex flex-col justify-between">
+        <main className="h-[100vh] bg-black bg-opacity-40 flex flex-col justify-between overflow-hidden">
 
             {isMobile ? (
                 <>
@@ -27,6 +27,9 @@ export default function Home() {
                 </>
             ) : (
                 <div>
+                    <div className="bg-[#252A3E] flex justify-end items-center pr-[100px] pb-[20px]">
+                        <AccountHolding />
+                    </div>
                     <JackpotGame />
                 </div>
             )}

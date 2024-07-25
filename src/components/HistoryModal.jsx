@@ -25,12 +25,13 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
 
   const customStylesModal = {
     content: {
-      right: "0px",
-      height: isMobile ? "100%" : "100%",
-      width: isMobile ? "100%" : "400px",
+      right: isMobile ? "0%" : "0%", // Ensure it's aligned to the right
+      left: isMobile ? "0%" : "auto", // Set to auto to avoid interference on laptop
+      height: isMobile ? "100%" : "100%", // Full height on both mobile and laptop
+      width: isMobile ? "100%" : "400px", // Full width on mobile and fixed width on laptop
       zIndex: 450,
       overflow: "auto",
-      position: "relative", // Ensure relative positioning for content
+      position: "absolute", // Ensure absolute positioning
     },
     overlay: {
       zIndex: 440,
