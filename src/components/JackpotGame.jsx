@@ -177,26 +177,30 @@ const JackpotGame = () => {
         className={`${
           !isMobile
             ? "bg-[#000000] bg-opacity-40 flex justify-between items-center w-screen px-[80px] py-[12px] fixed bottom-0"
-            : "flex flex-col items-center px-[45px] mt-[20px]"
+            : "flex flex-col items-center px-[45px] mt-[20px] w-full"
         }`}
       >
-        <div className="flex justify-between items-center gap-[20px]">
+        <div
+          className={`flex ${
+            !isMobile ? "justify-around gap-3" : "justify-between w-full"
+          } items-center`}
+        >
           <img
             src={Rules.src}
             alt="Rules"
-            className="cursor-pointer"
+            className={`cursor-pointer`}
             onClick={() => setRuleVisible(true)}
           />
           <img
             src={Share.src}
             alt="Share"
-            className="cursor-pointer"
+            className={`cursor-pointer`}
             onClick={() => setShareVisible(true)}
           />
           <img
             src={Topup.src}
             alt="Topup"
-            className="cursor-pointer"
+            className={`cursor-pointer `}
             onClick={() => setTopupVisible(true)}
           />
         </div>
