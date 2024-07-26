@@ -24,6 +24,7 @@ import Ads from "./Ads";
 import TimeandBar from "./TimeandBar";
 import Success from "@/assets/Success.svg";
 import Collect from "@/assets/collect.svg";
+import toast from "react-hot-toast";
 const icons = [Icon1, Icon2, Icon3, Icon4, Icon5];
 
 const iconValues = {
@@ -68,9 +69,8 @@ const JackpotGame = () => {
     if (spinning) return;
     setSpinning(true);
 
-    const spinDurations = [2000, 3000, 4000]; // Longer durations for each column
+    const spinDurations = [2000, 3000, 4000]; // Duration for each column
     const spinIntervals = [];
-    let totalValue = 0;
 
     const spinColumn = (setIcons) => {
       const interval = setInterval(() => {
@@ -95,11 +95,17 @@ const JackpotGame = () => {
         clearInterval(spinIntervals[index]);
         if (index === 2) {
           setSpinning(false);
-          const finalIcons = [leftIcons, middleIcons, rightIcons];
-          totalValue = finalIcons.reduce(
-            (acc, column) => acc + (iconValues[column[1]] || 0),
-            0
-          );
+
+          // Calculate total value after spinning stops
+          const finalLeftIcons = leftIcons;
+          const finalMiddleIcons = middleIcons;
+          const finalRightIcons = rightIcons;
+
+          const totalValue =
+            (iconValues[finalLeftIcons[1]] || 0) +
+            (iconValues[finalMiddleIcons[1]] || 0) +
+            (iconValues[finalRightIcons[1]] || 0);
+
           handleSpin(totalValue);
           setScoreVisible(true); // Show the ScoreModal after calculating the score
         }
@@ -124,7 +130,9 @@ const JackpotGame = () => {
                 <p className="font-bold text-[20px] leading-[25px] mt-[-15px] mb-[15px]">
                   +{spinResult} BERY Points
                 </p>
-                <img src={Collect.src} alt="" />
+                <button onClick={() => toast("Success...")}>
+                  <img src={Collect.src} alt="" />
+                </button>
               </div>
             )}
           </div>

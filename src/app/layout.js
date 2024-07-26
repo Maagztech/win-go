@@ -4,6 +4,7 @@ import "./font.css"
 import { SpinProvider } from '@/contexts/spinContext';
 import { GlobalProvider } from "@/contexts/globalContext";
 import { Toaster } from 'react-hot-toast';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -14,12 +15,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <GlobalProvider>
-        <SpinProvider>
-          <Toaster />
-          <body className={inter.className}>{children}</body>
-        </SpinProvider>
-      </GlobalProvider>
+      <GoogleOAuthProvider clientId="277296107198-d50chhens1hleigr5kdi9evbpv99oacg.apps.googleusercontent.com">
+        <GlobalProvider>
+          <SpinProvider>
+            <Toaster />
+            <body className={inter.className}>{children}</body>
+          </SpinProvider>
+        </GlobalProvider>
+      </GoogleOAuthProvider>
     </html>
   );
 }
