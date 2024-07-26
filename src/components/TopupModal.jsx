@@ -9,7 +9,7 @@ import Continue from "@/assets/continue.svg";
 import LongLine from "@/assets/longLine.svg";
 import Selected from "@/assets/filledRadio.svg";
 import Unselected from "@/assets/unfillRadio.svg";
-
+import Back from "@/assets/Back.svg";
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
   const [selectedProvider, setSelectedProvider] = useState(0);
@@ -69,14 +69,23 @@ const ShareModal = ({ visible, setvisible }) => {
         <div className="flex justify-center">
           {isMobile && <img src={Line.src} alt="Line" />}
         </div>
-        <p
-          className={`font-semibold text-2xl leading-6 mb-[28px] ${
+        <div
+          className={`flex gap-[8px] justify-start mb-[28px] items-center ${
             isMobile ? "text-center mt-5" : "mt-[80px]"
           }`}
-          style={{ letterSpacing: "-0.04em" }}
         >
-          Choose your provider
-        </p>
+          <button onClick={() => setvisible(false)}>
+            <img src={Back.src} alt="" />
+          </button>
+          <p
+            className={`font-semibold text-2xl  leading-6 ${
+              isMobile ? "text-center flex-1" : ""
+            }`}
+            style={{ letterSpacing: "-0.04em" }}
+          >
+            Choose your provider
+          </p>
+        </div>
         {providers.map((provider, index) => (
           <div key={index}>
             <div

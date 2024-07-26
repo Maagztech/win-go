@@ -9,7 +9,7 @@ import Icon4 from "@/assets/icon4.svg";
 import Icon5 from "@/assets/icon5.svg";
 import Okay from "@/assets/Okay.svg";
 import LongLine from "@/assets/longLine.svg";
-
+import Back from "@/assets/Back.svg";
 const RulesModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
   const iconsList = [
@@ -52,14 +52,23 @@ const RulesModal = ({ visible, setvisible }) => {
         <div className="flex justify-center">
           {isMobile && <img src={Line.src} alt="Line" />}
         </div>
-        <p
-          className={`font-semibold text-2xl leading-6 ${
+        <div
+          className={`flex gap-[8px] justify-start mb-[28px] items-center ${
             isMobile ? "text-center mt-5" : "mt-[80px]"
           }`}
-          style={{ letterSpacing: "-0.04em" }}
         >
-          Rules & Regulation
-        </p>
+          <button onClick={() => setvisible(false)}>
+            <img src={Back.src} alt="" />
+          </button>
+          <p
+            className={`font-semibold text-2xl  leading-6 ${
+              isMobile ? "text-center flex-1" : ""
+            }`}
+            style={{ letterSpacing: "-0.04em" }}
+          >
+            Rules & Regulation
+          </p>
+        </div>
         <div
           style={{
             background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",

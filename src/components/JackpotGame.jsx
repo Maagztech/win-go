@@ -148,16 +148,14 @@ const JackpotGame = () => {
             className={`${isMobile ? "" : "w-full"}`}
           />
           <div
-            className={`flex items-center justify-center h-full py-[12px] absolute ${
-              isMobile ? "gap-[45px] py-[12px]" : "gap-[45px] py-[30px]"
-            } ${isMobile ? "" : "w-full"}`}
+            className={`flex items-center justify-center h-full py-[12px] w-full absolute ${
+              isMobile ? "py-[12px]" : "py-[30px]"
+            }`}
           >
             {[leftIcons, middleIcons, rightIcons].map((column, colIdx) => (
               <div
                 key={colIdx}
-                className={`w-16 ${
-                  isMobile ? "" : "lg:w-1/3"
-                } h-full flex flex-col items-center justify-between overflow-hidden`}
+                className={`w-1/3 h-full flex flex-col items-center justify-between overflow-hidden`}
               >
                 {column.map((icon, idx) => (
                   <div
@@ -169,9 +167,7 @@ const JackpotGame = () => {
                     <img
                       src={icon.src}
                       alt={`Icon ${colIdx}-${idx}`}
-                      className={`h-${idx === 1 ? "9" : "7"} ${
-                        isMobile ? "" : "lg:h-[90px]"
-                      }`}
+                      className={` ${isMobile ? "w-[38px]" : "h-[90px]"}`}
                     />
                   </div>
                 ))}

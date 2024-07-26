@@ -9,6 +9,9 @@ import Continue from "@/assets/continue.svg";
 import LongLine from "@/assets/longLine.svg";
 import Points from "@/assets/points.svg";
 import GreenTick from "@/assets/ticklshare.svg";
+import Back from "@/assets/Back.svg";
+import Copy from "@/assets/Copy.svg";
+import toast from "react-hot-toast";
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
   const [selectedProvider, setSelectedProvider] = useState(0);
@@ -68,14 +71,24 @@ const ShareModal = ({ visible, setvisible }) => {
         <div className="flex justify-center">
           {isMobile && <img src={Line.src} alt="Line" />}
         </div>
-        <p
-          className={`font-semibold text-2xl leading-6 mb-[16px] ${
+        <div
+          className={`flex gap-[8px] justify-start mb-[28px] items-center ${
             isMobile ? "text-center mt-5" : "mt-[80px]"
           }`}
-          style={{ letterSpacing: "-0.04em" }}
         >
-          Refer & Earn
-        </p>
+          <button onClick={() => setvisible(false)}>
+            <img src={Back.src} alt="" />
+          </button>
+          <p
+            className={`font-semibold text-2xl  leading-6 ${
+              isMobile ? "text-center flex-1" : ""
+            }`}
+            style={{ letterSpacing: "-0.04em" }}
+          >
+            {" "}
+            Refer & Earn
+          </p>
+        </div>
         <div className="flex items-center gap-[8px]">
           <img src={Points.src} alt="" />
           <p className="text-[14px] font-extrabold leading-[18px] tracking-[-0.04em] text-left">
@@ -98,8 +111,19 @@ const ShareModal = ({ visible, setvisible }) => {
         </div>
       </div>
       <div className="bottomShadow sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center">
-        <div className="px-[20px]  mt-[12px] w-full">
-          <p className="py-[10px] px-[12px] text-opacity-60 rounded-[4px] font-medium text-[12px] leading-[15px] w-full bg-[#F1F0FA80] border border-[#C9C5EB4D]">20xceb494b5kt9gfb9fn</p>
+        <div className="px-[20px] w-full">
+          <div className="px-[12px]  mt-[12px] w-full flex items-center justify-between bg-[#F1F0FA80] border border-[#C9C5EB4D] rounded-[4px]">
+            <p className="py-[10px]  text-opacity-60  font-medium text-[12px] leading-[15px]">
+              20xceb494b5kt9gfb9fn
+            </p>
+            <button
+              onCLick={() => {
+                navigator.clipboard.writeText("20xceb494b5kt9gfb9fn");
+              }}
+            >
+              <img src={Copy.src} alt="" />
+            </button>
+          </div>
         </div>
         <img
           src={Continue.src}
