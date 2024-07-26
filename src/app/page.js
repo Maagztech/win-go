@@ -19,7 +19,7 @@ export default function Home() {
             <img src={OnboardMobile.src} alt="" className="w-full mt-[70px]" />
           </div>
           <div className="relative flex flex-col items-center">
-            <img src={OnboardMobileBg.src} alt="" className="w-full absolute z-10" />
+            <img src={OnboardMobileBg.src} alt="" className="w-full absolute z-0 bottom-0" />
             <p style={{ fontFamily: "Overpass, sans-serif" }} className="font-medium text-[32px] leading-[38.4px] z-20 mt-[62.65px]">Bitcoin Cashout</p>
             <div className="relative h-[42px] w-[311px] mt-[28px] mb-[35px] cursor-pointer flex justify-center">
               <div
@@ -47,8 +47,9 @@ export default function Home() {
                 style={{ zIndex: 1 }}
                 className="opacity-100 rounded-[8px] flex flex-row justify-center items-center h-[42px] absolute top-[3px]"
               >
-                <img src={EnterButton.src} alt="" className="z-20" />
+                <img src={EnterButton.src} alt="" />
               </button>
+
             </div>
 
           </div>
