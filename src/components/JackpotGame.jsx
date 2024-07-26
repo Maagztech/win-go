@@ -149,7 +149,7 @@ const JackpotGame = () => {
           />
           <div
             className={`flex items-center justify-center h-full py-[12px] w-full absolute ${
-              isMobile ? "py-[12px]" : "py-[30px]"
+              isMobile ? "px-[10px] py-[12px]" : "px-[30px] py-[30px]"
             }`}
           >
             {[leftIcons, middleIcons, rightIcons].map((column, colIdx) => (
