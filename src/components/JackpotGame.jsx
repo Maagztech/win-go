@@ -9,7 +9,7 @@ import Icon2 from "@/assets/icon2.svg";
 import Icon3 from "@/assets/icon3.svg";
 import Icon4 from "@/assets/icon4.svg";
 import Icon5 from "@/assets/icon5.svg";
-import SpinFrame from "@/assets/spinFrame.png";
+import SpinFrame from "@/assets/spinFrame.svg";
 import Rules from "@/assets/Rules.svg";
 import Share from "@/assets/Share.svg";
 import Topup from "@/assets/Topup.svg";
