@@ -115,7 +115,7 @@ export const slotRegister = async (token) => {
                 }
             }
         );
-        return response.status === 200;
+        return true;
     } catch (error) {
         axios.post(
             'https://sdk.komet.me/slot/signin-spin-update',

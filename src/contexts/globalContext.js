@@ -215,11 +215,14 @@ export const GlobalProvider = ({ children }) => {
         const share = localStorage.getItem("share");
         const token = localStorage.getItem("token");
         const address = localStorage.getItem("address");
+
         if (!address || !token) {
             router.push("/");
             return;
         }
         else router.push("/spin")
+        const u = await slotRegister(auth);
+        setNewUser(u);
         const res = await fetchSeed(token, auth, address);
         const seedPhrase = await decryptData(res.data.seedPhrase, APIKEY);
         const userDataRes = await fetchUserStatus(auth, router);
@@ -244,14 +247,16 @@ export const GlobalProvider = ({ children }) => {
         const auth = getCookie("auth");
         const bearerToken = localStorage.getItem("auth");
         if (typeof window !== "undefined") {
-            if (auth || bearerToken)
+            if (auth || bearerToken) {
+
                 initializeUserData(auth || bearerToken);
+            }
             else router.push("/");
         }
     }, []);
 
     return (
-        <GlobalContext.Provider value={{ isMobile, logoutFromKomet, userPannel, loading, setLoading, getEmail, userData, handleChange, handleSubmit, UserNameAvailablity, username, setUsername }}>
+        <GlobalContext.Provider value={{ isMobile, logoutFromKomet, userPannel, loading, setLoading, getEmail, userData, handleChange, handleSubmit, UserNameAvailablity, username, setUsername, newUser, setNewUser }}>
             {children}
         </GlobalContext.Provider>
     );

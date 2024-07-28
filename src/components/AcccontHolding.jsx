@@ -6,15 +6,23 @@ import GreenStar from "@/assets/greenStar.svg";
 import Logout from "@/assets/Logout.svg";
 import { useGlobal } from "@/contexts/globalContext";
 import { useSpin } from "@/contexts/spinContext";
-const Group = ({ img, text }) => (
-  <div
-    className="relative bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC]"
-    style={{ fontFamily: "Oxanium" }}
-  >
-    <img src={img} alt="" className="absolute left-[-11px] w-[21.18px] top-0" />
-    {text}
-  </div>
-);
+const Group = ({ img, text }) => {
+  const { setHistoryVisible } = useSpin();
+  return (
+    <button
+      className="relative bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC]"
+      style={{ fontFamily: "Oxanium" }}
+      onClick={() => setHistoryVisible(true)}
+    >
+      <img
+        src={img}
+        alt=""
+        className="absolute left-[-11px] w-[21.18px] top-0"
+      />
+      {text}
+    </button>
+  );
+};
 
 const AccountHolding = () => {
   const { logoutFromKomet } = useGlobal();

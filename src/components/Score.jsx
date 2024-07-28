@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import Success from "@/assets/Success.svg";
 import Collect from "@/assets/collect.svg";
 import { useSpin } from "@/contexts/spinContext";
-const ScoreModal = ({ visible, setvisible }) => {
+const ScoreModal = ({ visible, setvisible, outputText }) => {
   const { spinResult } = useSpin();
   const { isMobile } = useGlobal();
   const customStylesModal = {
@@ -34,7 +34,7 @@ const ScoreModal = ({ visible, setvisible }) => {
     >
       <img src={Success.src} alt="" />
       <p className="font-bold text-[20px] leading-[25px] mt-[-12px] mb-[19px]">
-        +{spinResult?.points} {spinResult?.type} Points
+        {outputText}
       </p>
       <button
         onClick={async () => {

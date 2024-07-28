@@ -5,9 +5,12 @@ import Line from "@/assets/modalLine.svg";
 import Continue from "@/assets/continue.svg";
 import LongLine from "@/assets/longLine.svg";
 import Cross from "@/assets/cross.svg";
+import { useSpin } from "@/contexts/spinContext";
+
 const ReferalModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
-  const [selectedProvider, setSelectedProvider] = useState(0);
+  const { referal } = useSpin();
+  const [referralCode, setReferralCode] = useState("");
 
   const customStylesModal = {
     content: {
@@ -28,8 +31,12 @@ const ReferalModal = ({ visible, setvisible }) => {
     },
   };
 
-  const handleProviderClick = (index) => {
-    setSelectedProvider(index);
+  const handleInputChange = (e) => {
+    setReferralCode(e.target.value);
+  };
+
+  const handleContinueClick = () => {
+    referal(referralCode);
   };
 
   return (
@@ -55,7 +62,7 @@ const ReferalModal = ({ visible, setvisible }) => {
             className={`font-medium text-2xl leading-6 `}
             style={{ letterSpacing: "-0.04em" }}
           >
-            Enter your referal code & get 2 Spin Extra
+            Enter your referral code & get 1 Spin Extra
           </p>
           <button onClick={() => setvisible(false)} className="p-1">
             <img src={Cross.src} alt="" />
@@ -64,7 +71,11 @@ const ReferalModal = ({ visible, setvisible }) => {
 
         <div className="border-b border-[#C9C5EB4D] my-[10px]"></div>
         <div className="mt-[12px] w-full">
-          <input className="py-[10px] px-[12px] text-opacity-60 rounded-[4px] font-medium text-[12px] leading-[15px] w-full bg-[#F1F0FA80] border border-[#C9C5EB4D] focus:outline-none" />
+          <input
+            className="py-[10px] px-[12px] text-opacity-60 rounded-[4px] font-medium text-[12px] leading-[15px] w-full bg-[#F1F0FA80] border border-[#C9C5EB4D] focus:outline-none"
+            value={referralCode}
+            onChange={handleInputChange}
+          />
         </div>
       </div>
       <div
@@ -76,7 +87,7 @@ const ReferalModal = ({ visible, setvisible }) => {
           src={Continue.src}
           alt=""
           className="mt-[8px] cursor-pointer mb-2"
-          onClick={() => setvisible(false)}
+          onClick={handleContinueClick}
         />
         <button className="opacity-60 text-[12px] leading-[15px] tracking-[-0.04em]">
           Continue without Code

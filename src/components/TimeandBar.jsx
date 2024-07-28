@@ -3,11 +3,13 @@
 import React, { useState, useEffect } from "react";
 import Bar from "@/assets/Bar.svg";
 import Box from "@/assets/Box.svg";
+import { useSpin } from "@/contexts/spinContext";
 
 const TimeandBar = () => {
+  const { pool } = useSpin();
   const calculateRemainingTime = () => {
     const currentDate = new Date();
-    const targetDate = new Date("2024-08-31T23:59:59"); 
+    const targetDate = new Date("2024-08-31T23:59:59");
 
     const totalSeconds = Math.floor((targetDate - currentDate) / 1000);
     const days = Math.floor(totalSeconds / (3600 * 24));
@@ -71,7 +73,7 @@ const TimeandBar = () => {
           <div
             className="absolute top-[4px] bottom-[5px] left-[5px] right-[5px] bg-[#24B874] rounded-full"
             style={{
-              width: `${barPercentage}%`,
+              width: `${pool?.perecentage | 0}%`,
               boxSizing: "border-box",
               height: "calc(100% - 9px)",
             }}
@@ -82,7 +84,7 @@ const TimeandBar = () => {
             className="text-[12px] font-medium leading-[15px] text-left"
             style={{ fontFamily: "Oxanium, sans-serif" }}
           >
-            8.5Mn BTC
+            ${pool?.total} BTC
           </p>
           <p
             className="text-[12px] font-extrabold leading-[15px] text-right"
@@ -93,7 +95,7 @@ const TimeandBar = () => {
               color: "transparent",
             }}
           >
-            100K BTC
+            $10,000 BTC
           </p>
         </div>
         <img src={Box.src} alt="" className="absolute right-0 top-[-13px]" />

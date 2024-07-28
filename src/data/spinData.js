@@ -96,8 +96,8 @@ export const updateStreaks = async (token) => {
 
 export const getHistory = async (token) => {
     try {
-        const response = await axios.post(
-            'https://sdk.komet.me/slot/getUserRewardHistory', {},
+        const response = await axios.get(
+            'https://sdk.komet.me/slot/getUserRewardHistory',
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -112,8 +112,8 @@ export const getHistory = async (token) => {
 
 export const getReferal = async (token) => {
     try {
-        const response = await axios.post(
-            'https://sdk.komet.me/slot/getReferalInfo', {},
+        const response = await axios.get(
+            'https://sdk.komet.me/slot/getReferalInfo',
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -159,4 +159,26 @@ export const fetchERC20TokenData = async (address) => {
     } catch (error) {
         return 0;
     }
+};
+
+export const fetchPool = async () => {
+    try {
+        const response = await axios.get("https://sdk.komet.me/slot/pool-status");
+        return response.data;
+    } catch (error) {
+        return null
+    }
+}
+
+export const referalApi = async (referal_code, token) => {
+    const response = await axios.post(
+        'https://sdk.komet.me/slot/update-referal',
+        { referal_code },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    );
+    return response.data;
 };

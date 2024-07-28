@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useGlobal } from './globalContext';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { encryptData, bSpin, fetchERC20TokenData, getHistory, getReferal, getStreaks, reward, updateSpin, updateStreaks, userSpin } from '@/data/spinData';
+import { encryptData, bSpin, fetchERC20TokenData, getHistory, getReferal, getStreaks, reward, updateSpin, updateStreaks, userSpin, referalApi } from '@/data/spinData';
 
 const SpinContext = createContext();
 export const SpinProvider = ({ children }) => {
@@ -18,6 +18,8 @@ export const SpinProvider = ({ children }) => {
   const [history, setHistory] = useState([])
   const [referal, setReferal] = useState(null);
   const [rate, setRate] = useState(67058.80)
+  const [historyVisible, setHistoryVisible] = useState(false);
+  const [pool, setPool] = useState(null);
   const fetchData = async () => {
     let result = await userSpin(userData.auth);
     setSpin(result);
@@ -63,27 +65,40 @@ export const SpinProvider = ({ children }) => {
   }
 
   const collectReward = async () => {
-    console.log("spinResult", spinResult)
-    const data = await encryptData(JSON.stringify({
-      points: spinResult.points,
-      type: spinResult.type,
-      key: createCode(10),
-    }))
-    await reward(data, userData.auth);
+
+    if (spinResult.type) {
+      const data = await encryptData(JSON.stringify({
+        points: spinResult.points,
+        type: spinResult.type,
+        key: createCode(10),
+      }))
+
+      await reward(data, userData.auth);
+    }
     await updateSpin(userData.auth);
     await updateStreaks(userData.auth);
     await fetchData();
-    toast("success...")
   }
 
+
   useEffect(() => {
-    if (spinResult) {
-      collectReward();
-    }
+    if (!spinResult) return;
+    collectReward();
   }, [spinResult])
 
+
+  const refaral = async (referal_code) => {
+    try {
+      await referalApi(referal_code, userData.auth);
+      await fetchData();
+      toast("Success...")
+    } catch (error) {
+      toast("An error occured. Try again...")
+    }
+  }
+
   return (
-    <SpinContext.Provider value={{ buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
+    <SpinContext.Provider value={{ collectReward, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
       {children}
     </SpinContext.Provider>
   );

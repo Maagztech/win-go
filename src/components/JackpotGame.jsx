@@ -30,24 +30,97 @@ import TimeandBar from "./TimeandBar";
 import Success from "@/assets/Success.svg";
 import Collect from "@/assets/collect.svg";
 import toast from "react-hot-toast";
-const icons = [Icon1, Icon2, Icon3, Icon4, Icon5,Icon6, Icon7, Icon8, Icon9, Icon10];
+const icons = [
+  Icon1,
+  Icon2,
+  Icon3,
+  Icon4,
+  Icon5,
+  Icon6,
+  Icon7,
+  Icon8,
+  Icon9,
+  Icon10,
+];
 
-const iconValues = {
-  [Icon1]: 10,
-  [Icon2]: 20,
-  [Icon3]: 30,
-  [Icon4]: 40,
-  [Icon5]: 50,
-};
+const cumulativeProbabilities = [
+  0.01, 0.04, 0.09, 0.59, 1.09, 1.11, 1.13, 2.13, 3.13, 3.15, 4.15, 5.15, 35.15,
+  65.15, 100.05,
+];
 
 const getRandomIcon = () => {
   const randomIndex = Math.floor(Math.random() * icons.length);
   return icons[randomIndex];
 };
 
+let outcomes = [
+  { combination: [Icon1, Icon1, Icon1], points: 10, type: "btc" },
+  { combination: [Icon1, Icon1, Icon2], points: 5, type: "btc" },
+  { combination: [Icon1, Icon2, Icon2], points: 2.5, type: "btc" },
+  { combination: [Icon2, Icon2, Icon2], points: 10, type: "berry" },
+  { combination: [Icon3, Icon3, Icon3], points: 10, type: "berry" },
+  { combination: [Icon4, Icon4, Icon4], points: 2, type: "multiplier" },
+  { combination: [Icon5, Icon5, Icon5], points: 1, type: "spin" },
+  { combination: [Icon6, Icon6, Icon6], points: 5, type: "berry" },
+  { combination: [Icon7, Icon7, Icon7], points: 5, type: "berry" },
+  { combination: [Icon8, Icon8, Icon8], points: 1.5, type: "multiplier" },
+  { combination: [Icon9, Icon9, Icon9], points: 0, type: null },
+  { combination: [Icon10, Icon10, Icon10], points: 0, type: null },
+  {
+    combination: [getRandomIcon(), getRandomIcon(), Icon9],
+    points: 0,
+    type: null,
+  },
+  {
+    combination: [getRandomIcon(), getRandomIcon(), Icon10],
+    points: 0,
+    type: null,
+  },
+];
+
+const generateUniqueCombination = (existingCombinations) => {
+  let newCombination;
+  let isUnique = false;
+
+  while (!isUnique) {
+    newCombination = [getRandomIcon(), getRandomIcon(), getRandomIcon()];
+    isUnique = !existingCombinations.some(
+      (comb) =>
+        comb.combination[0] === newCombination[0] &&
+        comb.combination[1] === newCombination[1] &&
+        comb.combination[2] === newCombination[2]
+    );
+  }
+
+  return newCombination;
+};
+
+// Generate a unique combination and push it to outcomes
+const newUniqueCombination = generateUniqueCombination(outcomes);
+outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
+
+const finalResult = () => {
+  const rand = Math.random() * 100;
+  for (let i = 0; i < cumulativeProbabilities.length; i++) {
+    if (rand <= cumulativeProbabilities[i]) {
+      return i;
+    }
+  }
+  return cumulativeProbabilities.length - 1;
+};
+
 const JackpotGame = () => {
   const { isMobile, newUser, setNewUser } = useGlobal();
-  const { setSpinResult, spinResult, spin, balance } = useSpin();
+  const {
+    setSpinResult,
+    spinResult,
+    spin,
+    balance,
+    historyVisible,
+    setHistoryVisible,
+    collectReward,
+  } = useSpin();
+  const [outputText, setOutputText] = useState("");
   const [leftIcons, setLeftIcons] = useState([
     getRandomIcon(),
     getRandomIcon(),
@@ -68,15 +141,18 @@ const JackpotGame = () => {
   const [shareVisible, setShareVisible] = useState(false);
   const [topupVisible, setTopupVisible] = useState(false);
   const [scoreVisible, setScoreVisible] = useState(false);
-  const [historyVisible, setHistoryVisible] = useState(false);
   const handleSpinClick = () => {
     if (spinning) return;
-    // if (!spin) {
-    //   toast("No spins left ,Buy spin.");
-    //   return;
-    // }
+    if (!spin) {
+      toast("No spins left ,Buy spin.");
+      return;
+    }
+    outcomes.pop();
+    const newUniqueCombination = generateUniqueCombination(outcomes);
+    outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
+    setSpinResult(null);
     setSpinning(true);
-    const spinDurations = [2000, 3000, 4000];
+    const spinDurations = [3000, 4000, 5000];
     const spinIntervals = [];
 
     const spinColumn = (setIcons) => {
@@ -87,7 +163,7 @@ const JackpotGame = () => {
           newIcons.pop();
           return newIcons;
         });
-      }, 50); // Faster interval time for quicker spinning
+      }, 600);
       return interval;
     };
 
@@ -96,25 +172,43 @@ const JackpotGame = () => {
     setTimeout(() => spinIntervals.push(spinColumn(setMiddleIcons)), 300);
     setTimeout(() => spinIntervals.push(spinColumn(setRightIcons)), 600);
 
+    const jack = finalResult();
+
     // Stop spinning columns at different times
     spinDurations.forEach((duration, index) => {
       setTimeout(() => {
         clearInterval(spinIntervals[index]);
-        if (index === 2) {
+        if (index == 0)
+          setLeftIcons([
+            getRandomIcon(),
+            outcomes[jack].combination[0],
+            getRandomIcon(),
+          ]);
+        else if (index == 1)
+          setLeftIcons([
+            getRandomIcon(),
+            outcomes[jack].combination[1],
+            getRandomIcon(),
+          ]);
+        else {
+          setLeftIcons([
+            getRandomIcon(),
+            outcomes[jack].combination[1],
+            getRandomIcon(),
+          ]);
           setSpinning(false);
-
-          // Calculate total value after spinning stops
-          const finalLeftIcons = leftIcons;
-          const finalMiddleIcons = middleIcons;
-          const finalRightIcons = rightIcons;
-
-          const totalValue =
-            (iconValues[finalLeftIcons[1]] || 0) +
-            (iconValues[finalMiddleIcons[1]] || 0) +
-            (iconValues[finalRightIcons[1]] || 0);
-
-          setSpinResult({ type: "berry", points: totalValue });
-          setScoreVisible(true); // Show the ScoreModal after calculating the score
+          setSpinResult({
+            points: outcomes[jack].points,
+            type: outcomes[jack].type,
+          });
+          setOutputText(
+            `+ ${outcomes[jack].points} ${outcomes[jack].type} Points`
+          );
+          if (outcomes[jack].type) {
+            setScoreVisible(true);
+          }else{
+            toast("Better Luck Next Time...")
+          }
         }
       }, duration);
     });
@@ -135,7 +229,7 @@ const JackpotGame = () => {
               <div className="mt-[15px]  successBg flex flex-col items-center px-[17px] pb-[15px] rounded-[15px]">
                 <img src={Success.src} alt="" className="w-[180px]" />
                 <p className="font-bold text-[20px] leading-[25px] mt-[-15px] mb-[15px]">
-                  +{spinResult?.points} {spinResult?.type} Points
+                  {outputText}
                 </p>
                 <button
                   onClick={async () => {
@@ -259,7 +353,11 @@ const JackpotGame = () => {
       <ShareModal visible={shareVisible} setvisible={setShareVisible} />
       <TopupModal visible={topupVisible} setvisible={setTopupVisible} />
       {isMobile && (
-        <ScoreModal visible={scoreVisible} setvisible={setScoreVisible} />
+        <ScoreModal
+          visible={scoreVisible}
+          setvisible={setScoreVisible}
+          outputText={outputText}
+        />
       )}
       <HistoryModal
         visible={historyVisible}
