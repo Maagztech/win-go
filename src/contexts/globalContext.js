@@ -1,9 +1,8 @@
 "use client";
-
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
-import { generateSeedPhrase, checkUserName, fetchUserStatus, fetchUser, parseJwt, checkEmailAccountExists, login, fetchSeed, decryptData, encryptData, getOneAccountDetails } from "@/data/globalData"
+import { generateSeedPhrase, checkUserName, fetchUserStatus, fetchUser, parseJwt, checkEmailAccountExists, login, fetchSeed, decryptData, encryptData, getOneAccountDetails, slotRegister } from "@/data/globalData"
 import { useRouter } from "next/navigation";
 const APIKEY = "hl23n6dgigp2pgvtzt7sm0nw4caiau11";
 const KEY = "W4DRnUcof83pbRzEFp8U24vbTr7vzSil";
@@ -12,7 +11,7 @@ const GlobalContext = createContext();
 export const GlobalProvider = ({ children }) => {
     const isMobileQuery = useMediaQuery({ query: '(max-width: 800px)' });
     const [isMobile, setIsMobile] = useState(null);
-
+    const [newUser, setNewUser] = useState(false);
     useEffect(() => {
         if (typeof window !== "undefined") {
             setIsMobile(isMobileQuery);
@@ -49,6 +48,8 @@ export const GlobalProvider = ({ children }) => {
                 const resp = await login(email, token);
                 const bearerToken = resp.data?.success?.data?.oneFaToken;
                 localStorage.setItem("auth", bearerToken);
+                const u = await slotRegister(bearerToken);
+                setNewUser(u);
                 const userData = await fetchUser(bearerToken);
                 const primaryAddress = userData?.success?.data?.userWallets?.filter(
                     (item) => {
@@ -138,6 +139,8 @@ export const GlobalProvider = ({ children }) => {
                 );
                 const bearerToken = response.data?.success?.data?.oneFaToken;
                 localStorage.setItem("auth", bearerToken);
+                const u = await slotRegister(bearerToken);
+                setNewUser(u);
                 const userData = await fetchUser(bearerToken);
                 const userId = userData?.success?.data?.userId;
                 localStorage.setItem("userid", userId);

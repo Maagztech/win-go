@@ -9,19 +9,11 @@ import Down from "@/assets/Down.svg";
 import Scan from "@/assets/Scan.svg";
 import Up from "@/assets/Up.svg";
 import toast from "react-hot-toast";
+import { useSpin } from "@/contexts/spinContext";
 
 const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
   const { isMobile } = useGlobal();
-  const history = [
-    {
-      icon: Coin,
-      points: 10,
-      type: "Bitcoin",
-      value: 20000.85,
-      date: new Date("2024-04-22"),
-    },
-    // Other history items
-  ];
+  const { history, rate, bit } = useSpin();
 
   const customStylesModal = {
     content: {
@@ -70,7 +62,10 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
           <div className="mt-[44px] flex flex-col items-center w-full relative z-20">
             <p className="text-[12px]">BALANCE IN USD</p>
             <p className="mt-[8px] text-[40px] font-medium">
-              $ 44,346.<span className="text-[23px]">95</span>
+              $ {bit * rate.toFixed(2).split(".")[0]}.
+              <span className="text-[23px]">
+                {bit * rate.toFixed(2).split(".")[1]}
+              </span>
             </p>
             <div className="mt-[35px] flex w-[340px] justify-between">
               <div
@@ -119,22 +114,26 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
               <div className="flex items-center">
                 <div className="bg-[#333333] rounded-[16px] flex justify-center items-center w-[40px] h-[40px]">
                   <img
-                    src={his.icon.src}
+                    src={his.type == "btc" ? Coin.src : Berry.src}
                     alt={his.type}
                     className="w-[20px] h-[20px]"
                   />
                 </div>
                 <div className="ml-[10px]">
                   <p className="text-[14px] font-medium mb-[2px]">
-                    {his.points} Points
+                    {his.points}
                   </p>
-                  <p className="text-[12px] text-[#8A929A]">{his.type}</p>
+                  <p className="text-[12px] text-[#8A929A]">
+                    {his.type == "btc" ? "Bitcoin" : "Berries"}
+                  </p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-[14px] font-medium mb-[2px]">{his.value}</p>
+                <p className="text-[14px] font-medium mb-[2px]">
+                  {his.points * rate.toFixed(2)}
+                </p>
                 <p className="text-[12px] text-[#8A929A]">
-                  {new Intl.DateTimeFormat("en-GB").format(his.date)}
+                  {new Intl.DateTimeFormat("en-GB").format(his.lastUpdated)}
                 </p>
               </div>
             </div>

@@ -9,6 +9,11 @@ import Icon2 from "@/assets/icon2.svg";
 import Icon3 from "@/assets/icon3.svg";
 import Icon4 from "@/assets/icon4.svg";
 import Icon5 from "@/assets/icon5.svg";
+import Icon6 from "@/assets/icon1Berry.svg";
+import Icon7 from "@/assets/icon2.svg";
+import Icon8 from "@/assets/icon3.svg";
+import Icon9 from "@/assets/icon4.svg";
+import Icon10 from "@/assets/icon5.svg";
 import SpinFrame from "@/assets/spinFrame.svg";
 import Rules from "@/assets/Rules.svg";
 import Share from "@/assets/Share.svg";
@@ -25,7 +30,7 @@ import TimeandBar from "./TimeandBar";
 import Success from "@/assets/Success.svg";
 import Collect from "@/assets/collect.svg";
 import toast from "react-hot-toast";
-const icons = [Icon1, Icon2, Icon3, Icon4, Icon5];
+const icons = [Icon1, Icon2, Icon3, Icon4, Icon5,Icon6, Icon7, Icon8, Icon9, Icon10];
 
 const iconValues = {
   [Icon1]: 10,
@@ -41,8 +46,8 @@ const getRandomIcon = () => {
 };
 
 const JackpotGame = () => {
-  const { isMobile } = useGlobal();
-  const { handleSpin, spinResult } = useSpin();
+  const { isMobile, newUser, setNewUser } = useGlobal();
+  const { setSpinResult, spinResult, spin, balance } = useSpin();
   const [leftIcons, setLeftIcons] = useState([
     getRandomIcon(),
     getRandomIcon(),
@@ -64,12 +69,14 @@ const JackpotGame = () => {
   const [topupVisible, setTopupVisible] = useState(false);
   const [scoreVisible, setScoreVisible] = useState(false);
   const [historyVisible, setHistoryVisible] = useState(false);
-  const [referalVisible, setReferalVisible] = useState(true);
   const handleSpinClick = () => {
     if (spinning) return;
+    // if (!spin) {
+    //   toast("No spins left ,Buy spin.");
+    //   return;
+    // }
     setSpinning(true);
-
-    const spinDurations = [2000, 3000, 4000]; // Duration for each column
+    const spinDurations = [2000, 3000, 4000];
     const spinIntervals = [];
 
     const spinColumn = (setIcons) => {
@@ -106,7 +113,7 @@ const JackpotGame = () => {
             (iconValues[finalMiddleIcons[1]] || 0) +
             (iconValues[finalRightIcons[1]] || 0);
 
-          handleSpin(totalValue);
+          setSpinResult({ type: "berry", points: totalValue });
           setScoreVisible(true); // Show the ScoreModal after calculating the score
         }
       }, duration);
@@ -128,9 +135,13 @@ const JackpotGame = () => {
               <div className="mt-[15px]  successBg flex flex-col items-center px-[17px] pb-[15px] rounded-[15px]">
                 <img src={Success.src} alt="" className="w-[180px]" />
                 <p className="font-bold text-[20px] leading-[25px] mt-[-15px] mb-[15px]">
-                  +{spinResult} BERY Points
+                  +{spinResult?.points} {spinResult?.type} Points
                 </p>
-                <button onClick={() => toast("Success...")}>
+                <button
+                  onClick={async () => {
+                    setScoreVisible(false);
+                  }}
+                >
                   <img src={Collect.src} alt="" />
                 </button>
               </div>
@@ -223,7 +234,7 @@ const JackpotGame = () => {
               isMobile ? "mt-[8px]" : ""
             }`}
           >
-            0/1 spin left
+            {spin} spin left
           </p>
           <div
             className={`cursor-pointer relative ${
@@ -239,7 +250,7 @@ const JackpotGame = () => {
               alt="Rupey"
               className="absolute left-[-11px] w-[21.18px] top-0"
             />
-            20,331
+            {balance} WBTC
           </div>
         </div>
       </div>
@@ -256,7 +267,7 @@ const JackpotGame = () => {
         setTopup={setTopupVisible}
         setShare={setShareVisible}
       />
-      <ReferalModal visible={referalVisible} setvisible={setReferalVisible} />
+      <ReferalModal visible={newUser} setvisible={setNewUser} />
     </div>
   );
 };

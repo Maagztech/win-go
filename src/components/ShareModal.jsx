@@ -11,28 +11,13 @@ import Points from "@/assets/points.svg";
 import GreenTick from "@/assets/ticklshare.svg";
 import Back from "@/assets/Back.svg";
 import Copy from "@/assets/Copy.svg";
+import { useSpin } from "@/contexts/spinContext";
 import toast from "react-hot-toast";
+
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
-  const [selectedProvider, setSelectedProvider] = useState(0);
-
-  const providers = [
-    {
-      img: Onramp,
-      name: "Onramp",
-      description: "Bank transfer, UPI",
-    },
-    {
-      img: Moonpay,
-      name: "Moonpay",
-      description: "Credit Card, Debit Card",
-    },
-    {
-      img: Onmeta,
-      name: "Onmeta",
-      description: "Bank transfer, UPI, Cards",
-    },
-  ];
+  const { referal } = useSpin();
+  const siteMainUrl = "https://yourmainurl.com"; // Replace with your site main URL
 
   const customStylesModal = {
     content: {
@@ -53,8 +38,25 @@ const ShareModal = ({ visible, setvisible }) => {
     },
   };
 
-  const handleProviderClick = (index) => {
-    setSelectedProvider(index);
+  const shareReferral = () => {
+    const referralText = `Sign up on ${siteMainUrl} and win up to $10 free WBTC! Use my referral code ${referal} to get 2 extra spins.`;
+
+    navigator.clipboard
+      .writeText(referralText)
+      .then(() => {
+        if (navigator.share) {
+          navigator
+            .share({
+              title: "Referral Code",
+              text: referralText,
+              url: siteMainUrl,
+            })
+            .catch((error) => console.log("Error sharing", error));
+        } else {
+          toast("Referral code copied to clipboard!");
+        }
+      })
+      .catch((error) => console.log("Error copying text", error));
   };
 
   return (
@@ -77,20 +79,19 @@ const ShareModal = ({ visible, setvisible }) => {
           }`}
         >
           <button onClick={() => setvisible(false)}>
-            <img src={Back.src} alt="" />
+            <img src={Back.src} alt="Back" />
           </button>
           <p
-            className={`font-semibold text-2xl  leading-6 ${
+            className={`font-semibold text-2xl leading-6 ${
               isMobile ? "text-center flex-1" : ""
             }`}
             style={{ letterSpacing: "-0.04em" }}
           >
-            {" "}
             Refer & Earn
           </p>
         </div>
         <div className="flex items-center gap-[8px]">
-          <img src={Points.src} alt="" />
+          <img src={Points.src} alt="Points" />
           <p className="text-[14px] font-extrabold leading-[18px] tracking-[-0.04em] text-left">
             290
             <span className="ml-[2px] text-[12px] font-normal leading-[18px] tracking-[-0.04em] text-left opacity-40">
@@ -100,38 +101,31 @@ const ShareModal = ({ visible, setvisible }) => {
         </div>
         <div className="border-b border-[#C9C5EB4D] my-[10px]"></div>
         <div className="flex mt-[20px] gap-[13px] items-start w-full">
-          <img src={GreenTick.src} alt="" />
+          <img src={GreenTick.src} alt="Green Tick" />
           <div className="font-medium text-[16px] leading-[18px] tracking-[-0.04em] flex-1">
             <p>Share to friends</p>
             <div className="border-b border-[#F5F5FA] my-[21px] w-full"></div>
             <p>Friends Sign Up Using Your Referral</p>
-            <div className="border-b border-[#F5F5FA] my-[21px]  w-full"></div>
+            <div className="border-b border-[#F5F5FA] my-[21px] w-full"></div>
             <p>Earn Rewards</p>
           </div>
         </div>
       </div>
       <div className="bottomShadow sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center">
         <div className="px-[20px] w-full">
-          <div className="px-[12px]  mt-[12px] w-full flex items-center justify-between bg-[#F1F0FA80] border border-[#C9C5EB4D] rounded-[4px]">
-            <p className="py-[10px]  text-opacity-60  font-medium text-[12px] leading-[15px]">
-              20xceb494b5kt9gfb9fn
+          <div className="px-[12px] mt-[12px] w-full flex items-center justify-between bg-[#F1F0FA80] border border-[#C9C5EB4D] rounded-[4px]">
+            <p className="py-[10px] text-opacity-60 font-medium text-[12px] leading-[15px]">
+              {referal}
             </p>
-            <button
-              onCLick={() => {
-                navigator.clipboard.writeText("20xceb494b5kt9gfb9fn");
-              }}
-            >
-              <img src={Copy.src} alt="" />
-            </button>
           </div>
         </div>
         <img
           src={Continue.src}
-          alt=""
+          alt="Continue"
           className="mt-[8px] cursor-pointer"
-          onClick={() => setvisible(false)}
+          onClick={() => shareReferral()}
         />
-        <img src={LongLine.src} alt="" className="mt-7 mb-3" />
+        <img src={LongLine.src} alt="Long Line" className="mt-7 mb-3" />
       </div>
     </Modal>
   );

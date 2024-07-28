@@ -1,5 +1,4 @@
 "use client";
-
 import AccountHolding from "@/components/AcccontHolding";
 import Ads from "@/components/Ads";
 import JackpotGame from "@/components/JackpotGame";

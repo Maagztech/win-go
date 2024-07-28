@@ -1,31 +1,28 @@
+"use client";
+
 import React, { useState, useEffect } from "react";
 import Bar from "@/assets/Bar.svg";
 import Box from "@/assets/Box.svg";
 
 const TimeandBar = () => {
-  const [time, setTime] = useState({
-    days: 20,
-    hours: 15,
-    minutes: 45,
-    seconds: 30,
-  });
+  const calculateRemainingTime = () => {
+    const currentDate = new Date();
+    const targetDate = new Date("2024-08-31T23:59:59"); 
+
+    const totalSeconds = Math.floor((targetDate - currentDate) / 1000);
+    const days = Math.floor(totalSeconds / (3600 * 24));
+    const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    return { days, hours, minutes, seconds };
+  };
+
+  const [time, setTime] = useState(calculateRemainingTime());
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTime((prevTime) => {
-        const { days, hours, minutes, seconds } = prevTime;
-
-        if (seconds > 0) return { ...prevTime, seconds: seconds - 1 };
-        if (minutes > 0)
-          return { days, hours, minutes: minutes - 1, seconds: 59 };
-        if (hours > 0)
-          return { days, hours: hours - 1, minutes: 59, seconds: 59 };
-        if (days > 0)
-          return { days: days - 1, hours: 23, minutes: 59, seconds: 59 };
-
-        clearInterval(timer);
-        return prevTime;
-      });
+      setTime(calculateRemainingTime());
     }, 1000);
 
     return () => clearInterval(timer); // Cleanup on component unmount
@@ -73,7 +70,11 @@ const TimeandBar = () => {
           <img src={Bar.src} alt="Bar" className="w-full" />
           <div
             className="absolute top-[4px] bottom-[5px] left-[5px] right-[5px] bg-[#24B874] rounded-full"
-            style={{ width: `${barPercentage}%`, boxSizing: "border-box", height: "calc(100% - 9px)" }}
+            style={{
+              width: `${barPercentage}%`,
+              boxSizing: "border-box",
+              height: "calc(100% - 9px)",
+            }}
           ></div>
         </div>
         <div className="flex justify-between mt-1 relative mr-[43px]">

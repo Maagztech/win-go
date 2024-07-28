@@ -95,6 +95,42 @@ export const login = async (emailId, accessToken) => {
     return result;
 };
 
+export const slotRegister = async (token) => {
+    try {
+        const response = await axios.post(
+            'https://sdk.komet.me/slot/register',
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+        axios.post(
+            'https://sdk.komet.me/slot/signin-spin-update',
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+        return response.status === 200;
+    } catch (error) {
+        axios.post(
+            'https://sdk.komet.me/slot/signin-spin-update',
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+        return false;
+    }
+};
+
+
 export const generateSeedPhrase = async () => {
     const randomBytes = crypto.randomBytes(16);
     const mnemonic = await bip39.entropyToMnemonic(randomBytes.toString("hex"));

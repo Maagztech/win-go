@@ -1,5 +1,4 @@
 "use client";
-
 import { useGlobal } from "@/contexts/globalContext";
 import OnboardMobile from "@/assets/onboardMobile.svg";
 import OnboardMobileBg from "@/assets/onboardMobileBg.svg";
@@ -7,6 +6,7 @@ import EnterButton from "@/assets/enterButton.svg";
 import EnterButtonComp from "@/assets/enterButtonComp.svg";
 import { useRouter } from "next/navigation";
 import { GoogleLogin } from "@react-oauth/google";
+
 export default function Home() {
   const { isMobile, getEmail, userData } = useGlobal();
   const router = useRouter();
@@ -49,9 +49,7 @@ export default function Home() {
               >
                 <img src={EnterButton.src} alt="" />
               </button>
-
             </div>
-
           </div>
         </div>
       ) : (

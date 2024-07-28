@@ -69,7 +69,7 @@ const RulesModal = ({ visible, setvisible }) => {
             Rules & Regulation
           </p>
         </div>
-        <div
+        {/* <div
           style={{
             background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
             WebkitBackgroundClip: "text",
@@ -91,7 +91,7 @@ const RulesModal = ({ visible, setvisible }) => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
         <div className="mt-5 mb-[50px]">
           <ul className="list-disc pl-5 space-y-3 text-base font-normal leading-6 text-left text-white">
             <li>

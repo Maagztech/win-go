@@ -13,11 +13,11 @@ const ScoreModal = ({ visible, setvisible }) => {
       left: "50%",
       right: "auto",
       bottom: "auto",
-    //   height: "100%",
+      //   height: "100%",
       marginRight: "-50%",
       transform: "translate(-50%, 0%)",
       backgroundColor: "transparent",
-      fontFamily:"Oxanium"
+      fontFamily: "Oxanium",
     },
     overlay: { zIndex: 1000 },
   };
@@ -34,9 +34,15 @@ const ScoreModal = ({ visible, setvisible }) => {
     >
       <img src={Success.src} alt="" />
       <p className="font-bold text-[20px] leading-[25px] mt-[-12px] mb-[19px]">
-        +{spinResult} BERY Points
+        +{spinResult?.points} {spinResult?.type} Points
       </p>
-      <img src={Collect.src} alt="" />
+      <button
+        onClick={async () => {
+          setvisible(false);
+        }}
+      >
+        <img src={Collect.src} alt="" />
+      </button>
     </Modal>
   );
 };
