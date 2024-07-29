@@ -111,7 +111,11 @@ const ShareModal = ({ visible, setvisible }) => {
           </div>
         </div>
       </div>
-      <div className="bottomShadow sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center">
+      <div
+        className={`${
+          !isMobile ? "bottomShadow" : ""
+        } sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center`}
+      >
         <div className="px-[20px] w-full">
           <div className="px-[12px] mt-[12px] w-full flex items-center justify-between bg-[#F1F0FA80] border border-[#C9C5EB4D] rounded-[4px]">
             <p className="py-[10px] text-opacity-60 font-medium text-[12px] leading-[15px]">

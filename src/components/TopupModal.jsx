@@ -117,7 +117,11 @@ const ShareModal = ({ visible, setvisible }) => {
           </div>
         ))}
       </div>
-      <div className="bottomShadow sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center">
+      <div
+        className={`${
+          !isMobile ? "bottomShadow" : ""
+        } sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center`}
+      >
         <img
           src={Continue.src}
           alt=""

@@ -11,6 +11,8 @@ export default function Home() {
   const { isMobile, getEmail, userData } = useGlobal();
   const router = useRouter();
 
+  if (isMobile === null) return <></>;
+
   return (
     <main className="h-[100vh]">
       {isMobile ? (

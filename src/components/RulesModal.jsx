@@ -10,6 +10,7 @@ import Icon5 from "@/assets/icon5.svg";
 import Okay from "@/assets/Okay.svg";
 import LongLine from "@/assets/longLine.svg";
 import Back from "@/assets/Back.svg";
+
 const RulesModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
   const iconsList = [
@@ -31,7 +32,8 @@ const RulesModal = ({ visible, setvisible }) => {
       backgroundColor: "#252A3E",
       zIndex: 1050,
       fontFamily: "Oxanium",
-      overflow: "auto", // Enable scrolling if content overflows
+      display: "flex",
+      flexDirection: "column",
     },
     overlay: {
       zIndex: 1040,
@@ -48,84 +50,68 @@ const RulesModal = ({ visible, setvisible }) => {
       overlayClassName="Overlay"
       contentLabel="Modal"
     >
-      <div className="px-4">
-        <div className="flex justify-center">
-          {isMobile && <img src={Line.src} alt="Line" />}
+      <div className="flex flex-col h-full relative">
+        <div className="px-4 w-full overflow-Y-scroll flex-grow mb-[100px]">
+          <div className="flex justify-center">
+            {isMobile && <img src={Line.src} alt="Line" />}
+          </div>
+          <div
+            className={`flex gap-[8px] justify-start mb-[28px] items-center ${
+              isMobile ? "text-center mt-5" : "mt-[80px]"
+            }`}
+          >
+            <button onClick={() => setvisible(false)}>
+              <img src={Back.src} alt="Back" />
+            </button>
+            <p
+              className={`font-semibold text-2xl leading-6 ${
+                isMobile ? "text-center flex-1" : ""
+              }`}
+              style={{ letterSpacing: "-0.04em" }}
+            >
+              Rules & Regulation
+            </p>
+          </div>
+          <div className="mt-5 flex-1 overflow-y-auto">
+            <ul className="list-disc pl-5 space-y-3 text-base font-normal leading-6 text-left text-white">
+              <li>
+                Players should determine a fixed budget for their gameplay and
+                stick to it. Once the budget is exhausted, they should stop
+                playing to avoid overspending.
+              </li>
+              <li>
+                Players should familiarize themselves with the paytable of the
+                slot machine to understand the value of each symbol and the
+                winning combinations.
+              </li>
+              <li>
+                Players should take advantage of any bonuses, free spins, or
+                promotional offers provided by the app. These can extend
+                gameplay and increase the chances of winning without additional
+                cost.
+              </li>
+              <li>
+                Players should always play for fun and not as a way to make
+                money. They should take regular breaks and avoid chasing losses.
+                If they feel they are losing control, they should seek help or
+                consider self-exclusion options provided by the app.
+              </li>
+            </ul>
+          </div>
         </div>
         <div
-          className={`flex gap-[8px] justify-start mb-[28px] items-center ${
-            isMobile ? "text-center mt-5" : "mt-[80px]"
-          }`}
+          className={`${
+            !isMobile ? "bottomShadow" : ""
+          } sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center`}
         >
-          <button onClick={() => setvisible(false)}>
-            <img src={Back.src} alt="" />
-          </button>
-          <p
-            className={`font-semibold text-2xl  leading-6 ${
-              isMobile ? "text-center flex-1" : ""
-            }`}
-            style={{ letterSpacing: "-0.04em" }}
-          >
-            Rules & Regulation
-          </p>
+          <img
+            src={Okay.src}
+            alt="Okay"
+            className="mt-3 cursor-pointer"
+            onClick={() => setvisible(false)}
+          />
+          <img src={LongLine.src} alt="Line" className="mt-7 mb-3" />
         </div>
-        {/* <div
-          style={{
-            background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-            textAlign: "center",
-          }}
-          className="mt-5"
-        >
-          <p>Paytable</p>
-          <div className="mt-3 grid grid-cols-2 gap-4 mx-[80px]">
-            {iconsList.map((icon, index) => (
-              <div key={index} className="flex items-center space-x-3">
-                <img
-                  src={icon.src.src}
-                  alt={`Icon ${index}`}
-                  className="w-[16px] h-[16px]"
-                />
-                <span className="text-sm">{icon.value} Berry</span>
-              </div>
-            ))}
-          </div>
-        </div> */}
-        <div className="mt-5 mb-[50px]">
-          <ul className="list-disc pl-5 space-y-3 text-base font-normal leading-6 text-left text-white">
-            <li>
-              Players should determine a fixed budget for their gameplay and
-              stick to it. Once the budget is exhausted, they should stop
-              playing to avoid overspending.
-            </li>
-            <li>
-              Players should familiarize themselves with the paytable of the
-              slot machine to understand the value of each symbol and the
-              winning combinations.
-            </li>
-            <li>
-              Players should take advantage of any bonuses, free spins, or
-              promotional offers provided by the app. These can extend gameplay
-              and increase the chances of winning without additional cost.
-            </li>
-            <li>
-              Players should always play for fun and not as a way to make money.
-              They should take regular breaks and avoid chasing losses. If they
-              feel they are losing control, they should seek help or consider
-              self-exclusion options provided by the app.
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="bottomShadow sticky bottom-[0px] w-full bg-[#252A3E] flex flex-col items-center">
-        <img
-          src={Okay.src}
-          alt=""
-          className="mt-3 cursor-pointer"
-          onClick={() => setvisible(false)}
-        />
-        <img src={LongLine.src} alt="" className="mt-7 mb-3" />
       </div>
     </Modal>
   );
