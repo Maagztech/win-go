@@ -52,7 +52,7 @@ const TimeandBar = () => {
     );
   };
 
-  const barPercentage = pool?.percentage || 0; // Example percentage, update this value as needed
+  const barPercentage = pool?.percentage || 0;
 
   return (
     <div className="mx-[24.58px] mt-[15px]">
