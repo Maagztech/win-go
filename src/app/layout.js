@@ -7,6 +7,9 @@ import { Toaster } from 'react-hot-toast';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import Head from "next/head";
 import Script from "next/script";
+import ReactGA from "react-ga4";
+
+ReactGA.initialize("G-ECM3YKQBD3");
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
