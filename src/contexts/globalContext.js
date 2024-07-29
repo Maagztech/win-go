@@ -26,6 +26,7 @@ export const GlobalProvider = ({ children }) => {
     const [userPannel, setUserPannel] = useState(false);
     const getEmail = async (res) => {
         try {
+            setLoading(true);
             const info = parseJwt(res.credential);
             const response = await checkEmailAccountExists(info.email);
             if (response.data.isCollector == true || response.data.isGamer) {
@@ -35,6 +36,7 @@ export const GlobalProvider = ({ children }) => {
                 localStorage.setItem("email", info.email);
                 setUserPannel(true);
             }
+            setLoading(false);
         } catch (error) {
             console.log("Error", error);
         }
@@ -43,6 +45,7 @@ export const GlobalProvider = ({ children }) => {
 
     const loginHandleSubmit = async (email) => {
         try {
+            setLoading(true);
             const token = localStorage.getItem("token") || "";
             if (email != null) {
                 const resp = await login(email, token);
@@ -85,6 +88,7 @@ export const GlobalProvider = ({ children }) => {
                         localStorage.setItem("address", WalletInfo?.address);
                         setUserData(userInfo);
                         router.push("/spin");
+                        setLoading(false);
                     }
                 }
             }
@@ -111,6 +115,7 @@ export const GlobalProvider = ({ children }) => {
         }
     };
 
+    useEffect(() => { if (username != "") UserNameAvailablity(username) }, [username])
 
     const handleChange = (e) => {
         if (e.target.name === "username") {
@@ -123,7 +128,7 @@ export const GlobalProvider = ({ children }) => {
     const handleSubmit = async () => {
         try {
             const key = APIKEY;
-            const emailAdd = email;
+            const emailAdd = localStorage.getItem("email");
             const phrase = await generateSeedPhrase();
             if (!available) {
                 alert("Username not available");
@@ -193,6 +198,7 @@ export const GlobalProvider = ({ children }) => {
                         };
                         setUserData(userInfo);
                         router.push("/spin");
+                        setLoading(false);
                     }
                 }
             }
@@ -210,6 +216,7 @@ export const GlobalProvider = ({ children }) => {
     };
 
     const initializeUserData = async (auth) => {
+        setLoading(true);
         const email = localStorage.getItem("email");
         const addresss = localStorage.getItem("address");
         const share = localStorage.getItem("share");
@@ -240,6 +247,7 @@ export const GlobalProvider = ({ children }) => {
             share: share,
             wallets: userDataRes?.success?.data?.userWallets,
         });
+        setLoading(false);
     };
 
 
@@ -256,7 +264,7 @@ export const GlobalProvider = ({ children }) => {
     }, []);
 
     return (
-        <GlobalContext.Provider value={{ isMobile, logoutFromKomet, userPannel, loading, setLoading, getEmail, userData, handleChange, handleSubmit, UserNameAvailablity, username, setUsername, newUser, setNewUser }}>
+        <GlobalContext.Provider value={{ available, username, setUsername, isMobile, logoutFromKomet, userPannel, loading, setLoading, getEmail, userData, handleChange, handleSubmit, UserNameAvailablity, username, setUsername, newUser, setNewUser, userPannel, setUserPannel }}>
             {children}
         </GlobalContext.Provider>
     );

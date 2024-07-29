@@ -75,6 +75,7 @@ const ReferalModal = ({ visible, setvisible }) => {
             className="py-[10px] px-[12px] text-opacity-60 rounded-[4px] font-medium text-[12px] leading-[15px] w-full bg-[#F1F0FA80] border border-[#C9C5EB4D] focus:outline-none"
             value={referralCode}
             onChange={handleInputChange}
+            placeholder="Enter Friends Referal code"
           />
         </div>
       </div>

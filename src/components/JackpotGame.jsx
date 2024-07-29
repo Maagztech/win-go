@@ -266,7 +266,7 @@ const JackpotGame = () => {
                   <div
                     key={idx}
                     className={`flex items-center justify-center w-full ${
-                      idx === 1 ? "opacity-100" : "opacity-50"
+                      idx === 1 ? "opacity-100" : "opacity-30"
                     }`}
                   >
                     <img

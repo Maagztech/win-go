@@ -7,8 +7,8 @@ import { useGlobal } from "@/contexts/globalContext";
 import PoweredBy from "@/assets/poweredBy.svg";
 
 export default function Home() {
-    const { isMobile } = useGlobal();
-
+    const { isMobile,loading } = useGlobal();
+    if (isMobile === null || loading) return <></>;
     return (
         <main className="h-[100vh] bg-black bg-opacity-40 flex flex-col justify-between overflow-hidden">
 

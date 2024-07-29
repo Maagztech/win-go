@@ -6,12 +6,13 @@ import EnterButton from "@/assets/enterButton.svg";
 import EnterButtonComp from "@/assets/enterButtonComp.svg";
 import { useRouter } from "next/navigation";
 import { GoogleLogin } from "@react-oauth/google";
+import CreateUsernameModal from "@/components/CreateUserNameModal";
 
 export default function Home() {
-  const { isMobile, getEmail, userData } = useGlobal();
+  const { isMobile, getEmail, loading, userPannel, setUserPannel } = useGlobal();
   const router = useRouter();
 
-  if (isMobile === null) return <></>;
+  if (isMobile === null || loading) return <></>;
 
   return (
     <main className="h-[100vh]">
@@ -90,6 +91,7 @@ export default function Home() {
 
         </div>
       )}
+      <CreateUsernameModal visible={userPannel} setvisible={setUserPannel} />
     </main>
   );
 }

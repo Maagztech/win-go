@@ -42,14 +42,8 @@ const TimeandBar = () => {
           {time.toString().padStart(2, "0")}
         </p>
         <p
-          style={{
-            fontFamily: "Overpass, sans-serif",
-            background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-            textAlign: "center",
-          }}
-          className="text-[11.31px]"
+          className="text-[11.31px] gradientText text-center"
+          style={{ fontFamily: "Overpass, sans-serif" }}
         >
           {label}
         </p>
@@ -87,13 +81,8 @@ const TimeandBar = () => {
             ${pool?.total} BTC
           </p>
           <p
-            className="text-[12px] font-extrabold leading-[15px] text-right"
-            style={{
-              fontFamily: "Oxanium, sans-serif",
-              background: "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
-              WebkitBackgroundClip: "text",
-              color: "transparent",
-            }}
+            className="text-[12px] font-extrabold leading-[15px] text-right gradientText"
+            style={{ fontFamily: "Overpass, sans-serif" }}
           >
             $10,000 BTC
           </p>
