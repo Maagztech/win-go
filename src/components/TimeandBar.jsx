@@ -7,6 +7,7 @@ import { useSpin } from "@/contexts/spinContext";
 
 const TimeandBar = () => {
   const { pool } = useSpin();
+  
   const calculateRemainingTime = () => {
     const currentDate = new Date();
     const targetDate = new Date("2024-08-31T23:59:59");
@@ -51,7 +52,7 @@ const TimeandBar = () => {
     );
   };
 
-  const barPercentage = 70; // Example percentage, update this value as needed
+  const barPercentage = pool?.percentage || 0; // Example percentage, update this value as needed
 
   return (
     <div className="mx-[24.58px] mt-[15px]">
@@ -65,9 +66,10 @@ const TimeandBar = () => {
         <div className="relative w-full">
           <img src={Bar.src} alt="Bar" className="w-full" />
           <div
-            className="absolute top-[4px] bottom-[5px] left-[5px] right-[5px] bg-[#24B874] rounded-full"
+            className="absolute top-[4px] bottom-[5px] left-[5px] right-[5px] bg-[#24B874] rounded-full animate-bar-fill"
             style={{
-              width: `${pool?.perecentage | 0}%`,
+              "--bar-percentage": `${barPercentage}%`,
+              width: `${barPercentage}%`,
               boxSizing: "border-box",
               height: "calc(100% - 9px)",
             }}

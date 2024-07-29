@@ -1,8 +1,2 @@
 @import url("https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&family=Oxanium:wght@400;700&display=swap");
 
-.gradientText {
-  background: linear-gradient(135deg, #81fbb8 0%, #28c76f 100%);
-  color: transparent;
-  -webkit-background-clip: text;
-  background-clip: text;
-}
