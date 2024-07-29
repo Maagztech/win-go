@@ -7,7 +7,7 @@ import { encryptData, bSpin, fetchERC20TokenData, getHistory, getReferal, getStr
 
 const SpinContext = createContext();
 export const SpinProvider = ({ children }) => {
-  const { userData } = useGlobal();
+  const { userData, setLoading } = useGlobal();
   const [spinResult, setSpinResult] = useState(null);
   const [spin, setSpin] = useState(0);
   const [streak, setStreak] = useState(0);

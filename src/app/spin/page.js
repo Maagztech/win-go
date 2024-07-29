@@ -1,4 +1,5 @@
 "use client";
+import { useEffect } from "react";
 import AccountHolding from "@/components/AcccontHolding";
 import Ads from "@/components/Ads";
 import JackpotGame from "@/components/JackpotGame";
@@ -7,7 +8,8 @@ import { useGlobal } from "@/contexts/globalContext";
 import PoweredBy from "@/assets/poweredBy.svg";
 
 export default function Home() {
-    const { isMobile,loading } = useGlobal();
+    const { isMobile, loading, setLoading } = useGlobal();
+    useEffect(() => { setLoading(false) }, [])
     if (isMobile === null || loading) return <></>;
     return (
         <main className="h-[100vh] bg-black bg-opacity-40 flex flex-col justify-between overflow-hidden">

@@ -26,7 +26,6 @@ export const GlobalProvider = ({ children }) => {
     const [userPannel, setUserPannel] = useState(false);
     const getEmail = async (res) => {
         try {
-            setLoading(true);
             const info = parseJwt(res.credential);
             const response = await checkEmailAccountExists(info.email);
             if (response.data.isCollector == true || response.data.isGamer) {
@@ -36,7 +35,6 @@ export const GlobalProvider = ({ children }) => {
                 localStorage.setItem("email", info.email);
                 setUserPannel(true);
             }
-            setLoading(false);
         } catch (error) {
             console.log("Error", error);
         }
@@ -66,6 +64,7 @@ export const GlobalProvider = ({ children }) => {
                 const username = userData?.success?.data?.username;
                 const res = await fetchSeed(token, bearerToken, address);
                 if (res.data?.seedPhrase) {
+                    
                     localStorage.setItem("auth", bearerToken || null);
                     setCookie("auth", bearerToken, { maxAge: 60 * 60 * 24 * 14 });
                     const seedPhrase = await decryptData(res.data.seedPhrase, APIKEY);
@@ -88,7 +87,7 @@ export const GlobalProvider = ({ children }) => {
                         localStorage.setItem("address", WalletInfo?.address);
                         setUserData(userInfo);
                         router.push("/spin");
-                        setLoading(false);
+                        
                     }
                 }
             }
@@ -198,7 +197,6 @@ export const GlobalProvider = ({ children }) => {
                         };
                         setUserData(userInfo);
                         router.push("/spin");
-                        setLoading(false);
                     }
                 }
             }
@@ -225,6 +223,7 @@ export const GlobalProvider = ({ children }) => {
 
         if (!address || !token) {
             router.push("/");
+            setLoading(false);
             return;
         }
         else router.push("/spin")
@@ -247,19 +246,22 @@ export const GlobalProvider = ({ children }) => {
             share: share,
             wallets: userDataRes?.success?.data?.userWallets,
         });
-        setLoading(false);
+        setLoading(false)
     };
 
 
     useEffect(() => {
+        setLoading(true)
         const auth = getCookie("auth");
         const bearerToken = localStorage.getItem("auth");
         if (typeof window !== "undefined") {
             if (auth || bearerToken) {
-
                 initializeUserData(auth || bearerToken);
             }
-            else router.push("/");
+            else {
+                router.push("/");
+                setLoading(false)
+            }
         }
     }, []);
 
