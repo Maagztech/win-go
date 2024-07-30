@@ -49,7 +49,7 @@ const RulesModal = ({ visible, setvisible }) => {
             }`}
           >
             <button onClick={() => setvisible(false)}>
-              {!ismobile && <img src={Back.src} alt="Back" />}
+              {!isMobile && <img src={Back.src} alt="Back" />}
             </button>
             <p
               className={`font-semibold text-2xl leading-6 ${
