@@ -40,11 +40,11 @@ export default function RootLayout({ children }) {
         </Script>
       </Head>
 
-      <body className={`${inter.className} fixed`}>
+      <body className={inter.className}>
         <GoogleOAuthProvider clientId="277296107198-d50chhens1hleigr5kdi9evbpv99oacg.apps.googleusercontent.com">
           <GlobalProvider>
             <SpinProvider>
-              <ToasterComponent />{children} </SpinProvider>
+              <ToasterComponent />{children}</SpinProvider>
           </GlobalProvider>
         </GoogleOAuthProvider>
       </body>

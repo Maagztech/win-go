@@ -13,11 +13,11 @@ export default function Home() {
   const { isMobile, getEmail, loading, userPannel, setUserPannel } = useGlobal();
   if (isMobile === null || loading) return <></>;
   return (
-    <main className="h-[100vh]">
+    <main className="h-[100vh] w-full overflow-hidden">
       {isMobile ? (
-        <div className="bg-[#252A3E] w-full h-full flex flex-col overflow-hidden">
+        <div className="bg-[#252A3E] w-full h-full flex flex-col fixed">
           <div className="flex-grow">
-            <img src={OnboardMobile.src} alt="" className="w-full mt-[70px]" />
+            <img src={OnboardMobile.src} alt="" className="w-full mt-[30px]" />
           </div>
           <div className="relative flex flex-col items-center">
             <img src={OnboardMobileBg.src} alt="" className="w-full absolute z-0 bottom-0" />

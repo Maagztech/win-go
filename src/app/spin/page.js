@@ -12,8 +12,7 @@ export default function Home() {
     useEffect(() => { setLoading(false) }, [])
     if (isMobile === null || loading) return <></>;
     return (
-        <main className="h-[100vh] bg-black bg-opacity-40 flex flex-col justify-between overflow-hidden">
-
+        <main className="h-[100vh] bg-black bg-opacity-40 overflow-hidden flex flex-col w-full">
             {isMobile ? (
                 <>
                     <div className="flex-grow overflow-auto">
@@ -22,7 +21,7 @@ export default function Home() {
                         <Ads />
                         <JackpotGame />
                     </div>
-                    <div className="w-full flex justify-center py-3">
+                    <div className="w-full flex justify-center mb-3">
                         <img src={PoweredBy.src} alt="" />
                     </div>
                 </>

@@ -38,10 +38,8 @@ export const SpinProvider = ({ children }) => {
     setBit(btcPoints);
     result = getReferal(userData.auth);
     setReferal(result);
-    result = await axios.get('https://sdk.komet.me/bridge/convert?symbol=BTC');
-    setRate(result.data.rate || 67058.80);
-    result = await axios.get("https://sdk.komet.me/slot/pool-status");
-    setPool(result.data);
+    axios.get('https://sdk.komet.me/bridge/convert?symbol=BTC').then(response => setRate(response.data.rate)).catch(err => setRate(67058.80));
+    result = await axios.get("https://sdk.komet.me/slot/pool-status").then(response => setPool(response.data)).catch(err => setPool(null));
   }
 
   const fetchBal = async () => {

@@ -14,7 +14,8 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
       left: "50%",
       right: "auto",
       bottom: "auto",
-      //   height: "100%",
+      height: "374px",
+      width: "327px",
       marginRight: "-50%",
       transform: "translate(-50%, 0%)",
       backgroundColor: "transparent",
@@ -49,9 +50,9 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
         </>
       ) : (
         <>
-          <img src={Noreward.src} alt="" className="my-[35px]"/>
+          <img src={Noreward.src} alt="" className="mb-[67px] mt-[83px]" />
           <p className="font-bold text-[16px] leading-[20px]">No Rewards! </p>
-          <p className="font-bold text-[20px] leading-[25px] mt-[12px]">
+          <p className="font-bold text-[20px] leading-[25px] mt-[12px] mx-[30]">
             Better luck next time!
           </p>
         </>

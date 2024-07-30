@@ -2,17 +2,12 @@ import { useGlobal } from "@/contexts/globalContext";
 import React, { useState } from "react";
 import Modal from "react-modal";
 import Line from "@/assets/modalLine.svg";
-import Onramp from "@/assets/onramp.svg";
-import Onmeta from "@/assets/onmeta.svg";
-import Moonpay from "@/assets/moonpay.svg";
 import Continue from "@/assets/continue.svg";
 import LongLine from "@/assets/longLine.svg";
 import Selected from "@/assets/filledRadio.svg";
-import Unselected from "@/assets/unfillRadio.svg";
-import Back from "@/assets/Back.svg";
-import User from "@/assets/user.svg";
 import Refresh from "@/assets/refresh.svg";
 import { useSpin } from "@/contexts/spinContext";
+import Polygon from "@/assets/polygon.svg";
 import { getProfileImage } from "@/data/globalData";
 const BuySpinModal = ({ visible, setvisible, setTopup }) => {
   const { isMobile, userData } = useGlobal();
@@ -61,7 +56,7 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
             <img src={Back.src} alt="" />
           </button> */}
           <p
-            className={`text-[14px]  leading-[18px] text-opacity-60`}
+            className={`text-[14px] text-white  leading-[18px] text-opacity-60`}
             style={{ letterSpacing: "-0.04em" }}
           >
             Enter Spin
@@ -89,25 +84,25 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
           <div className="flex items-center gap-[26px]">
             <div className="relative">
               <img
-                src={getProfileImage(userData.userId)}
+                src={getProfileImage(userData?.userId)}
                 alt="User icon"
                 className="rounded-[2px] h-[36px] w-[36px]"
               />
               <img
-                src="https://cryptologos.cc/logos/polygon-matic-logo.svg"
+                src={Polygon.src}
                 alt=""
-                className="absolute bottom-[0px] right-0 mr-[-18px] h-[20px] w-[20px]"
+                className="absolute bottom-[0px] right-0 mr-[-14px] h-[20px] w-[20px] rounded-full border border-white bg-white"
               />
             </div>
             <div>
               <p className="font-semibold text-[12px] leading-[18px] tracking-[-0.04em] mb-[2px]">
-                {userData.username}
+                {userData?.username}
               </p>
               <p className="text-white text-opacity-60 text-[12px] leading-[15px]">
-                {userData.address.substring(0, 4)}...
-                {userData.address.substring(
-                  userData.address.length - 4,
-                  userData.address.length
+                {userData?.address.substring(0, 4)}...
+                {userData?.address.substring(
+                  userData?.address.length - 4,
+                  userData?.address.length
                 )}
               </p>
             </div>

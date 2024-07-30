@@ -147,20 +147,21 @@ const JackpotGame = () => {
   const [scoreVisible, setScoreVisible] = useState(false);
   const [iconSize, setIconSize] = useState(["w-[38px]", "w-[90px]"]);
   const [buySpin, setBuySpin] = useState(false);
+  const [showGradient, setshowGradient] = useState(false);
   const handleSpinClick = () => {
     setScoreVisible(false);
     if (spinning) return;
-    // if (!spin) {
-    //   toast("No spins left ,Buy spin.");
-    //   return;
-    // }
+    if (!spin) {
+      toast("No spins left ,Buy spin.");
+      return;
+    }
     outcomes.pop();
     const newUniqueCombination = generateUniqueCombination(outcomes);
     outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
     setSpinResult(null);
     setSpinning(true);
-    const spinDurations = [3000, 4000, 5000];
-    const spinIntervals = [];
+    const spinDurations = [4000, 4000, 4000];
+    let spinIntervals = [];
     const spinColumn = (setIcons) => {
       const interval = setInterval(() => {
         setIcons((prevIcons) => {
@@ -174,9 +175,11 @@ const JackpotGame = () => {
     };
 
     // Start spinning columns
-    spinIntervals.push(spinColumn(setLeftIcons));
-    setTimeout(() => spinIntervals.push(spinColumn(setMiddleIcons)), 300);
-    setTimeout(() => spinIntervals.push(spinColumn(setRightIcons)), 600);
+    spinIntervals = [
+      spinColumn(setLeftIcons),
+      spinColumn(setMiddleIcons),
+      spinColumn(setRightIcons),
+    ];
 
     const jack = finalResult();
 
@@ -207,18 +210,20 @@ const JackpotGame = () => {
             points: outcomes[jack].points,
             type: outcomes[jack].type,
           });
-
+          setshowGradient(true);
           setIconSize(["w-[46px]", "w-[120px]"]);
           setTimeout(() => {
             setOutputText(
               outcomes[jack].type === "btc" || outcomes[jack].type === "berry"
-                ? `${outcomes[jack].points} X ${multiplier} = ${
-                    outcomes[jack].points * multiplier
-                  } ${outcomes[jack].type} Points`
-                : `+ ${outcomes[jack].points} ${outcomes[jack].type} Points`
+                ? `+ ${outcomes[jack].type === "btc" ? "$" : ""}${
+                    outcomes[jack].points
+                  } X ${multiplier} = ${outcomes[jack].points * multiplier} ${
+                    outcomes[jack].type === "btc" ? "WBTC" : "Bery  Points"
+                  }`
+                : `+ ${outcomes[jack].points} ${outcomes[jack].type} `
             );
             setScoreVisible(true);
-
+            setshowGradient(false);
             setIconSize(["w-[38px]", "w-[90px]"]);
           }, 2000);
         }
@@ -255,11 +260,11 @@ const JackpotGame = () => {
                   </>
                 ) : (
                   <>
-                    <img src={Noreward.src} alt="" className="my-[23px]"/>
+                    <img src={Noreward.src} alt="" className="my-[30px]" />
                     <p className="font-bold text-[16px] leading-[20px]">
                       No Rewards!{" "}
                     </p>
-                    <p className="font-bold text-[20px] leading-[25px] mt-[12px] mb-[19px]">
+                    <p className="font-bold text-[20px] leading-[25px] mt-[12px] mb-[7px]">
                       Better luck next time!
                     </p>
                   </>
@@ -276,19 +281,32 @@ const JackpotGame = () => {
           <img
             src={SpinFrame.src}
             alt="Spin Frame"
-            className={`${isMobile ? "" : "w-full"}`}
+            className={`${isMobile ? "" : "w-full"} z-[0]`}
           />
 
           {/* <div
-            id="fire-animation"
-            className="hidden absolute top-0 left-0 w-full h-full z-10"
-          >
-            <img
-              src={Fire.src}
-              alt="Fire Animation"
-              className="w-full h-full"
-            />
-          </div> */}
+    id="fire-animation"
+    className="hidden absolute top-0 left-0 w-full h-full z-10"
+  >
+    <img
+      src={Fire.src}
+      alt="Fire Animation"
+      className="w-full h-full"
+    />
+  </div> */}
+
+          <div className="absolute z-20 flex items-center justify-center w-full h-full">
+            {showGradient && (
+              <div
+                className="w-2/3 h-[8px] rounded-full"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #81FBB8 0%, #28C76F 100%)",
+                }}
+              ></div>
+            )}
+          </div>
+
           <div
             className={`flex items-center justify-center h-full py-[12px] w-full absolute ${
               isMobile ? "px-[10px] py-[12px]" : "px-[30px] py-[30px]"
@@ -297,7 +315,7 @@ const JackpotGame = () => {
             {[leftIcons, middleIcons, rightIcons].map((column, colIdx) => (
               <div
                 key={colIdx}
-                className={`w-1/3 h-full flex flex-col items-center justify-between overflow-hidden`}
+                className={`w-1/3 h-full flex flex-col items-center justify-between overflow-hidden relative`}
               >
                 {column.map((icon, idx) => (
                   <div
