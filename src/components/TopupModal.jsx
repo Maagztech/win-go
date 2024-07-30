@@ -69,15 +69,17 @@ const ShareModal = ({ visible, setvisible }) => {
         </div>
         <div
           className={`flex gap-[8px] justify-start mb-[28px] items-center ${
-            isMobile ? "text-center mt-5" : "mt-[80px]"
+            isMobile ? "mt-5" : "mt-[80px]"
           }`}
         >
           <button onClick={() => setvisible(false)}>
-            <img src={Back.src} alt="" />
+            {!isMobile && <img src={Back.src} alt="Back" />}
           </button>
           <p
-            className={`font-semibold text-2xl  leading-6 ${
-              isMobile ? "text-center flex-1" : ""
+            className={` ${
+              isMobile
+                ? "flex-1 font-medium text-[16px]  leading-[20px] text-white text-opacity-60"
+                : "font-semibold text-2xl  leading-6"
             }`}
             style={{ letterSpacing: "-0.04em" }}
           >

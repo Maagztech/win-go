@@ -1,13 +1,11 @@
 import { useGlobal } from "@/contexts/globalContext";
-import React, { useState } from "react";
+import React from "react";
 import Modal from "react-modal";
 import Line from "@/assets/modalLine.svg";
-import Onramp from "@/assets/onramp.svg";
-import Onmeta from "@/assets/onmeta.svg";
-import Moonpay from "@/assets/moonpay.svg";
 import Continue from "@/assets/continue.svg";
 import LongLine from "@/assets/longLine.svg";
 import Points from "@/assets/points.svg";
+import Cross from "@/assets/cross.svg";
 import GreenTick from "@/assets/ticklshare.svg";
 import Back from "@/assets/Back.svg";
 import Copy from "@/assets/Copy.svg";
@@ -74,19 +72,27 @@ const ShareModal = ({ visible, setvisible }) => {
           {isMobile && <img src={Line.src} alt="Line" />}
         </div>
         <div
-          className={`flex gap-[8px] justify-start mb-[28px] items-center ${
-            isMobile ? "text-center mt-5" : "mt-[80px]"
+          className={`flex gap-[8px]  mb-[28px] items-center ${
+            isMobile ? "mt-5 justify-between" : "mt-[80px]"
           }`}
         >
-          <button onClick={() => setvisible(false)}>
-           {!isMobile && <img src={Back.src} alt="Back" />}
-          </button>
+          {!isMobile && (
+            <button onClick={() => setvisible(false)}>
+              <img src={Back.src} alt="Back" />
+            </button>
+          )}
+
           <p
             className={`font-semibold text-2xl leading-6`}
             style={{ letterSpacing: "-0.04em" }}
           >
             Refer & Earn
           </p>
+          {isMobile && (
+            <button onClick={() => setvisible(false)} className="p-1">
+              <img src={Cross.src} alt="" />
+            </button>
+          )}
         </div>
         <div className="flex items-center gap-[8px]">
           <img src={Points.src} alt="Points" />

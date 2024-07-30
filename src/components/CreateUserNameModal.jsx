@@ -49,7 +49,7 @@ const CreateUsernameModal = ({ visible, setvisible }) => {
           }`}
         >
           <button onClick={() => setvisible(false)}>
-            <img src={Back.src} alt="" />
+            {!isMobile & <img src={Back.src} alt="Back" />}
           </button>
           <p
             className={`font-semibold text-2xl  leading-6 ${
