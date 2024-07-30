@@ -152,10 +152,10 @@ const JackpotGame = () => {
   const handleSpinClick = () => {
     setScoreVisible(false);
     if (spinning) return;
-    if (!spin) {
-      toast("No spins left ,Buy spin.");
-      return;
-    }
+    // if (!spin) {
+    //   toast("No spins left ,Buy spin.");
+    //   return;
+    // }
     outcomes.pop();
     const newUniqueCombination = generateUniqueCombination(outcomes);
     outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
@@ -206,8 +206,8 @@ const JackpotGame = () => {
           ]);
           setSpinning(false);
           setSpinResult({
-            points: 1,
-            type: "berry",
+            points: outcomes[jack].points,
+            type: outcomes[jack].type,
           });
 
           // Show fire animation and play buzz sound
@@ -274,7 +274,7 @@ const JackpotGame = () => {
             className={`${isMobile ? "" : "w-full"}`}
           />
 
-          <div
+          {/* <div
             id="fire-animation"
             className="hidden absolute top-0 left-0 w-full h-full z-10"
           >
@@ -283,7 +283,7 @@ const JackpotGame = () => {
               alt="Fire Animation"
               className="w-full h-full"
             />
-          </div>
+          </div> */}
           <div
             className={`flex items-center justify-center h-full py-[12px] w-full absolute ${
               isMobile ? "px-[10px] py-[12px]" : "px-[30px] py-[30px]"

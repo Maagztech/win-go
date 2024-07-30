@@ -45,7 +45,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
         <img
           src={HistoryBg.src}
           alt="Background"
-          className="absolute inset-0 w-full h-full object-cover z-0" // Full cover background
+          className="absolute inset-0 w-full h-full object-cover z-[4]" // Full cover background
         />
 
         {/* Modal Content */}
@@ -102,7 +102,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
           </div>
         </div>
         {/* History List */}
-        <div className="px-[8px] relative z-20">
+        <div className="px-[8px] relative z-0 mt-[15px]">
           <p className="py-[12px] font-medium text-[18px] leading-[20px]">
             Recent Activity
           </p>
