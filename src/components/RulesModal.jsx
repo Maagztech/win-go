@@ -2,24 +2,12 @@ import { useGlobal } from "@/contexts/globalContext";
 import React from "react";
 import Modal from "react-modal";
 import Line from "@/assets/modalLine.svg";
-import Icon1 from "@/assets/icon1Berry.svg";
-import Icon2 from "@/assets/icon2.svg";
-import Icon3 from "@/assets/icon3.svg";
-import Icon4 from "@/assets/icon4.svg";
-import Icon5 from "@/assets/icon5.svg";
 import Okay from "@/assets/Okay.svg";
 import LongLine from "@/assets/longLine.svg";
 import Back from "@/assets/Back.svg";
 
 const RulesModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
-  const iconsList = [
-    { src: Icon1, value: 10 },
-    { src: Icon2, value: 20 },
-    { src: Icon3, value: 30 },
-    { src: Icon4, value: 40 },
-    { src: Icon5, value: 50 },
-  ];
 
   const customStylesModal = {
     content: {

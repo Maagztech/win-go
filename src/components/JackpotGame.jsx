@@ -4,16 +4,16 @@ import React, { useState } from "react";
 import { useSpin } from "@/contexts/spinContext";
 import { useGlobal } from "@/contexts/globalContext";
 import SpinButton from "@/assets/spinButton.svg";
-import Icon1 from "@/assets/icon1Berry.svg";
-import Icon2 from "@/assets/icon2.svg";
-import Icon3 from "@/assets/icon3.svg";
-import Icon4 from "@/assets/icon4.svg";
-import Icon5 from "@/assets/icon5.svg";
-import Icon6 from "@/assets/icon1Berry.svg";
-import Icon7 from "@/assets/icon2.svg";
-import Icon8 from "@/assets/icon3.svg";
-import Icon9 from "@/assets/icon4.svg";
-import Icon10 from "@/assets/icon5.svg";
+import Icon1 from "@/assets/bitcoin.jpg";
+import Icon2 from "@/assets/brett.svg";
+import Icon3 from "@/assets/pepe.svg";
+import Icon4 from "@/assets/bobo.jpg";
+import Icon5 from "@/assets/rocket.jpg";
+import Icon6 from "@/assets/berry.svg";
+import Icon7 from "@/assets/doge.svg";
+import Icon8 from "@/assets/bull.jpeg";
+import Icon9 from "@/assets/deathskull.jpg";
+import Icon10 from "@/assets/thunder.jpg";
 import SpinFrame from "@/assets/spinFrame.svg";
 import Rules from "@/assets/Rules.svg";
 import Share from "@/assets/Share.svg";
@@ -30,6 +30,7 @@ import TimeandBar from "./TimeandBar";
 import Success from "@/assets/Success.svg";
 import Collect from "@/assets/collect.svg";
 import toast from "react-hot-toast";
+import Fire from "@/assets/fire.gif";
 const icons = [
   Icon1,
   Icon2,
@@ -109,6 +110,10 @@ const finalResult = () => {
   return cumulativeProbabilities.length - 1;
 };
 
+const playBuzzSound = () => {
+  const audio = new Audio("/fire.mp3");
+  audio.play();
+};
 const JackpotGame = () => {
   const { isMobile, newUser, setNewUser } = useGlobal();
   const {
@@ -142,12 +147,15 @@ const JackpotGame = () => {
   const [shareVisible, setShareVisible] = useState(false);
   const [topupVisible, setTopupVisible] = useState(false);
   const [scoreVisible, setScoreVisible] = useState(false);
+  const [iconSize, setIconSize] = useState(["w-[38px]", "w-[90px]"]);
+
   const handleSpinClick = () => {
+    setScoreVisible(false);
     if (spinning) return;
-    if (!spin) {
-      toast("No spins left ,Buy spin.");
-      return;
-    }
+    // if (!spin) {
+    //   toast("No spins left ,Buy spin.");
+    //   return;
+    // }
     outcomes.pop();
     const newUniqueCombination = generateUniqueCombination(outcomes);
     outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
@@ -155,7 +163,6 @@ const JackpotGame = () => {
     setSpinning(true);
     const spinDurations = [3000, 4000, 5000];
     const spinIntervals = [];
-
     const spinColumn = (setIcons) => {
       const interval = setInterval(() => {
         setIcons((prevIcons) => {
@@ -164,7 +171,7 @@ const JackpotGame = () => {
           newIcons.pop();
           return newIcons;
         });
-      }, 600);
+      }, 0.0001);
       return interval;
     };
 
@@ -203,8 +210,10 @@ const JackpotGame = () => {
             type: outcomes[jack].type,
           });
           setOutputText(
-            outcomes[jack].type === 'btc' || outcomes[jack].type === 'berry'
-              ? `${outcomes[jack].points} X ${multiplier} = ${outcomes[jack].points * multiplier} ${outcomes[jack].type} Points`
+            outcomes[jack].type === "btc" || outcomes[jack].type === "berry"
+              ? `${outcomes[jack].points} X ${multiplier} = ${
+                  outcomes[jack].points * multiplier
+                } ${outcomes[jack].type} Points`
               : `+ ${outcomes[jack].points} ${outcomes[jack].type} Points`
           );
           if (outcomes[jack].type) {
@@ -212,6 +221,14 @@ const JackpotGame = () => {
           } else {
             toast("Better Luck Next Time...");
           }
+          // Show fire animation and play buzz sound
+          document.getElementById("fire-animation").classList.remove("hidden");
+          setIconSize(["w-[45px]", "w-[120px]"]);
+          playBuzzSound();
+          setTimeout(() => {
+            setIconSize(["w-[38px]", "w-[90px]"]);
+            document.getElementById("fire-animation").classList.add("hidden");
+          }, 4000);
         }
       }, duration);
     });
@@ -255,6 +272,17 @@ const JackpotGame = () => {
             alt="Spin Frame"
             className={`${isMobile ? "" : "w-full"}`}
           />
+
+          <div
+            id="fire-animation"
+            className="hidden absolute top-0 left-0 w-full h-full z-10"
+          >
+            <img
+              src={Fire.src}
+              alt="Fire Animation"
+              className="w-full h-full"
+            />
+          </div>
           <div
             className={`flex items-center justify-center h-full py-[12px] w-full absolute ${
               isMobile ? "px-[10px] py-[12px]" : "px-[30px] py-[30px]"
@@ -275,7 +303,11 @@ const JackpotGame = () => {
                     <img
                       src={icon.src}
                       alt={`Icon ${colIdx}-${idx}`}
-                      className={` ${isMobile ? "w-[38px]" : "h-[90px]"}`}
+                      className={`rounded-full z-20 ${
+                        isMobile
+                          ? `${idx === 1 ? iconSize[0] : "w-[38px]"}`
+                          : `${idx === 1 ? iconSize[1] : "w-[90px]"}`
+                      }`}
                     />
                   </div>
                 ))}

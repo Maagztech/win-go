@@ -92,3 +92,20 @@ body {
   background-clip: text;
 }
 
+
+@keyframes fireAnimation {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.fire {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: url('../assets/fire.gif') no-repeat center center;
+  background-size: cover;
+  animation: fireAnimation 1s forwards;
+  z-index: 10;
+}

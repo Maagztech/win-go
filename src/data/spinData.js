@@ -89,7 +89,7 @@ export const getMultiplier = async (token) => {
         );
         return response.data.multiplier;
     } catch (error) {
-        return 0;
+        return 1;
     }
 };
 
