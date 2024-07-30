@@ -25,7 +25,7 @@ export const SpinProvider = ({ children }) => {
     let result = await userSpin(userData.auth);
     setSpin(result);
     result = await getStreaks(userData.auth);
-    setStreak(result);
+    setStreak(result ? result : 1);
     result = await getMultiplier(userData.auth);
     setMultiplier(result);
     result = await fetchERC20TokenData(userData.address);

@@ -79,12 +79,10 @@ const ShareModal = ({ visible, setvisible }) => {
           }`}
         >
           <button onClick={() => setvisible(false)}>
-            <img src={Back.src} alt="Back" />
+           {!isMobile && <img src={Back.src} alt="Back" />}
           </button>
           <p
-            className={`font-semibold text-2xl leading-6 ${
-              isMobile ? "text-center flex-1" : ""
-            }`}
+            className={`font-semibold text-2xl leading-6`}
             style={{ letterSpacing: "-0.04em" }}
           >
             Refer & Earn

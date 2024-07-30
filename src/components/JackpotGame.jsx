@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useSpin } from "@/contexts/spinContext";
 import { useGlobal } from "@/contexts/globalContext";
+import Noreward from "@/assets/noreward.svg";
 import SpinButton from "@/assets/spinButton.svg";
 import Icon1 from "@/assets/bitcoin.jpg";
 import Icon2 from "@/assets/brett.svg";
@@ -216,11 +217,8 @@ const JackpotGame = () => {
                   } ${outcomes[jack].type} Points`
                 : `+ ${outcomes[jack].points} ${outcomes[jack].type} Points`
             );
-            if (outcomes[jack].type) {
-              setScoreVisible(true);
-            } else {
-              toast("Better Luck Next Time...");
-            }
+            setScoreVisible(true);
+
             setIconSize(["w-[38px]", "w-[90px]"]);
           }, 2000);
         }
@@ -241,17 +239,31 @@ const JackpotGame = () => {
             <TimeandBar />
             {scoreVisible && (
               <div className="mt-[15px]  successBg flex flex-col items-center px-[17px] pb-[15px] rounded-[15px]">
-                <img src={Success.src} alt="" className="w-[180px]" />
-                <p className="font-bold text-[20px] leading-[25px] mt-[-15px] mb-[15px]">
-                  {outputText}
-                </p>
-                <button
-                  onClick={async () => {
-                    setScoreVisible(false);
-                  }}
-                >
-                  <img src={Collect.src} alt="" />
-                </button>
+                {spinResult.type ? (
+                  <>
+                    <img src={Success.src} alt="" className="w-[180px]" />
+                    <p className="font-bold text-[20px] leading-[25px] mt-[-15px] mb-[15px]">
+                      {outputText}
+                    </p>
+                    <button
+                      onClick={async () => {
+                        setScoreVisible(false);
+                      }}
+                    >
+                      <img src={Collect.src} alt="" />
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <img src={Noreward.src} alt="" className="my-[23px]"/>
+                    <p className="font-bold text-[16px] leading-[20px]">
+                      No Rewards!{" "}
+                    </p>
+                    <p className="font-bold text-[20px] leading-[25px] mt-[12px] mb-[19px]">
+                      Better luck next time!
+                    </p>
+                  </>
+                )}
               </div>
             )}
           </div>

@@ -40,7 +40,7 @@ export default function RootLayout({ children }) {
         </Script>
       </Head>
 
-      <body className={inter.className}>
+      <body className={`${inter.className} fixed`}>
         <GoogleOAuthProvider clientId="277296107198-d50chhens1hleigr5kdi9evbpv99oacg.apps.googleusercontent.com">
           <GlobalProvider>
             <SpinProvider>
@@ -48,7 +48,6 @@ export default function RootLayout({ children }) {
           </GlobalProvider>
         </GoogleOAuthProvider>
       </body>
-
     </html>
   );
 }

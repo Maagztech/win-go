@@ -39,7 +39,7 @@ const RulesModal = ({ visible, setvisible }) => {
       contentLabel="Modal"
     >
       <div className="flex flex-col h-full relative">
-        <div className="px-4 w-full overflow-Y-scroll flex-grow mb-[100px]">
+        <div className="px-4 w-full overflow-Y-scroll flex-grow mb-[20px]">
           <div className="flex justify-center">
             {isMobile && <img src={Line.src} alt="Line" />}
           </div>

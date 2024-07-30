@@ -10,7 +10,7 @@ import Selected from "@/assets/filledRadio.svg";
 import Unselected from "@/assets/unfillRadio.svg";
 import Back from "@/assets/Back.svg";
 import MoonPayModal from "./MoonPay";
-import OnMetaModal from "./Onmeta";
+import OnMetaModal from "./OnMeta";
 import toast from "react-hot-toast";
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();

@@ -18,7 +18,7 @@ const ReferalModal = ({ visible, setvisible }) => {
       left: isMobile ? "0%" : "auto",
       right: "0%",
       bottom: "0%",
-      height: isMobile ? "300px" : "100%",
+      height: isMobile ? "255px" : "100%",
       width: isMobile ? "100%" : "400px",
       backgroundColor: "#252A3E",
       zIndex: 1050,

@@ -75,7 +75,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                   setTopup(true);
                 }}
               >
-                <img src={Down.src} alt="Top-Up" />
+                <img src={Down.src} alt="Top-Up" className="h-[24px] w-[24px]"/>
                 <p className="text-[12px] font-medium mt-[9px]">TOP-UP</p>
               </div>
               <div
@@ -85,7 +85,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                   setShare(true);
                 }}
               >
-                <img src={Scan.src} alt="Share" />
+                <img src={Scan.src} alt="Share" className="h-[24px] w-[24px]"/>
                 <p className="text-[12px] font-medium mt-[9px]">SHARE</p>
               </div>
               <div
@@ -95,7 +95,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                   toast("Can only be withdrawn after Pool Ends.");
                 }}
               >
-                <img src={Up.src} alt="Withdraw" />
+                <img src={Up.src} alt="Withdraw" className="h-[24px] w-[24px]"/>
                 <p className="text-[12px] font-medium mt-[9px]">WITHDRAWL</p>
               </div>
             </div>
