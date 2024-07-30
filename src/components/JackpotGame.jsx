@@ -31,6 +31,7 @@ import Success from "@/assets/Success.svg";
 import Collect from "@/assets/collect.svg";
 import toast from "react-hot-toast";
 import Fire from "@/assets/fire.gif";
+import BuySpinModal from "./BuySpinModal";
 const icons = [
   Icon1,
   Icon2,
@@ -110,10 +111,6 @@ const finalResult = () => {
   return cumulativeProbabilities.length - 1;
 };
 
-const playBuzzSound = () => {
-  const audio = new Audio("/fire.mp3");
-  audio.play();
-};
 const JackpotGame = () => {
   const { isMobile, newUser, setNewUser } = useGlobal();
   const {
@@ -148,7 +145,7 @@ const JackpotGame = () => {
   const [topupVisible, setTopupVisible] = useState(false);
   const [scoreVisible, setScoreVisible] = useState(false);
   const [iconSize, setIconSize] = useState(["w-[38px]", "w-[90px]"]);
-
+  const [buySpin, setBuySpin] = useState(false);
   const handleSpinClick = () => {
     setScoreVisible(false);
     if (spinning) return;
@@ -210,10 +207,7 @@ const JackpotGame = () => {
             type: outcomes[jack].type,
           });
 
-          // Show fire animation and play buzz sound
-          document.getElementById("fire-animation").classList.remove("hidden");
-          setIconSize(["w-[45px]", "w-[120px]"]);
-          playBuzzSound();
+          setIconSize(["w-[46px]", "w-[120px]"]);
           setTimeout(() => {
             setOutputText(
               outcomes[jack].type === "btc" || outcomes[jack].type === "berry"
@@ -228,8 +222,7 @@ const JackpotGame = () => {
               toast("Better Luck Next Time...");
             }
             setIconSize(["w-[38px]", "w-[90px]"]);
-            document.getElementById("fire-animation").classList.add("hidden");
-          }, 4000);
+          }, 2000);
         }
       }, duration);
     });
@@ -372,7 +365,7 @@ const JackpotGame = () => {
             } bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC] flex items-center`}
             style={{ fontFamily: "Oxanium" }}
             onClick={() => {
-              setHistoryVisible(true);
+              setBuySpin(true);
             }}
           >
             <img
@@ -402,6 +395,11 @@ const JackpotGame = () => {
         setShare={setShareVisible}
       />
       <ReferalModal visible={newUser} setvisible={setNewUser} />
+      <BuySpinModal
+        visible={buySpin}
+        setvisible={setBuySpin}
+        setTopup={setTopupVisible}
+      />
     </div>
   );
 };

@@ -2,7 +2,6 @@ import { useGlobal } from "@/contexts/globalContext";
 import React, { useState } from "react";
 import Modal from "react-modal";
 import Line from "@/assets/modalLine.svg";
-import Onramp from "@/assets/onramp.svg";
 import Onmeta from "@/assets/onmeta.svg";
 import Moonpay from "@/assets/moonpay.svg";
 import Continue from "@/assets/continue.svg";
@@ -10,16 +9,15 @@ import LongLine from "@/assets/longLine.svg";
 import Selected from "@/assets/filledRadio.svg";
 import Unselected from "@/assets/unfillRadio.svg";
 import Back from "@/assets/Back.svg";
+import MoonPayModal from "./MoonPay";
+import OnMetaModal from "./Onmeta";
+import toast from "react-hot-toast";
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
   const [selectedProvider, setSelectedProvider] = useState(0);
-
+  const [moonpay, setMoonpay] = useState(false);
+  const [onmeta, setOnmeta] = useState(false);
   const providers = [
-    {
-      img: Onramp,
-      name: "Onramp",
-      description: "Bank transfer, UPI",
-    },
     {
       img: Moonpay,
       name: "Moonpay",
@@ -41,13 +39,13 @@ const ShareModal = ({ visible, setvisible }) => {
       height: isMobile ? "420px" : "100%",
       width: isMobile ? "100%" : "400px",
       backgroundColor: "#252A3E",
-      zIndex: 1050,
+      zIndex: 2000,
       fontFamily: "Oxanium",
       display: "flex",
       flexDirection: "column",
     },
     overlay: {
-      zIndex: 1040,
+      zIndex: 2000,
     },
   };
 
@@ -90,7 +88,10 @@ const ShareModal = ({ visible, setvisible }) => {
           <div key={index}>
             <div
               className="flex items-center justify-between cursor-pointer p-[12px]"
-              onClick={() => handleProviderClick(index)}
+              onClick={() => {
+                if (index === 1) toast("On meta is Down upto 15th May");
+                else handleProviderClick(index);
+              }}
             >
               <div className="flex items-center">
                 <img src={provider.img.src} alt={provider.name} />
@@ -127,11 +128,14 @@ const ShareModal = ({ visible, setvisible }) => {
           alt=""
           className="mt-3 cursor-pointer"
           onClick={() => {
-            setvisible(false);
+            if (selectedProvider == 0) setMoonpay(true);
+            else setOnmeta(true);
           }}
         />
         <img src={LongLine.src} alt="" className="mt-7 mb-3" />
       </div>
+      <MoonPayModal visible={moonpay} setvisible={setMoonpay} />
+      <OnMetaModal visible={onmeta} setvisible={setOnmeta} />
     </Modal>
   );
 };

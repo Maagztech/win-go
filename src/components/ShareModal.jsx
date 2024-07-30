@@ -17,7 +17,7 @@ import toast from "react-hot-toast";
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
   const { referal } = useSpin();
-  const siteMainUrl = "https://yourmainurl.com"; // Replace with your site main URL
+  const siteMainUrl = "https://spin-the-wheel-seven.vercel.app"; // Replace with your site main URL
 
   const customStylesModal = {
     content: {
@@ -121,6 +121,14 @@ const ShareModal = ({ visible, setvisible }) => {
             <p className="py-[10px] text-opacity-60 font-medium text-[12px] leading-[15px]">
               {referal}
             </p>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(referal);
+                toast("Copied");
+              }}
+            >
+              <img src={Copy.src} alt="" />
+            </button>
           </div>
         </div>
         <img

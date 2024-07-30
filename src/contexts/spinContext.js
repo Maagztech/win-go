@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useGlobal } from './globalContext';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { encryptData, bSpin, fetchERC20TokenData, getHistory, getReferal, getStreaks, getMultiplier, reward, updateSpin, updateStreaks, userSpin, referalApi } from '@/data/spinData';
+import { encryptData, bSpin, fetchERC20TokenData, getHistory, getReferal, getStreaks, getMultiplier, reward, updateSpin, updateStreaks, userSpin, referalApi, findGas } from '@/data/spinData';
 
 const SpinContext = createContext();
 export const SpinProvider = ({ children }) => {
@@ -20,6 +20,7 @@ export const SpinProvider = ({ children }) => {
   const [rate, setRate] = useState(67058.80)
   const [historyVisible, setHistoryVisible] = useState(false);
   const [pool, setPool] = useState(null);
+  const [gas, setGas] = useState(0);
   const fetchData = async () => {
     let result = await userSpin(userData.auth);
     setSpin(result);
@@ -41,7 +42,11 @@ export const SpinProvider = ({ children }) => {
     setRate(result.data.rate || 67058.80);
     result = await axios.get("https://sdk.komet.me/slot/pool-status");
     setPool(result.data);
+  }
 
+  const fetchBal = async () => {
+    result = await fetchERC20TokenData(userData.address);
+    setBalance(result);
   }
 
   useEffect(() => {
@@ -51,10 +56,21 @@ export const SpinProvider = ({ children }) => {
   }, [userData])
 
 
-  const buySpin = async (spin) => {
-    await bSpin(userData.auth, spin);
-    let result = await userSpin(userData.auth);
-    setSpin(result);
+
+
+  const buySpin = async (spin, setTopup) => {
+    const res = await findGas();
+    if (res + spin / 3 <= balance) {
+      alert("Total amount to be deducted  $" + gas + spin / 3)
+      await bSpin(userData.auth, spin);
+      let result = await userSpin(userData.auth);
+      setSpin(result);
+      toast("Success")
+    }
+    else {
+      toast("Fund your account.")
+      setTopup(true);
+    }
   }
 
   function createCode(length) {
@@ -101,7 +117,7 @@ export const SpinProvider = ({ children }) => {
   }
 
   return (
-    <SpinContext.Provider value={{ collectReward, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
+    <SpinContext.Provider value={{ collectReward, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
       {children}
     </SpinContext.Provider>
   );

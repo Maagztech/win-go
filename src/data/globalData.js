@@ -4,6 +4,37 @@ import axios from "axios";
 import { deleteCookie } from "cookies-next";
 const BASE_URL = "https://prod-api.komet.me/";
 
+export const avatars = [
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-1.png?alt=media&token=0e0c7edf-4adc-4403-8876-27274b63f6e3',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-10.png?alt=media&token=582317f7-45c1-4734-999d-025a9bd4cb52',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-11.png?alt=media&token=fcb751be-dc10-4280-b9f3-45a05ce3c7e1',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-12.png?alt=media&token=4d36162b-13b2-4d28-8c34-6226318a9c3d',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-13.png?alt=media&token=a2ebf0d6-3acd-49a3-ae90-da2648267bef',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-14.png?alt=media&token=d7380fb2-8f77-4737-8c2a-507873af00bd',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-15.png?alt=media&token=9be15299-1404-4305-a8ab-0314641c8c1d',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-16.png?alt=media&token=95bdb94e-e841-48eb-a4d2-0d5881effffa',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-17.png?alt=media&token=1b90c1db-0b2f-47bb-bbe3-828c956f6bea',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-18.png?alt=media&token=3db6743d-75e9-4c4d-bc96-667854cda66a',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/pfp%2FPFP-19.png?alt=media&token=a6873c6c-5c69-49cc-9dc7-a2d13acc6d2e',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/PFPs%2F14.png?alt=media&token=eea1bb3d-b60d-4484-b4f8-1f1adc013a94&_gl=1*3bvut5*_ga*OTMyMDkwMDQxLjE2NzE1NTQ0MzI.*_ga_CW55HF8NVT*MTY4NjIzOTg0MC4xMTkuMS4xNjg2MjQxMTg2LjAuMC4w',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/PFPs%2F15.png?alt=media&token=9fb99136-335a-49c0-ae71-f2a31c6bf4e5&_gl=1*gsr9a9*_ga*OTMyMDkwMDQxLjE2NzE1NTQ0MzI.*_ga_CW55HF8NVT*MTY4NjIzOTg0MC4xMTkuMS4xNjg2MjQxMTk4LjAuMC4w',
+    'https://firebasestorage.googleapis.com/v0/b/generated-surf-349813.appspot.com/o/PFPs%2F18.png?alt=media&token=645fe445-652d-4bfe-90ac-6c625b0d4a43&_gl=1*1ume54q*_ga*OTMyMDkwMDQxLjE2NzE1NTQ0MzI.*_ga_CW55HF8NVT*MTY4NjIzOTg0MC4xMTkuMS4xNjg2MjQxMjEwLjAuMC4w',
+]
+
+export const getProfileImage = (userId) => {
+    if (typeof window !== "undefined") {
+        const user = userId;
+        const id = userId || 0;
+        let image = "";
+        //toast(id%10)
+        image = avatars[id % 10] || avatars[0];
+        return image;
+    }
+    else {
+        return avatars[0]
+    }
+};
+
 
 export const fetchUser = async (token) => {
     if (token == null) {

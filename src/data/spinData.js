@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { ethers } from "ethers";
 export const encryptData = async (message) => {
     try {
         const response = await axios.post('/api/encrypt-message', { message });
@@ -9,6 +9,18 @@ export const encryptData = async (message) => {
     }
 };
 
+
+export const findGas = async () => {
+    try {
+        const provider = new ethers.providers.JsonRpcProvider("https://polygon-rpc.com");
+        const gas = await provider.getGasPrice();
+        const gasInGwei = ethers.utils.formatUnits(gas._hex, "gwei");
+        const gasPriceUSD = (gasInGwei * rate) / 10 ** 9;
+        return gasPriceUSD;
+    } catch (error) {
+        return 0;
+    }
+}
 
 export const userSpin = async (token) => {
     try {

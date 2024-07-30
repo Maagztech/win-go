@@ -9,10 +9,9 @@ import { useSpin } from "@/contexts/spinContext";
 const Group = ({ img, text }) => {
   const { setHistoryVisible } = useSpin();
   return (
-    <button
+    <div
       className="relative bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC]"
       style={{ fontFamily: "Oxanium" }}
-      onClick={() => setHistoryVisible(true)}
     >
       <img
         src={img}
@@ -20,7 +19,7 @@ const Group = ({ img, text }) => {
         className="absolute left-[-11px] w-[21.18px] top-0"
       />
       {text}
-    </button>
+    </div>
   );
 };
 
@@ -33,7 +32,7 @@ const AccountHolding = () => {
       <Group img={RectangularMoney.src} text={berry} />
       <Group img={GreenLight.src} text={streak} />
       <Group img={GreenStar.src} text={multiplier} />
-      <button onClick={() => logoutFromKomet()}>
+      <button onClick={() => setHistoryVisible(true)}>
         <img src={Logout.src} alt="" className="ml-3" />
       </button>
     </div>
