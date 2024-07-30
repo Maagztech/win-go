@@ -70,14 +70,12 @@ export const SpinProvider = ({ children }) => {
   }
 
   const collectReward = async () => {
-
     if (spinResult.type) {
       const data = await encryptData(JSON.stringify({
         points: spinResult.points,
         type: spinResult.type,
         key: createCode(10),
       }))
-
       await reward(data, userData.auth);
     }
     await updateSpin(userData.auth);

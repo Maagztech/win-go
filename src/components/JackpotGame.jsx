@@ -144,10 +144,10 @@ const JackpotGame = () => {
   const [scoreVisible, setScoreVisible] = useState(false);
   const handleSpinClick = () => {
     if (spinning) return;
-    if (!spin) {
-      toast("No spins left ,Buy spin.");
-      return;
-    }
+    // if (!spin) {
+    //   toast("No spins left ,Buy spin.");
+    //   return;
+    // }
     outcomes.pop();
     const newUniqueCombination = generateUniqueCombination(outcomes);
     outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
