@@ -133,7 +133,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                   {his.points * rate.toFixed(2)}
                 </p>
                 <p className="text-[12px] text-[#8A929A]">
-                  {new Intl.DateTimeFormat("en-GB").format(his.lastUpdated)}
+                  {/* {new Intl.DateTimeFormat("en-GB").format(his.lastUpdated)} */}
                 </p>
               </div>
             </div>

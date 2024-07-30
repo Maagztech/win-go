@@ -9,7 +9,7 @@ import { useSpin } from "@/contexts/spinContext";
 
 const ReferalModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
-  const { referal } = useSpin();
+  const { refaral } = useSpin();
   const [referralCode, setReferralCode] = useState("");
 
   const customStylesModal = {
@@ -36,7 +36,7 @@ const ReferalModal = ({ visible, setvisible }) => {
   };
 
   const handleContinueClick = () => {
-    referal(referralCode);
+    refaral(referralCode);
   };
 
   return (

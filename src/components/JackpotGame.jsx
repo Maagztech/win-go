@@ -9,7 +9,7 @@ import Icon2 from "@/assets/brett.svg";
 import Icon3 from "@/assets/pepe.svg";
 import Icon4 from "@/assets/bobo.jpg";
 import Icon5 from "@/assets/rocket.jpg";
-import Icon6 from "@/assets/berry.svg";
+import Icon6 from "@/assets/Berry.svg";
 import Icon7 from "@/assets/doge.svg";
 import Icon8 from "@/assets/bull.jpeg";
 import Icon9 from "@/assets/deathskull.jpg";
@@ -152,10 +152,10 @@ const JackpotGame = () => {
   const handleSpinClick = () => {
     setScoreVisible(false);
     if (spinning) return;
-    // if (!spin) {
-    //   toast("No spins left ,Buy spin.");
-    //   return;
-    // }
+    if (!spin) {
+      toast("No spins left ,Buy spin.");
+      return;
+    }
     outcomes.pop();
     const newUniqueCombination = generateUniqueCombination(outcomes);
     outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
@@ -206,26 +206,27 @@ const JackpotGame = () => {
           ]);
           setSpinning(false);
           setSpinResult({
-            points: outcomes[jack].points,
-            type: outcomes[jack].type,
+            points: 1,
+            type: "berry",
           });
-          setOutputText(
-            outcomes[jack].type === "btc" || outcomes[jack].type === "berry"
-              ? `${outcomes[jack].points} X ${multiplier} = ${
-                  outcomes[jack].points * multiplier
-                } ${outcomes[jack].type} Points`
-              : `+ ${outcomes[jack].points} ${outcomes[jack].type} Points`
-          );
-          if (outcomes[jack].type) {
-            setScoreVisible(true);
-          } else {
-            toast("Better Luck Next Time...");
-          }
+
           // Show fire animation and play buzz sound
           document.getElementById("fire-animation").classList.remove("hidden");
           setIconSize(["w-[45px]", "w-[120px]"]);
           playBuzzSound();
           setTimeout(() => {
+            setOutputText(
+              outcomes[jack].type === "btc" || outcomes[jack].type === "berry"
+                ? `${outcomes[jack].points} X ${multiplier} = ${
+                    outcomes[jack].points * multiplier
+                  } ${outcomes[jack].type} Points`
+                : `+ ${outcomes[jack].points} ${outcomes[jack].type} Points`
+            );
+            if (outcomes[jack].type) {
+              setScoreVisible(true);
+            } else {
+              toast("Better Luck Next Time...");
+            }
             setIconSize(["w-[38px]", "w-[90px]"]);
             document.getElementById("fire-animation").classList.add("hidden");
           }, 4000);
