@@ -119,6 +119,7 @@ const JackpotGame = () => {
     historyVisible,
     setHistoryVisible,
     collectReward,
+    multiplier,
   } = useSpin();
   const [outputText, setOutputText] = useState("");
   const [leftIcons, setLeftIcons] = useState([
@@ -202,12 +203,14 @@ const JackpotGame = () => {
             type: outcomes[jack].type,
           });
           setOutputText(
-            `+ ${outcomes[jack].points} ${outcomes[jack].type} Points`
+            outcomes[jack].type === 'btc' || outcomes[jack].type === 'berry'
+              ? `${outcomes[jack].points} X ${multiplier} = ${outcomes[jack].points * multiplier} ${outcomes[jack].type} Points`
+              : `+ ${outcomes[jack].points} ${outcomes[jack].type} Points`
           );
           if (outcomes[jack].type) {
             setScoreVisible(true);
-          }else{
-            toast("Better Luck Next Time...")
+          } else {
+            toast("Better Luck Next Time...");
           }
         }
       }, duration);

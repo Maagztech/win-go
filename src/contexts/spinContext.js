@@ -3,7 +3,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useGlobal } from './globalContext';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { encryptData, bSpin, fetchERC20TokenData, getHistory, getReferal, getStreaks, reward, updateSpin, updateStreaks, userSpin, referalApi } from '@/data/spinData';
+import { encryptData, bSpin, fetchERC20TokenData, getHistory, getReferal, getStreaks, getMultiplier, reward, updateSpin, updateStreaks, userSpin, referalApi } from '@/data/spinData';
 
 const SpinContext = createContext();
 export const SpinProvider = ({ children }) => {
@@ -25,6 +25,8 @@ export const SpinProvider = ({ children }) => {
     setSpin(result);
     result = await getStreaks(userData.auth);
     setStreak(result);
+    result = await getMultiplier(userData.auth);
+    setMultiplier(result);
     result = await fetchERC20TokenData(userData.address);
     setBalance(result);
     result = await getHistory(userData.auth)
@@ -37,6 +39,9 @@ export const SpinProvider = ({ children }) => {
     setReferal(result);
     result = await axios.get('https://sdk.komet.me/bridge/convert?symbol=BTC');
     setRate(result.data.rate || 67058.80);
+    result = await axios.get("https://sdk.komet.me/slot/pool-status");
+    setPool(result.data);
+
   }
 
   useEffect(() => {

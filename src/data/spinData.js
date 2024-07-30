@@ -77,6 +77,22 @@ export const getStreaks = async (token) => {
     }
 };
 
+export const getMultiplier = async (token) => {
+    try {
+        const response = await axios.get(
+            'https://sdk.komet.me/slot/multiplier',
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+        return response.data.multiplier;
+    } catch (error) {
+        return 0;
+    }
+};
+
 export const updateStreaks = async (token) => {
     try {
         const response = await axios.post(
