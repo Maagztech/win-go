@@ -73,7 +73,7 @@ export const getStreaks = async (token) => {
         );
         return response.data.streaks;
     } catch (error) {
-        return 0;
+        return 1;
     }
 };
 

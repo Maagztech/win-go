@@ -10,7 +10,7 @@ import Scan from "@/assets/Scan.svg";
 import Up from "@/assets/Up.svg";
 import toast from "react-hot-toast";
 import { useSpin } from "@/contexts/spinContext";
-
+import { format } from "date-fns";
 const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
   const { isMobile } = useGlobal();
   const { history, rate, bit } = useSpin();
@@ -121,6 +121,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                 </div>
                 <div className="ml-[10px]">
                   <p className="text-[14px] font-medium mb-[2px]">
+                    {his.type == "btc" ? "$" : ""}
                     {his.points}
                   </p>
                   <p className="text-[12px] text-[#8A929A]">
@@ -128,12 +129,12 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                   </p>
                 </div>
               </div>
-              <div className="text-right">
-                <p className="text-[14px] font-medium mb-[2px]">
-                  {his.points * rate.toFixed(2)}
+              <div className="text-right flex flex-col justify-end">
+                <p className="text-[14px] font-medium ">
+                  {his.type == "btc" ? `${his.points / rate}WBTC` : ""}
                 </p>
-                <p className="text-[12px] text-[#8A929A]">
-                  {/* {new Intl.DateTimeFormat("en-GB").format(his.lastUpdated)} */}
+                <p className="text-[12px] text-[#8A929A] mt-[2px]">
+                  {format(new Date(his.lastUpdated), "MMMM dd, yyyy HH:mm:ss")}
                 </p>
               </div>
             </div>
