@@ -21,6 +21,7 @@ export const SpinProvider = ({ children }) => {
   const [historyVisible, setHistoryVisible] = useState(false);
   const [pool, setPool] = useState(null);
   const [gas, setGas] = useState(0);
+  const [low, setLow] = useState(false);
   const fetchData = async () => {
     let result = await userSpin(userData.auth);
     setSpin(result);
@@ -53,7 +54,7 @@ export const SpinProvider = ({ children }) => {
     }
   }, [userData])
 
-
+  useEffect(() => { if (balance * rate < 1 / 3) { setLow(true); } }, [balance, rate])
 
 
   const buySpin = async (spin, setTopup) => {
@@ -115,7 +116,7 @@ export const SpinProvider = ({ children }) => {
   }
 
   return (
-    <SpinContext.Provider value={{ collectReward, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
+    <SpinContext.Provider value={{ collectReward, low, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
       {children}
     </SpinContext.Provider>
   );

@@ -67,9 +67,7 @@ const OnMetaModal = ({ visible, setvisible }) => {
           <img src={Back.src} alt="" />
         </button>
         <p
-          className={`font-semibold text-2xl  leading-6 ${
-            isMobile ? "text-center flex-1" : ""
-          }`}
+          className={`font-semibold text-2xl  leading-6`}
           style={{ letterSpacing: "-0.04em" }}
         >
           Onmeta

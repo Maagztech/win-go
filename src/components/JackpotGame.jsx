@@ -123,6 +123,7 @@ const JackpotGame = () => {
     setHistoryVisible,
     collectReward,
     multiplier,
+    low,
   } = useSpin();
   const [outputText, setOutputText] = useState("");
   const [leftIcons, setLeftIcons] = useState([
@@ -391,11 +392,14 @@ const JackpotGame = () => {
           </p>
           <div
             className={`cursor-pointer relative ${
-              isMobile ? "mt-[10px]" : ""
-            } bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC] flex items-center`}
+              isMobile ? "mt-[10px] mb-3" : ""
+            } bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold flex items-center ${
+              low ? "text-[#DE3150]" : "text-[#CCCCCC]"
+            }`}
             style={{ fontFamily: "Oxanium" }}
             onClick={() => {
-              setBuySpin(true);
+              if (low) setTopupVisible(true);
+              else setBuySpin(true);
             }}
           >
             <img
@@ -403,7 +407,10 @@ const JackpotGame = () => {
               alt="Rupey"
               className="absolute left-[-11px] w-[21.18px] top-0"
             />
-            {balance} WBTC
+            {balance} WBTC{" "}
+            <span className="font-normal underline ml-[2px]">
+              Low on Balance
+            </span>
           </div>
         </div>
       </div>
