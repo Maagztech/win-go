@@ -10,9 +10,6 @@ import toast from "react-hot-toast";
 const CreateUsernameModal = ({ visible, setvisible }) => {
   const { isMobile, handleSubmit, username, setUsername, available } =
     useGlobal();
-  useEffect(() => {
-    console.log(available);
-  }, [available]);
   const customStylesModal = {
     content: {
       top: isMobile ? "auto" : "0%",
