@@ -44,7 +44,6 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
       contentLabel="Modal"
     >
       <div className="flex-1 px-4">
-   
         <div className="flex justify-center">
           {isMobile && <img src={Line.src} alt="Line" />}
         </div>
@@ -68,9 +67,10 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
           <div className="relative flex items-center">
             <input
               className="w-[2ch] font-medium text-[24px] leading-[30px] tracking-[-0.04em] bg-transparent text-white focus:outline-none"
-              type="number"
+              type="text"
               placeholder={0}
               value={s}
+              pattern="[0-9]"
               onChange={(e) => {
                 const value = e.target.value;
                 if (/^\d*$/.test(value)) {

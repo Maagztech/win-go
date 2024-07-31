@@ -12,13 +12,6 @@ export default function Home() {
     const { isMobile, loading, setLoading } = useGlobal();
     const { onmeta, setOnmeta } = useSpin();
     useEffect(() => { setLoading(false) }, [])
-    const change = () => {
-        const widgetElement = document?.getElementById("widget");
-        if (widgetElement) {
-            widgetElement.innerHTML = "";
-        }
-      
-    };
     if (isMobile === null || loading) return <></>;
     return (
         <main className="h-[100vh] bg-black bg-opacity-40 overflow-hidden flex flex-col w-full">
