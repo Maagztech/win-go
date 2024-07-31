@@ -1,15 +1,13 @@
 "use client";
 import Modal from "react-modal";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import React from "react";
 import { useGlobal } from "@/contexts/globalContext";
 import Line from "@/assets/modalLine.svg";
-import { useSpin } from "@/contexts/spinContext";
 
 const OnMetaModal = ({ visible, setvisible }) => {
   const router = useRouter();
-  const { userData, isMobile } = useGlobal();
-  const { opacity } = useSpin();
+  const { isMobile } = useGlobal();
   const customStylesModal = {
     content: {
       top: isMobile ? "auto" : "0%",

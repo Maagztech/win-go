@@ -15,23 +15,13 @@ import btcblack from "@/assets/btclogoblack.svg";
 import { useSpin } from "@/contexts/spinContext";
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile, userData } = useGlobal();
-  const {
-    balance,
-    low,
-    rate,
-    setOpacity,
-    opacity,
-    setOnmeta,
-    onmeta_fun,
-    referal,
-    bspin,
-  } = useSpin();
+  const { balance, low, rate, setOnmeta, onmeta_fun, referal, bspin } =
+    useSpin();
   const siteMainUrl = "https://spin-the-wheel-seven.vercel.app";
   const [w, setW] = useState();
   useEffect(() => {
     setW(bspin / (3 * rate));
-  }, [rate, bspin, w]);
-  const [selectedProvider, setSelectedProvider] = useState(0);
+  }, [rate, bspin]);
 
   const customStylesModal = {
     content: {
@@ -183,7 +173,6 @@ const ShareModal = ({ visible, setvisible }) => {
             onClick={() => {
               onmeta_fun(w);
               setvisible(false);
-              setOpacity(0);
             }}
           />
         </div>

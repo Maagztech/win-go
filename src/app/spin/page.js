@@ -10,14 +10,14 @@ import OnMetaModal from "@/components/OnMeta";
 import { useSpin } from "@/contexts/spinContext";
 export default function Home() {
     const { isMobile, loading, setLoading } = useGlobal();
-    const { onmeta, setOnmeta, opacity, setOpacity } = useSpin();
+    const { onmeta, setOnmeta } = useSpin();
     useEffect(() => { setLoading(false) }, [])
     const change = () => {
         const widgetElement = document?.getElementById("widget");
         if (widgetElement) {
             widgetElement.innerHTML = "";
         }
-        setOpacity(0);
+      
     };
     if (isMobile === null || loading) return <></>;
     return (

@@ -23,7 +23,6 @@ export const SpinProvider = ({ children }) => {
   const [pool, setPool] = useState(null);
   const [gas, setGas] = useState(0);
   const [low, setLow] = useState(false);
-  const [opacity, setOpacity] = useState(0);
   const [onmeta, setOnmeta] = useState(false);
   const [order, setOrder] = useState(false);
   const fetchData = async () => {
@@ -80,6 +79,7 @@ export const SpinProvider = ({ children }) => {
   const onmeta_fun = async (w) => {
     const address = userData?.address;
     const email = userData?.email;
+    if (rate * 84 * w < 50) toast("Minimum amount for topup is 50INR.")
     /* global onMetaWidget */
     // @ts-ignore
     if (document?.getElementById("widget")?.innerHTML === "") {
@@ -91,7 +91,7 @@ export const SpinProvider = ({ children }) => {
           walletAddress: address,
           userEmail: email,
           chainId: "137",
-          fiatAmount: rate * 84 * w,
+          fiatAmount: rate * 84 * w < 50 ? 50 : rate * 84 * w,
           fiatType: "inr",
           tokenAddress: "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6",
         });
@@ -169,7 +169,7 @@ export const SpinProvider = ({ children }) => {
   }
 
   return (
-    <SpinContext.Provider value={{ collectReward, onmeta_fun, bspin, setBspin, opacity, setOpacity, onmeta, setOnmeta, low, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
+    <SpinContext.Provider value={{ collectReward, onmeta_fun, bspin, setBspin, onmeta, setOnmeta, low, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
       {children}
     </SpinContext.Provider>
   );
