@@ -102,16 +102,6 @@ const generateUniqueCombination = (existingCombinations) => {
 const newUniqueCombination = generateUniqueCombination(outcomes);
 outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
 
-const finalResult = () => {
-  const rand = Math.random() * 100;
-  for (let i = 0; i < cumulativeProbabilities.length; i++) {
-    if (rand <= cumulativeProbabilities[i]) {
-      return i;
-    }
-  }
-  return cumulativeProbabilities.length - 1;
-};
-
 const JackpotGame = () => {
   const { isMobile, newUser, setNewUser } = useGlobal();
   const {
@@ -150,6 +140,19 @@ const JackpotGame = () => {
   const [iconSize, setIconSize] = useState(["w-[38px]", "w-[90px]"]);
   const [buySpin, setBuySpin] = useState(false);
   const [showGradient, setshowGradient] = useState(false);
+
+  const finalResult = () => {
+    const rand = newUser ? Math.random() * 3.15 : Math.random() * 100.5;
+    setNewUser(false);
+    for (let i = 0; i < cumulativeProbabilities.length; i++) {
+      if (rand <= cumulativeProbabilities[i]) {
+        return i;
+      }
+    }
+    return cumulativeProbabilities.length - 1;
+  };
+
+
   useEffect(() => {
     const img = new Image();
     img.src = Noreward.src;
