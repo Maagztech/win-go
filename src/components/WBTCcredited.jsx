@@ -1,11 +1,11 @@
 import { useGlobal } from "@/contexts/globalContext";
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import Success from "@/assets/Success.svg";
+import Success from "@/assets/WBTCcredited.svg";
 import Collect from "@/assets/collect.svg";
 import { useSpin } from "@/contexts/spinContext";
 import Noreward from "@/assets/noreward.svg";
-
+import wbtc from "@/assets/wbtc.svg";
 const ScoreModal = ({ visible, setvisible, outputText }) => {
   const { spinResult } = useSpin();
   const { isMobile } = useGlobal();
@@ -45,31 +45,17 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
       overlayClassName="Overlay"
       contentLabel="Modal"
     >
-      {spinResult?.type ? (
-        <>
-          <img src={Success.src} alt="" />
-          <p className="font-bold text-[20px] leading-[25px] mt-[-12px] mb-[19px]">
-            {outputText}
-          </p>
-          <button
-            onClick={async () => {
-              setvisible(false);
-            }}
-          >
-            <img src={Collect.src} alt="" />
-          </button>
-        </>
-      ) : (
-        imageLoaded && (
-          <>
-            <img src={Noreward.src} alt="" className="mb-[67px] mt-[83px]" />
-            <p className="font-bold text-[16px] leading-[20px]">No Rewards!</p>
-            <p className="font-bold text-[20px] leading-[25px] mt-[12px] mx-[30]">
-              Better luck next time!
-            </p>
-          </>
-        )
-      )}
+      <img src={Success.src} alt="" />
+      <p className="font-bold text-[20px] leading-[25px] mt-[-12px] mb-[19px]">
+        {outputText}
+      </p>
+      <button
+        onClick={async () => {
+          setvisible(false);
+        }}
+      >
+        <img src={Collect.src} alt="" />
+      </button>
     </Modal>
   );
 };

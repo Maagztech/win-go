@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSpin } from "@/contexts/spinContext";
 import { useGlobal } from "@/contexts/globalContext";
 import Noreward from "@/assets/noreward.svg";
@@ -141,6 +141,7 @@ const JackpotGame = () => {
     getRandomIcon(),
     getRandomIcon(),
   ]);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const [spinning, setSpinning] = useState(false);
   const [ruleVisible, setRuleVisible] = useState(false);
   const [shareVisible, setShareVisible] = useState(false);
@@ -149,6 +150,11 @@ const JackpotGame = () => {
   const [iconSize, setIconSize] = useState(["w-[38px]", "w-[90px]"]);
   const [buySpin, setBuySpin] = useState(false);
   const [showGradient, setshowGradient] = useState(false);
+  useEffect(() => {
+    const img = new Image();
+    img.src = Noreward.src;
+    img.onload = () => setImageLoaded(true);
+  }, []);
   const handleSpinClick = () => {
     setScoreVisible(false);
     if (spinning) return;
@@ -244,7 +250,11 @@ const JackpotGame = () => {
             <Ads />
             <TimeandBar />
             {scoreVisible && (
-              <div className="mt-[15px]  successBg flex flex-col items-center px-[17px] pb-[15px] rounded-[15px]">
+              <div
+                className={`mt-[15px] flex flex-col items-center px-[17px] pb-[15px] rounded-[15px] ${
+                  !imageLoaded ? "hidden" : "successBg"
+                }`}
+              >
                 {spinResult.type ? (
                   <>
                     <img src={Success.src} alt="" className="w-[180px]" />
@@ -370,7 +380,7 @@ const JackpotGame = () => {
             src={Topup.src}
             alt="Topup"
             className={`cursor-pointer `}
-            onClick={() => setTopupVisible(true)}
+            onClick={() => setBuySpin(true)}
           />
         </div>
         <div

@@ -3,32 +3,22 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import Line from "@/assets/modalLine.svg";
 import Onmeta from "@/assets/onmeta.svg";
-import Moonpay from "@/assets/moonpay.svg";
-import Continue from "@/assets/continue.svg";
 import LongLine from "@/assets/longLine.svg";
-import Selected from "@/assets/filledRadio.svg";
-import Unselected from "@/assets/unfillRadio.svg";
+import Share from "@/assets/Scan.svg";
+import buyhis from "@/assets/buyhis.svg";
 import Back from "@/assets/Back.svg";
-import MoonPayModal from "./MoonPay";
 import OnMetaModal from "./OnMeta";
 import toast from "react-hot-toast";
+import WBTC from "@/assets/AddWBTC.svg";
+import WBTClogo from "@/assets/btcLogo.svg";
+import btcblack from "@/assets/btclogoblack.svg";
+import { useSpin } from "@/contexts/spinContext";
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
+  const { balance, low, rate } = useSpin();
+  const [w, setW] = useState(null);
   const [selectedProvider, setSelectedProvider] = useState(0);
-  const [moonpay, setMoonpay] = useState(false);
   const [onmeta, setOnmeta] = useState(false);
-  const providers = [
-    {
-      img: Moonpay,
-      name: "Moonpay",
-      description: "Credit Card, Debit Card",
-    },
-    {
-      img: Onmeta,
-      name: "Onmeta",
-      description: "Bank transfer, UPI, Cards",
-    },
-  ];
 
   const customStylesModal = {
     content: {
@@ -36,7 +26,7 @@ const ShareModal = ({ visible, setvisible }) => {
       left: isMobile ? "0%" : "auto",
       right: "0%",
       bottom: "0%",
-      height: isMobile ? "420px" : "100%",
+      height: isMobile ? "550px" : "100%",
       width: isMobile ? "100%" : "400px",
       backgroundColor: "#252A3E",
       zIndex: 2000,
@@ -64,16 +54,13 @@ const ShareModal = ({ visible, setvisible }) => {
       contentLabel="Modal"
     >
       <div className="flex-1 px-4">
-        <div className="flex justify-center">
-          {isMobile && <img src={Line.src} alt="Line" />}
-        </div>
         <div
           className={`flex gap-[8px] justify-start mb-[28px] items-center ${
-            isMobile ? "mt-5" : "mt-[80px]"
+            isMobile ? "mt-[32px]" : "mt-[40px]"
           }`}
         >
           <button onClick={() => setvisible(false)}>
-            {!isMobile && <img src={Back.src} alt="Back" />}
+            <img src={Back.src} alt="Back" />
           </button>
           <p
             className={` ${
@@ -83,61 +70,109 @@ const ShareModal = ({ visible, setvisible }) => {
             }`}
             style={{ letterSpacing: "-0.04em" }}
           >
-            Choose your provider
+            Buy WBTC
           </p>
         </div>
-        {providers.map((provider, index) => (
-          <div key={index}>
-            <div
-              className="flex items-center justify-between cursor-pointer p-[12px]"
+        <div className="bg-[#353A4E] px-[12px] py-[23px]">
+          <div className="flex items-center gap-[8px]">
+            <img src={WBTClogo.src} alt="" />
+            <p className="text-[#ED675C] font-bold text-[23.19px] leading-[17.39px] tracking-[-0.04em]">
+              {balance}
+              {low && (
+                <span className="font-normal text-[15.46px] leading-[19.32px] ml-[2px]">
+                  Low in Balance
+                </span>
+              )}
+            </p>
+          </div>
+          <div className="border-b border-[#C9C5EB4D] mt-[12px] mb-[16px]"></div>
+          <p className="font-semibold text-[10.93px] leading-[13.66px] mb-1">
+            ADD WBTC
+          </p>
+          <div className="bg-[#06050D] px-[8px] py-[7px] mb-[12px] flex items-center gap-[8px] ">
+            <img src={btcblack.src} alt="" />
+            <input
+              className="font-bold text-[24px] leading-[30px] tracking-[-0.04em] bg-transparent text-white focus:outline-none"
+              type="text"
+              placeholder="Enter in WBTC"
+              value={w}
+              onChange={(e) => {
+                setW(e.target.value);
+              }}
+            />
+          </div>
+          <div className="flex justify-center gap-[12px]">
+            <button
+              className={`pt-[6px] pb-[4px] px-[8px] rounded-sm ${
+                w === 0.1
+                  ? "successBg text-white"
+                  : "bg-[#F1F0FA80] text-[#333333]"
+              } text-[11.59px]`}
               onClick={() => {
-                if (index === 1) toast("On meta is Down upto 15th May");
-                else handleProviderClick(index);
+                setW(0.1);
               }}
             >
-              <div className="flex items-center">
-                <img src={provider.img.src} alt={provider.name} />
-                <div className="ml-3">
-                  <p className="font-medium text-[14px] leading-[18px] mb-[2px]">
-                    {provider.name}
-                  </p>
-                  <p
-                    className="text-[12px] leading-[15px]"
-                    style={{ opacity: 0.6 }}
-                  >
-                    {provider.description}
-                  </p>
-                </div>
-              </div>
-              <img
-                src={selectedProvider === index ? Selected.src : Unselected.src}
-                alt=""
-              />
-            </div>
-            {index < providers.length - 1 && (
-              <div className="border-b border-[#C9C5EB4D] my-[10px]"></div>
-            )}
+              0.1 WBTC
+            </button>
+            <button
+              className={`pt-[6px] pb-[4px] px-[8px] rounded-sm ${
+                w === 0.5
+                  ? "successBg text-white"
+                  : "bg-[#F1F0FA80] text-[#333333]"
+              } text-[11.59px] `}
+              onClick={() => {
+                setW(0.5);
+              }}
+            >
+              0.5 WBTC
+            </button>
+            <button
+              className={`pt-[6px] pb-[4px] px-[8px] rounded-sm ${
+                w === 1
+                  ? "successBg text-white"
+                  : "bg-[#F1F0FA80] text-[#333333]"
+              } text-[11.59px]`}
+              onClick={() => {
+                setW(1);
+              }}
+            >
+              1 WBTC
+            </button>
           </div>
-        ))}
+          <img
+            src={WBTC.src}
+            alt=""
+            className="mt-3 cursor-pointer w-full px-[10px]"
+            onClick={() => {
+              setOnmeta(true);
+            }}
+          />
+        </div>
+        <div className="mt-[24px] rounded-[12px]  py-[12px] bg-[#353A4E] ">
+          <button className="flex items-center gap-2 px-[30px]">
+            <img src={buyhis.src} className="h-[16px] w-[16px]" alt="" />
+            <p className="text-[16px] tracking-[-0.04em]">Payment History</p>
+          </button>
+          <div className="border-b border-white my-[12px] ml-[55px]"></div>
+          <button className="flex items-center gap-2 px-[30px]">
+            <img src={Share.src} className="h-[16px] w-[16px]" alt="" />
+            <p className="text-[16px] tracking-[-0.04em]">Tell your Friends</p>
+          </button>
+        </div>
       </div>
       <div
-        className={`${
-          !isMobile ? "bottomShadow" : ""
-        } sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center`}
+        className={` bottomShadow
+        sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center`}
       >
-        <img
-          src={Continue.src}
-          alt=""
-          className="mt-3 cursor-pointer"
-          onClick={() => {
-            if (selectedProvider == 0) setMoonpay(true);
-            else setOnmeta(true);
-          }}
-        />
         <img src={LongLine.src} alt="" className="mt-7 mb-3" />
       </div>
-      <MoonPayModal visible={moonpay} setvisible={setMoonpay} />
-      <OnMetaModal visible={onmeta} setvisible={setOnmeta} />
+      {onmeta && (
+        <OnMetaModal
+          visible={onmeta}
+          setvisible={setOnmeta}
+          fiatAmount={rate * 83 * w}
+        />
+      )}
     </Modal>
   );
 };

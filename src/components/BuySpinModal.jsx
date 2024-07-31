@@ -49,7 +49,7 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
         </div>
         <div
           className={`flex gap-[8px] justify-start mb-[8px] items-center ${
-            isMobile ? "text-center mt-5" : "mt-[80px]"
+            isMobile ? "text-center mt-5" : "mt-[40px]"
           }`}
         >
           {/* <button onClick={() => setvisible(false)}>
@@ -70,7 +70,12 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
               type="number"
               placeholder={0}
               value={s}
-              onChange={(e) => setS(e.target.value)}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (/^\d*$/.test(value)) {
+                  setS(value);
+                }
+              }}
             />
           </div>
           <div className="border-l-[3px] border-white h-[30px]"></div>

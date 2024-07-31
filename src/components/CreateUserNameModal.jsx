@@ -45,7 +45,7 @@ const CreateUsernameModal = ({ visible, setvisible }) => {
         </div>
         <div
           className={`flex gap-[8px] justify-start mb-[28px] items-center ${
-            isMobile ? "text-center mt-5" : "mt-[80px]"
+            isMobile ? "text-center mt-5" : "mt-[40px]"
           }`}
         >
           <button onClick={() => setvisible(false)}>

@@ -11,11 +11,11 @@ const RulesModal = ({ visible, setvisible }) => {
 
   const customStylesModal = {
     content: {
-      top: isMobile ? "auto" : "0%",
+      top: isMobile ? "171px" : "0%",
       left: isMobile ? "0%" : "auto",
       right: "0%",
       bottom: "0%",
-      height: isMobile ? "650px" : "100%",
+      height: isMobile ? "auto" : "100%",
       width: isMobile ? "100%" : "400px",
       backgroundColor: "#252A3E",
       zIndex: 1050,
@@ -45,7 +45,7 @@ const RulesModal = ({ visible, setvisible }) => {
           </div>
           <div
             className={`flex gap-[8px] justify-start mb-[28px] items-center ${
-              isMobile ? "text-center mt-5" : "mt-[80px]"
+              isMobile ? "text-center mt-5" : "mt-[40px]"
             }`}
           >
             <button onClick={() => setvisible(false)}>

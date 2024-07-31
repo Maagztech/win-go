@@ -37,7 +37,7 @@ const ShareModal = ({ visible, setvisible }) => {
   };
 
   const shareReferral = () => {
-    const referralText = `Sign up on ${siteMainUrl} and win up to $10 free WBTC! Use my referral code ${referal} to get 2 extra spins.`;
+    const referralText = `Sign up on ${siteMainUrl} and win up to $10 free WBTC! Use my referral code ${referal} to get 1 extra spins.`;
     navigator.clipboard
       .writeText(referralText)
       .then(() => {
@@ -72,7 +72,7 @@ const ShareModal = ({ visible, setvisible }) => {
         </div>
         <div
           className={`flex gap-[8px]  mb-[28px] items-center ${
-            isMobile ? "mt-5 justify-between" : "mt-[80px]"
+            isMobile ? "mt-5 justify-between" : "mt-[40px]"
           }`}
         >
           {!isMobile && (

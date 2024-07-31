@@ -55,7 +55,7 @@ const ReferalModal = ({ visible, setvisible }) => {
         </div>
         <div
           className={`flex justify-between items-start mb-[16px] gap-[30px] ${
-            isMobile ? "mt-5" : "mt-[80px]"
+            isMobile ? "mt-5" : "mt-[40px]"
           }`}
         >
           <p
