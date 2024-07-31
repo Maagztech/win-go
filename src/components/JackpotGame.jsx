@@ -407,9 +407,11 @@ const JackpotGame = () => {
               className="absolute left-[-11px] w-[21.18px] top-0"
             />
             {balance} WBTC{" "}
-            <span className="font-normal underline ml-[2px]">
-              Low on Balance
-            </span>
+            {low && (
+              <span className="font-normal underline ml-[2px]">
+                Low on Balance
+              </span>
+            )}
           </div>
         </div>
       </div>
