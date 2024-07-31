@@ -157,9 +157,8 @@ export const spin3 = async (token) => {
                 }
             }
         );
-        toast("Your Todays spins updated Successfully ... ")
     } catch (error) {
-        toast("Error ! updating todays spin refresh ...")
+
     }
 }
 
