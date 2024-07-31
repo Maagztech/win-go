@@ -398,8 +398,7 @@ const JackpotGame = () => {
             }`}
             style={{ fontFamily: "Oxanium" }}
             onClick={() => {
-              if (low) setTopupVisible(true);
-              else setBuySpin(true);
+              setBuySpin(true);
             }}
           >
             <img
