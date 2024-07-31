@@ -38,7 +38,6 @@ const ShareModal = ({ visible, setvisible }) => {
 
   const shareReferral = () => {
     const referralText = `Sign up on ${siteMainUrl} and win up to $10 free WBTC! Use my referral code ${referal} to get 2 extra spins.`;
-
     navigator.clipboard
       .writeText(referralText)
       .then(() => {

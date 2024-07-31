@@ -2,6 +2,7 @@ import cryptojs from "crypto-js";
 import { ethers } from "ethers";
 import axios from "axios";
 import { deleteCookie } from "cookies-next";
+import toast from "react-hot-toast";
 const BASE_URL = "https://prod-api.komet.me/";
 
 export const avatars = [
@@ -137,29 +138,30 @@ export const slotRegister = async (token) => {
                 }
             }
         );
-        axios.post(
-            'https://sdk.komet.me/slot/signin-spin-update',
-            {},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
+
         return true;
     } catch (error) {
-        axios.post(
-            'https://sdk.komet.me/slot/signin-spin-update',
-            {},
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
+        await spin3(token);
         return false;
     }
 };
+
+export const spin3 = async (token) => {
+    try {
+        await axios.post(
+            'https://sdk.komet.me/slot/signin-spin-update',
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+        toast("Your Todays spins updated Successfully ... ")
+    } catch (error) {
+        toast("Error ! updating todays spin refresh ...")
+    }
+}
 
 
 export const generateSeedPhrase = async () => {

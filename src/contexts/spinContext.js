@@ -4,6 +4,7 @@ import { useGlobal } from './globalContext';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 import { encryptData, bSpin, fetchERC20TokenData, getHistory, getReferal, getStreaks, getMultiplier, reward, updateSpin, updateStreaks, userSpin, referalApi, findGas } from '@/data/spinData';
+import { spin3 } from '@/data/globalData';
 
 const SpinContext = createContext();
 export const SpinProvider = ({ children }) => {
@@ -37,7 +38,7 @@ export const SpinProvider = ({ children }) => {
     const btcPoints = result.filter(item => item.type === 'btc').reduce((acc, item) => acc + item.points, 0);
     setBerry(berryPoints);
     setBit(btcPoints);
-    result = getReferal(userData.auth);
+    result = await getReferal(userData.auth);
     setReferal(result);
     axios.get('https://sdk.komet.me/bridge/convert?symbol=BTC').then(response => setRate(response.data.rate)).catch(err => setRate(67058.80));
     result = await axios.get("https://sdk.komet.me/slot/pool-status").then(response => setPool(response.data)).catch(err => setPool(null));
@@ -98,6 +99,25 @@ export const SpinProvider = ({ children }) => {
     await fetchData();
   }
 
+  const [signInDate, setSignInDate] = useState(new Date().toISOString().split('T')[0]);
+
+  useEffect(() => {
+    const checkDateChange = async () => {
+      const currentDate = new Date().toISOString().split('T')[0];
+      if (currentDate !== signInDate) {
+        await spin3(userData.auth);
+        setSignInDate(currentDate);
+        fetchData();
+      }
+    };
+
+    const intervalId = setInterval(checkDateChange, 60 * 1000 * 5);
+
+    if (userData?.auth)
+      checkDateChange();
+
+    return () => clearInterval(intervalId);
+  }, [signInDate, userData]);
 
   useEffect(() => {
     if (!spinResult) return;
