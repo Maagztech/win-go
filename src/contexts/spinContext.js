@@ -23,6 +23,9 @@ export const SpinProvider = ({ children }) => {
   const [pool, setPool] = useState(null);
   const [gas, setGas] = useState(0);
   const [low, setLow] = useState(false);
+  const [opacity, setOpacity] = useState(0);
+  const [onmeta, setOnmeta] = useState(false);
+  const [order, setOrder] = useState(false);
   const fetchData = async () => {
     let result = await userSpin(userData.auth);
     setSpin(result);
@@ -57,7 +60,7 @@ export const SpinProvider = ({ children }) => {
 
   useEffect(() => { if (balance * rate < 1 / 3) { setLow(true); } }, [balance, rate])
 
-
+  const [bspin, setBspin] = useState(0);
   const buySpin = async (spin, setTopup) => {
     const res = await findGas();
     if (res + spin / 3 <= balance) {
@@ -68,10 +71,40 @@ export const SpinProvider = ({ children }) => {
       toast("Success")
     }
     else {
-      toast("Fund your account.")
+      setBspin(spin);
+      setOnmeta(true)
       setTopup(true);
     }
   }
+
+  const onmeta_fun = async (w) => {
+    const address = userData?.address;
+    const email = userData?.email;
+    /* global onMetaWidget */
+    // @ts-ignore
+    if (document?.getElementById("widget")?.innerHTML === "") {
+      if ("OnMetaWidget") {
+        // @ts-ignore
+        let createWidget = new onMetaWidget({
+          elementId: "widget",
+          apiKey: "900971f7-56c8-4c66-a3e2-c687f3590e8b",
+          walletAddress: address,
+          userEmail: email,
+          chainId: "137",
+          fiatAmount: rate * 84 * w,
+          fiatType: "inr",
+          tokenAddress: "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6",
+        });
+        createWidget.init();
+        createWidget.on("ORDER_COMPLETED_EVENTS", async (status) => { await fetchData(); setOnmeta(false); setOrder(true); });
+
+      } else {
+        console.error("Widget element not found");
+      }
+    } else {
+      console.error("onMetaWidget is not defined");
+    }
+  };
 
   function createCode(length) {
     let result = '';
@@ -136,7 +169,7 @@ export const SpinProvider = ({ children }) => {
   }
 
   return (
-    <SpinContext.Provider value={{ collectReward, low, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
+    <SpinContext.Provider value={{ collectReward, onmeta_fun, bspin, setBspin, opacity, setOpacity, onmeta, setOnmeta, low, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
       {children}
     </SpinContext.Provider>
   );

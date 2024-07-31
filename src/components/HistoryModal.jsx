@@ -68,6 +68,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
               alt="Back Button"
               className="pt-[30px] mr-[18px] cursor-pointer z-20"
               onClick={() => {
+                setvisible(false);
                 logoutFromKomet();
               }}
             />

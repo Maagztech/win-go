@@ -6,7 +6,7 @@ import Collect from "@/assets/collect.svg";
 import { useSpin } from "@/contexts/spinContext";
 import Noreward from "@/assets/noreward.svg";
 import wbtc from "@/assets/wbtc.svg";
-const ScoreModal = ({ visible, setvisible, outputText }) => {
+const WBTCModal = ({ visible, setvisible, outputText }) => {
   const { spinResult } = useSpin();
   const { isMobile } = useGlobal();
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -49,15 +49,8 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
       <p className="font-bold text-[20px] leading-[25px] mt-[-12px] mb-[19px]">
         {outputText}
       </p>
-      <button
-        onClick={async () => {
-          setvisible(false);
-        }}
-      >
-        <img src={Collect.src} alt="" />
-      </button>
     </Modal>
   );
 };
 
-export default ScoreModal;
+export default WBTCModal;

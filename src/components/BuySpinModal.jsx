@@ -44,6 +44,7 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
       contentLabel="Modal"
     >
       <div className="flex-1 px-4">
+   
         <div className="flex justify-center">
           {isMobile && <img src={Line.src} alt="Line" />}
         </div>

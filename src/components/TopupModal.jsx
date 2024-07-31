@@ -1,5 +1,5 @@
 import { useGlobal } from "@/contexts/globalContext";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import Line from "@/assets/modalLine.svg";
 import Onmeta from "@/assets/onmeta.svg";
@@ -14,11 +14,24 @@ import WBTClogo from "@/assets/btcLogo.svg";
 import btcblack from "@/assets/btclogoblack.svg";
 import { useSpin } from "@/contexts/spinContext";
 const ShareModal = ({ visible, setvisible }) => {
-  const { isMobile } = useGlobal();
-  const { balance, low, rate } = useSpin();
-  const [w, setW] = useState(null);
+  const { isMobile, userData } = useGlobal();
+  const {
+    balance,
+    low,
+    rate,
+    setOpacity,
+    opacity,
+    setOnmeta,
+    onmeta_fun,
+    referal,
+    bspin,
+  } = useSpin();
+  const siteMainUrl = "https://spin-the-wheel-seven.vercel.app";
+  const [w, setW] = useState();
+  useEffect(() => {
+    setW(bspin / (3 * rate));
+  }, [rate, bspin, w]);
   const [selectedProvider, setSelectedProvider] = useState(0);
-  const [onmeta, setOnmeta] = useState(false);
 
   const customStylesModal = {
     content: {
@@ -26,7 +39,7 @@ const ShareModal = ({ visible, setvisible }) => {
       left: isMobile ? "0%" : "auto",
       right: "0%",
       bottom: "0%",
-      height: isMobile ? "550px" : "100%",
+      height: isMobile ? "510px" : "100%",
       width: isMobile ? "100%" : "400px",
       backgroundColor: "#252A3E",
       zIndex: 2000,
@@ -39,15 +52,34 @@ const ShareModal = ({ visible, setvisible }) => {
     },
   };
 
-  const handleProviderClick = (index) => {
-    setSelectedProvider(index);
+  const shareReferral = () => {
+    const referralText = `Sign up on ${siteMainUrl} and win up to $10 free WBTC! Use my referral code ${referal} to get 1 extra spins.`;
+    navigator.clipboard
+      .writeText(referralText)
+      .then(() => {
+        if (navigator.share) {
+          navigator
+            .share({
+              title: "Referral Code",
+              text: referralText,
+              url: siteMainUrl,
+            })
+            .catch((error) => console.log("Error sharing", error));
+        } else {
+          toast("Referral code copied to clipboard!");
+        }
+      })
+      .catch((error) => console.log("Error copying text", error));
   };
 
   return (
     <Modal
       ariaHideApp={false}
       isOpen={visible}
-      onRequestClose={() => setvisible(false)}
+      onRequestClose={() => {
+        setvisible(false);
+        setOnmeta(false);
+      }}
       style={customStylesModal}
       className="Modal overflow-x-hidden"
       overlayClassName="Overlay"
@@ -59,7 +91,12 @@ const ShareModal = ({ visible, setvisible }) => {
             isMobile ? "mt-[32px]" : "mt-[40px]"
           }`}
         >
-          <button onClick={() => setvisible(false)}>
+          <button
+            onClick={() => {
+              setvisible(false);
+              setOnmeta(false);
+            }}
+          >
             <img src={Back.src} alt="Back" />
           </button>
           <p
@@ -73,7 +110,7 @@ const ShareModal = ({ visible, setvisible }) => {
             Buy WBTC
           </p>
         </div>
-        <div className="bg-[#353A4E] px-[12px] py-[23px]">
+        <div className="bg-[#353A4E] px-[12px] py-[23px] rounded-[12px]">
           <div className="flex items-center gap-[8px]">
             <img src={WBTClogo.src} alt="" />
             <p className="text-[#ED675C] font-bold text-[23.19px] leading-[17.39px] tracking-[-0.04em]">
@@ -92,7 +129,7 @@ const ShareModal = ({ visible, setvisible }) => {
           <div className="bg-[#06050D] px-[8px] py-[7px] mb-[12px] flex items-center gap-[8px] ">
             <img src={btcblack.src} alt="" />
             <input
-              className="font-bold text-[24px] leading-[30px] tracking-[-0.04em] bg-transparent text-white focus:outline-none"
+              className="font-bold text-[24px] leading-[30px] tracking-[-0.04em] bg-transparent text-white focus:outline-none overflow-hidden text-ellipsis whitespace-nowrap"
               type="text"
               placeholder="Enter in WBTC"
               value={w}
@@ -144,19 +181,31 @@ const ShareModal = ({ visible, setvisible }) => {
             alt=""
             className="mt-3 cursor-pointer w-full px-[10px]"
             onClick={() => {
-              setOnmeta(true);
+              onmeta_fun(w);
+              setvisible(false);
+              setOpacity(0);
             }}
           />
         </div>
         <div className="mt-[24px] rounded-[12px]  py-[12px] bg-[#353A4E] ">
-          <button className="flex items-center gap-2 px-[30px]">
+          {/* <button className="flex items-center gap-2 px-[30px]">
             <img src={buyhis.src} className="h-[16px] w-[16px]" alt="" />
             <p className="text-[16px] tracking-[-0.04em]">Payment History</p>
           </button>
-          <div className="border-b border-white my-[12px] ml-[55px]"></div>
-          <button className="flex items-center gap-2 px-[30px]">
-            <img src={Share.src} className="h-[16px] w-[16px]" alt="" />
-            <p className="text-[16px] tracking-[-0.04em]">Tell your Friends</p>
+          <div className="border-b border-white my-[12px] ml-[55px]"></div> */}
+          <button
+            className="flex items-start gap-2 px-[30px]"
+            onClick={() => shareReferral()}
+          >
+            <img src={Share.src} className="h-[16px] w-[14px]" alt="" />
+            <div>
+              <p className="text-[16px] tracking-[-0.04em] font-medium text-left mt-[-2px]">
+                Tell your Friends
+              </p>
+              <p className="text-[11.59px] leading-[14.49px] text-[#C4C4C4]">
+                & Unlock exclusive rewards 💫
+              </p>
+            </div>
           </button>
         </div>
       </div>
@@ -166,13 +215,6 @@ const ShareModal = ({ visible, setvisible }) => {
       >
         <img src={LongLine.src} alt="" className="mt-7 mb-3" />
       </div>
-      {onmeta && (
-        <OnMetaModal
-          visible={onmeta}
-          setvisible={setOnmeta}
-          fiatAmount={rate * 83 * w}
-        />
-      )}
     </Modal>
   );
 };
