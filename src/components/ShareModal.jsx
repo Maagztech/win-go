@@ -14,7 +14,7 @@ import toast from "react-hot-toast";
 
 const ShareModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
-  const { referal } = useSpin();
+  const { referal, referalPoints } = useSpin();
   const siteMainUrl = "https://spin-the-wheel-seven.vercel.app"; // Replace with your site main URL
 
   const customStylesModal = {
@@ -96,9 +96,9 @@ const ShareModal = ({ visible, setvisible }) => {
         <div className="flex items-center gap-[8px]">
           <img src={Points.src} alt="Points" />
           <p className="text-[14px] font-extrabold leading-[18px] tracking-[-0.04em] text-left">
-            290
-            <span className="ml-[2px] text-[12px] font-normal leading-[18px] tracking-[-0.04em] text-left opacity-40">
-              Points Earned
+            {referalPoints * 2}
+            <span className="ml-[4px] text-[12px] font-normal leading-[18px] tracking-[-0.04em] text-left opacity-40">
+              Extra Spins Earned
             </span>
           </p>
         </div>
@@ -110,7 +110,10 @@ const ShareModal = ({ visible, setvisible }) => {
             <div className="border-b border-[#F5F5FA] my-[21px] w-full"></div>
             <p>Friends Sign Up Using Your Referral</p>
             <div className="border-b border-[#F5F5FA] my-[21px] w-full"></div>
-            <p>Earn Rewards</p>
+            <p>Earn Rewards </p>
+            <span className="text-white text-[10px] text-opacity-60 tracking-wider">
+              ( 2 Spins and upto 3X reward Multiplier )
+            </span>
           </div>
         </div>
       </div>

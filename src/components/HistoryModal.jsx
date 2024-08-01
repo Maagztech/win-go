@@ -52,7 +52,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
           <img
             src={HistoryBg.src}
             alt="Background"
-            className="absolute bottom-0 left-0 object-cover z-[11] w-full" // Full cover background
+            className="absolute bottom-0 left-0 object-cover z-[11] w-full h-full" // Full cover background
           />
           <div className="flex justify-between items-center w-full">
             <img

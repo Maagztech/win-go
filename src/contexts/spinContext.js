@@ -25,6 +25,7 @@ export const SpinProvider = ({ children }) => {
   const [low, setLow] = useState(false);
   const [onmeta, setOnmeta] = useState(false);
   const [order, setOrder] = useState(false);
+  const [referalPoints, setReferalPoints] = useState(0);
   const fetchData = async () => {
     let result = await userSpin(userData.auth);
     setSpin(result);
@@ -41,7 +42,8 @@ export const SpinProvider = ({ children }) => {
     setBerry(berryPoints);
     setBit(btcPoints);
     result = await getReferal(userData.auth);
-    setReferal(result);
+    setReferal(result.referal_code);
+    setReferalPoints(result.points - 1);
     axios.get('https://sdk.komet.me/bridge/convert?symbol=BTC').then(response => setRate(response.data.rate)).catch(err => setRate(67058.80));
     result = await axios.get("https://sdk.komet.me/slot/pool-status").then(response => setPool(response.data)).catch(err => setPool(null));
   }
@@ -67,7 +69,7 @@ export const SpinProvider = ({ children }) => {
       await bSpin(userData.auth, spin);
       let result = await userSpin(userData.auth);
       setSpin(result);
-      toast("Success")
+      toast(spin + " Spins Added to Your Account.")
     }
     else {
       setBspin(spin);
@@ -169,7 +171,7 @@ export const SpinProvider = ({ children }) => {
   }
 
   return (
-    <SpinContext.Provider value={{ collectReward, onmeta_fun, bspin, setBspin, onmeta, setOnmeta, low, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
+    <SpinContext.Provider value={{ collectReward, onmeta_fun, referalPoints, bspin, setBspin, onmeta, setOnmeta, low, fetchBal, refaral, pool, historyVisible, setHistoryVisible, buySpin, referal, rate, history, setHistory, spinResult, setSpinResult, spin, streak, berry, balance, bit, multiplier }}>
       {children}
     </SpinContext.Provider>
   );

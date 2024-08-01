@@ -148,7 +148,7 @@ export const getReferal = async (token) => {
                 }
             }
         );
-        return response.data[0].referal_code;
+        return response.data[0];
     } catch (error) {
         console.error("Error:", error.response ? error.response.data : error.message); // Log error details
         return "";

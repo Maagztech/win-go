@@ -152,7 +152,6 @@ const JackpotGame = () => {
     return cumulativeProbabilities.length - 1;
   };
 
-
   useEffect(() => {
     const img = new Image();
     img.src = Noreward.src;
@@ -442,7 +441,7 @@ const JackpotGame = () => {
       <HistoryModal
         visible={historyVisible}
         setvisible={setHistoryVisible}
-        setTopup={setTopupVisible}
+        setTopup={setBuySpin}
         setShare={setShareVisible}
       />
       <ReferalModal visible={newUser} setvisible={setNewUser} />
