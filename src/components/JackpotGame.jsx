@@ -185,7 +185,7 @@ const JackpotGame = () => {
   const finalResult = () => {
     let probabilities = cumulativeProbabilities;
     if (mustReward) probabilities = cumulativeProbabilitiesNewUser;
-    const rand = Math.random() * 0.2;
+    const rand = Math.random() * 127.61;
 
     for (let i = 0; i < probabilities.length; i++) {
       if (rand <= probabilities[i]) {
