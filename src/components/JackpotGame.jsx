@@ -5,16 +5,16 @@ import { useSpin } from "@/contexts/spinContext";
 import { useGlobal } from "@/contexts/globalContext";
 import Noreward from "@/assets/noreward.svg";
 import SpinButton from "@/assets/spinButton.svg";
-import Icon1 from "@/assets/bitcoin.jpg";
-import Icon2 from "@/assets/brett.svg";
-import Icon3 from "@/assets/pepe.svg";
-import Icon4 from "@/assets/bobo.jpg";
-import Icon5 from "@/assets/rocket.jpg";
-import Icon6 from "@/assets/Berry.svg";
-import Icon7 from "@/assets/doge.svg";
-import Icon8 from "@/assets/bull.jpeg";
-import Icon9 from "@/assets/deathskull.jpg";
-import Icon10 from "@/assets/thunder.jpg";
+import Bitcoin from "@/assets/bitcoin.jpg";
+import Brett from "@/assets/brett.svg";
+import Pepe from "@/assets/pepe.svg";
+import Bobo from "@/assets/bobo.jpg";
+import Rocket from "@/assets/rocket.jpg";
+import Berry from "@/assets/Berry.svg";
+import Doge from "@/assets/doge.svg";
+import Bull from "@/assets/bull.jpeg";
+import Deathskull from "@/assets/deathskull.jpg";
+import Thunder from "@/assets/thunder.jpg";
 import SpinFrame from "@/assets/spinFrame.svg";
 import Rules from "@/assets/Rules.svg";
 import Share from "@/assets/Share.svg";
@@ -33,22 +33,56 @@ import Collect from "@/assets/collect.svg";
 import toast from "react-hot-toast";
 import Fire from "@/assets/fire.gif";
 import BuySpinModal from "./BuySpinModal";
+
 const icons = [
-  Icon1,
-  Icon2,
-  Icon3,
-  Icon4,
-  Icon5,
-  Icon6,
-  Icon7,
-  Icon8,
-  Icon9,
-  Icon10,
+  Bitcoin,
+  Brett,
+  Pepe,
+  Bobo,
+  Rocket,
+  Berry,
+  Doge,
+  Bull,
+  Deathskull,
+  Thunder,
 ];
 
 const cumulativeProbabilities = [
-  0.01, 0.04, 0.09, 0.59, 1.09, 1.11, 1.13, 2.13, 3.13, 3.15, 4.15, 5.15, 35.15,
-  65.15, 100.05,
+  0.01, // Bitcoin, Bitcoin, Bitcoin
+  0.03, // Bitcoin, Bitcoin, Pepe
+  0.06, // Bitcoin, Bitcoin, Brett
+  0.11, // Bitcoin, Brett, Brett
+  5.11, // Brett, Brett, Brett
+  10.11, // Pepe, Pepe, Pepe
+  20.11, // Berry, Berry, Berry
+  30.11, // Doge, Doge, Doge
+  60.11, // Any, Any, Deathskull
+  90.11, // Any, Any, Thunder
+  125.01, // Any other, Any other, Any other
+  125.21, // Bobo, Bobo, Bobo
+  125.41, // Bull, Bull, Bull
+  125.61, // Rocket, Rocket, Rocket
+  126.61, // Deathskull, Deathskull, Deathskull
+  127.61, // Thunder, Thunder, Thunder
+];
+
+const cumulativeProbabilitiesNewUser = [
+  0.01, // Bitcoin, Bitcoin, Bitcoin
+  5, // Bitcoin, Bitcoin, Pepe
+  17, // Bitcoin, Bitcoin, Brett
+  26, // Bitcoin, Brett, Brett
+  36, // Brett, Brett, Brett
+  50, // Pepe, Pepe, Pepe
+  70, // Berry, Berry, Berry
+  80, // Doge, Doge, Doge
+  100, // Any, Any, Deathskull
+  110, // Any, Any, Thunder
+  125.01, // Any other, Any other, Any other
+  125.21, // Bobo, Bobo, Bobo
+  125.41, // Bull, Bull, Bull
+  125.61, // Rocket, Rocket, Rocket
+  126.61, // Deathskull, Deathskull, Deathskull
+  127.61, // Thunder, Thunder, Thunder
 ];
 
 const getRandomIcon = () => {
@@ -57,28 +91,34 @@ const getRandomIcon = () => {
 };
 
 let outcomes = [
-  { combination: [Icon1, Icon1, Icon1], points: 10, type: "btc" },
-  { combination: [Icon1, Icon1, Icon2], points: 5, type: "btc" },
-  { combination: [Icon1, Icon2, Icon2], points: 2.5, type: "btc" },
-  { combination: [Icon2, Icon2, Icon2], points: 10, type: "berry" },
-  { combination: [Icon3, Icon3, Icon3], points: 10, type: "berry" },
-  { combination: [Icon4, Icon4, Icon4], points: 2, type: "multiplier" },
-  { combination: [Icon5, Icon5, Icon5], points: 1, type: "spin" },
-  { combination: [Icon6, Icon6, Icon6], points: 5, type: "berry" },
-  { combination: [Icon7, Icon7, Icon7], points: 5, type: "berry" },
-  { combination: [Icon8, Icon8, Icon8], points: 1.5, type: "multiplier" },
-  { combination: [Icon9, Icon9, Icon9], points: 0, type: null },
-  { combination: [Icon10, Icon10, Icon10], points: 0, type: null },
+  { combination: [Bitcoin, Bitcoin, Bitcoin], points: 10, type: "btc" },
+  { combination: [Bitcoin, Bitcoin, Pepe], points: 5, type: "btc" },
+  { combination: [Bitcoin, Bitcoin, Brett], points: 2.5, type: "btc" },
+  { combination: [Bitcoin, Brett, Brett], points: 0.5, type: "btc" },
+  { combination: [Brett, Brett, Brett], points: 1000, type: "berry" },
+  { combination: [Pepe, Pepe, Pepe], points: 750, type: "berry" },
+  { combination: [Berry, Berry, Berry], points: 500, type: "berry" },
+  { combination: [Doge, Doge, Doge], points: 250, type: "berry" },
   {
-    combination: [getRandomIcon(), getRandomIcon(), Icon9],
-    points: 0,
-    type: null,
+    combination: [getRandomIcon(), getRandomIcon(), Deathskull],
+    points: 50,
+    type: "berry",
   },
   {
-    combination: [getRandomIcon(), getRandomIcon(), Icon10],
-    points: 0,
-    type: null,
+    combination: [getRandomIcon(), getRandomIcon(), Thunder],
+    points: 25,
+    type: "berry",
   },
+  {
+    combination: [getRandomIcon(), getRandomIcon(), getRandomIcon()],
+    points: 5,
+    type: "berry",
+  },
+  { combination: [Bobo, Bobo, Bobo], points: 2, type: "multiplier" },
+  { combination: [Bull, Bull, Bull], points: 1.5, type: "multiplier" },
+  { combination: [Rocket, Rocket, Rocket], points: 1, type: "spin" },
+  { combination: [Deathskull, Deathskull, Deathskull], points: 0, type: null },
+  { combination: [Thunder, Thunder, Thunder], points: 0, type: null },
 ];
 
 const generateUniqueCombination = (existingCombinations) => {
@@ -103,7 +143,8 @@ const newUniqueCombination = generateUniqueCombination(outcomes);
 outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
 
 const JackpotGame = () => {
-  const { isMobile, newUser, setNewUser } = useGlobal();
+  const { isMobile, newUser, setNewUser, mustReward, setMustReward } =
+    useGlobal();
   const {
     setSpinResult,
     spinResult,
@@ -142,14 +183,17 @@ const JackpotGame = () => {
   const [showGradient, setshowGradient] = useState(false);
 
   const finalResult = () => {
-    const rand = newUser ? Math.random() * 3.15 : Math.random() * 100.5;
-    setNewUser(false);
-    for (let i = 0; i < cumulativeProbabilities.length; i++) {
-      if (rand <= cumulativeProbabilities[i]) {
+    let probabilities = cumulativeProbabilities;
+    if (mustReward) probabilities = cumulativeProbabilitiesNewUser;
+    const rand = Math.random() * 0.2;
+
+    for (let i = 0; i < probabilities.length; i++) {
+      if (rand <= probabilities[i]) {
+        if (i < 5) setMustReward(false);
         return i;
       }
     }
-    return cumulativeProbabilities.length - 1;
+    return probabilities.length - 1;
   };
 
   useEffect(() => {
@@ -227,7 +271,7 @@ const JackpotGame = () => {
                 ? `+ ${outcomes[jack].type === "btc" ? "$" : ""}${
                     outcomes[jack].points
                   } X ${multiplier} = ${outcomes[jack].points * multiplier} ${
-                    outcomes[jack].type === "btc" ? "WBTC" : "Bery  Points"
+                    outcomes[jack].type === "btc" ? "$ WBTC" : "Bery  Points"
                   }`
                 : `+ ${outcomes[jack].points} ${outcomes[jack].type} `
             );
@@ -428,7 +472,11 @@ const JackpotGame = () => {
         </div>
       </div>
 
-      <RulesModal visible={ruleVisible} setvisible={setRuleVisible} />
+      <RulesModal
+        visible={ruleVisible}
+        setvisible={setRuleVisible}
+        outcome={outcomes}
+      />
       <ShareModal visible={shareVisible} setvisible={setShareVisible} />
       <TopupModal visible={topupVisible} setvisible={setTopupVisible} />
       {isMobile && (

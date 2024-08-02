@@ -6,7 +6,7 @@ import Okay from "@/assets/Okay.svg";
 import LongLine from "@/assets/longLine.svg";
 import Back from "@/assets/Back.svg";
 
-const RulesModal = ({ visible, setvisible }) => {
+const RulesModal = ({ visible, setvisible, outcome }) => {
   const { isMobile } = useGlobal();
 
   const customStylesModal = {
@@ -28,6 +28,8 @@ const RulesModal = ({ visible, setvisible }) => {
     },
   };
 
+  const filteredOutcome = outcome.filter(icons => icons.points !== 0);
+
   return (
     <Modal
       ariaHideApp={false}
@@ -39,7 +41,7 @@ const RulesModal = ({ visible, setvisible }) => {
       contentLabel="Modal"
     >
       <div className="flex flex-col h-full relative">
-        <div className="px-4 w-full overflow-Y-scroll flex-grow mb-[20px]">
+        <div className="px-4 w-full overflow-y-scroll flex-grow mb-[20px]">
           <div className="flex justify-center">
             {isMobile && <img src={Line.src} alt="Line" />}
           </div>
@@ -60,7 +62,31 @@ const RulesModal = ({ visible, setvisible }) => {
               Rules & Regulation
             </p>
           </div>
-          <div className="mt-5 flex-1 overflow-y-auto">
+          <div className="mt-5 gradientText text-center">
+            <p className="font-semibold">Paytable</p>
+            <div className="pl-5 mt-3 grid grid-cols-2 gap-4">
+              {filteredOutcome.map((icons, index) => (
+                <div key={index} className="flex items-center gap-[4px]">
+                  <div className="flex items-center gap-[-2px]">
+                    {icons.combination.map((icon, idx) => (
+                      <img
+                        src={icon.src}
+                        alt={`Icon ${idx}`}
+                        key={idx}
+                        className="w-[16px] h-[16px] rounded-full"
+                      />
+                    ))}
+                  </div>
+                  <span className="text-[11px]">
+                    {icons.type === "btc" || icons.type === "berry"
+                      ? `+ ${icons.type === "btc" ? "$" : ""} ${icons.points} ${icons.type === "btc" ? "WBTC" : "Bery Points"}`
+                      : `+ ${icons.points} ${icons.type} `}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-[35px] flex-1 overflow-y-auto">
             <ul className="list-disc pl-5 space-y-3 text-base font-normal leading-6 text-left text-white">
               <li>
                 Players should determine a fixed budget for their gameplay and

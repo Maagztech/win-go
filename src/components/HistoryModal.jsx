@@ -76,9 +76,9 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
           <div className="mt-[44px] flex flex-col items-center w-full relative z-20">
             <p className="text-[12px]">BALANCE IN USD</p>
             <p className="mt-[8px] text-[40px] font-medium">
-              $ {bit * rate.toFixed(2).split(".")[0]}.
+              $ {bit.toString().split(".")[0]}.
               <span className="text-[23px]">
-                {bit * rate.toFixed(2).split(".")[1]}
+                {bit.toFixed(5).split(".")[1]}
               </span>
             </p>
             <div className="mt-[35px] flex w-[340px] justify-between">
@@ -153,7 +153,9 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
               </div>
               <div className="text-right flex flex-col justify-end">
                 <p className="text-[14px] font-medium ">
-                  {his.type == "btc" ? `${his.points / rate}WBTC` : ""}
+                  {his.type == "btc"
+                    ? `${(his.points / rate).toFixed(15)} WBTC`
+                    : ""}
                 </p>
                 <p className="text-[12px] text-[#8A929A] mt-[2px]">
                   {format(new Date(his.lastUpdated), "MMMM dd, yyyy HH:mm:ss")}

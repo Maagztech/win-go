@@ -24,6 +24,7 @@ export const GlobalProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [username, setUsername] = useState("");
     const [userPannel, setUserPannel] = useState(false);
+    const [mustReward, setMustReward] = useState(false);
     const getEmail = async (res) => {
         try {
             const info = parseJwt(res.credential);
@@ -51,6 +52,7 @@ export const GlobalProvider = ({ children }) => {
                 localStorage.setItem("auth", bearerToken);
                 const u = await slotRegister(bearerToken);
                 setNewUser(u);
+                setMustReward(u);
                 const userData = await fetchUser(bearerToken);
                 const primaryAddress = userData?.success?.data?.userWallets?.filter(
                     (item) => {
@@ -64,7 +66,7 @@ export const GlobalProvider = ({ children }) => {
                 const username = userData?.success?.data?.username;
                 const res = await fetchSeed(token, bearerToken, address);
                 if (res.data?.seedPhrase) {
-                    
+
                     localStorage.setItem("auth", bearerToken || null);
                     setCookie("auth", bearerToken, { maxAge: 60 * 60 * 24 * 14 });
                     const seedPhrase = await decryptData(res.data.seedPhrase, APIKEY);
@@ -87,7 +89,7 @@ export const GlobalProvider = ({ children }) => {
                         localStorage.setItem("address", WalletInfo?.address);
                         setUserData(userInfo);
                         router.push("/spin");
-                        
+
                     }
                 }
             }
@@ -145,6 +147,7 @@ export const GlobalProvider = ({ children }) => {
                 localStorage.setItem("auth", bearerToken);
                 const u = await slotRegister(bearerToken);
                 setNewUser(u);
+                setMustReward(u);
                 const userData = await fetchUser(bearerToken);
                 const userId = userData?.success?.data?.userId;
                 localStorage.setItem("userid", userId);
@@ -229,6 +232,7 @@ export const GlobalProvider = ({ children }) => {
         else router.push("/spin")
         const u = await slotRegister(auth);
         setNewUser(u);
+        setMustReward(u);
         const res = await fetchSeed(token, auth, address);
         const seedPhrase = await decryptData(res.data.seedPhrase, APIKEY);
         const userDataRes = await fetchUserStatus(auth, router);
@@ -266,7 +270,7 @@ export const GlobalProvider = ({ children }) => {
     }, []);
 
     return (
-        <GlobalContext.Provider value={{ available, username, setUsername, isMobile, logoutFromKomet, userPannel, loading, setLoading, getEmail, userData, handleChange, handleSubmit, UserNameAvailablity, username, setUsername, newUser, setNewUser, userPannel, setUserPannel }}>
+        <GlobalContext.Provider value={{ mustReward, setMustReward, available, username, setUsername, isMobile, logoutFromKomet, userPannel, loading, setLoading, getEmail, userData, handleChange, handleSubmit, UserNameAvailablity, username, setUsername, newUser, setNewUser, userPannel, setUserPannel }}>
             {children}
         </GlobalContext.Provider>
     );

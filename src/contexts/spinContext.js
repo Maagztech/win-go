@@ -26,6 +26,7 @@ export const SpinProvider = ({ children }) => {
   const [onmeta, setOnmeta] = useState(false);
   const [order, setOrder] = useState(false);
   const [referalPoints, setReferalPoints] = useState(0);
+
   const fetchData = async () => {
     let result = await userSpin(userData.auth);
     setSpin(result);
@@ -36,7 +37,7 @@ export const SpinProvider = ({ children }) => {
     result = await fetchERC20TokenData(userData.address);
     setBalance(result);
     result = await getHistory(userData.auth)
-    setHistory(result);
+    setHistory(result.reverse());
     const berryPoints = result.filter(item => item.type === 'berry').reduce((acc, item) => acc + item.points, 0);
     const btcPoints = result.filter(item => item.type === 'btc').reduce((acc, item) => acc + item.points, 0);
     setBerry(berryPoints);
