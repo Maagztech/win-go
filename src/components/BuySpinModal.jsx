@@ -9,6 +9,7 @@ import Refresh from "@/assets/refresh.svg";
 import { useSpin } from "@/contexts/spinContext";
 import Polygon from "@/assets/polygon.svg";
 import { getProfileImage } from "@/data/globalData";
+import Back from "@/assets/Back.svg";
 const BuySpinModal = ({ visible, setvisible, setTopup }) => {
   const { isMobile, userData } = useGlobal();
   const { balance, fetchBal, buySpin } = useSpin();
@@ -52,9 +53,11 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
             isMobile ? "text-center mt-5" : "mt-[40px]"
           }`}
         >
-          {/* <button onClick={() => setvisible(false)}>
-            <img src={Back.src} alt="" />
-          </button> */}
+          {!isMobile && (
+            <button onClick={() => setvisible(false)}>
+              <img src={Back.src} alt="" />
+            </button>
+          )}
           <p
             className={`text-[14px] text-white  leading-[18px] text-opacity-60`}
             style={{ letterSpacing: "-0.04em" }}

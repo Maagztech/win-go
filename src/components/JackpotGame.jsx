@@ -75,14 +75,13 @@ const cumulativeProbabilitiesNewUser = [
   50, // Pepe, Pepe, Pepe
   70, // Berry, Berry, Berry
   80, // Doge, Doge, Doge
-  100, // Any, Any, Deathskull
-  110, // Any, Any, Thunder
-  125.01, // Any other, Any other, Any other
+  100, // Deathskull, Deathskull, Deathskull
+  110, // Thunder, Thunder, Thunder
+  125.01, // Deathskull,Thunder, Deathskull
   125.21, // Bobo, Bobo, Bobo
   125.41, // Bull, Bull, Bull
   125.61, // Rocket, Rocket, Rocket
-  126.61, // Deathskull, Deathskull, Deathskull
-  127.61, // Thunder, Thunder, Thunder
+  127.61, // Any other, Any other, Any other
 ];
 
 const getRandomIcon = () => {
@@ -100,25 +99,23 @@ let outcomes = [
   { combination: [Berry, Berry, Berry], points: 500, type: "berry" },
   { combination: [Doge, Doge, Doge], points: 250, type: "berry" },
   {
-    combination: [getRandomIcon(), getRandomIcon(), Deathskull],
+    combination: [Deathskull, Deathskull, Deathskull],
     points: 50,
     type: "berry",
   },
   {
-    combination: [getRandomIcon(), getRandomIcon(), Thunder],
+    combination: [Thunder, Thunder, Thunder],
     points: 25,
     type: "berry",
   },
   {
-    combination: [getRandomIcon(), getRandomIcon(), getRandomIcon()],
+    combination: [Deathskull, Thunder, Deathskull],
     points: 5,
     type: "berry",
   },
   { combination: [Bobo, Bobo, Bobo], points: 2, type: "multiplier" },
   { combination: [Bull, Bull, Bull], points: 1.5, type: "multiplier" },
-  { combination: [Rocket, Rocket, Rocket], points: 1, type: "spin" },
-  { combination: [Deathskull, Deathskull, Deathskull], points: 0, type: null },
-  { combination: [Thunder, Thunder, Thunder], points: 0, type: null },
+  { combination: [Rocket, Rocket, Rocket], points: 1, type: "spin" }
 ];
 
 const generateUniqueCombination = (existingCombinations) => {

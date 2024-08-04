@@ -4,7 +4,8 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useGlobal } from "@/contexts/globalContext";
 import Line from "@/assets/modalLine.svg";
-
+import Cross from "@/assets/cross.svg";
+import Back from "@/assets/Back.svg";
 const OnMetaModal = ({ visible, setvisible }) => {
   const router = useRouter();
   const { isMobile } = useGlobal();
@@ -40,9 +41,30 @@ const OnMetaModal = ({ visible, setvisible }) => {
       <div className="flex justify-center">
         {isMobile && <img src={Line.src} alt="Line" />}
       </div>
-      <div className={`mt-4 pb-[30px] flex-1 justify-start flex items-center`}>
-        <div id="widget"></div>
+      <div
+        className={`flex w-full gap-[8px]  mb-[28px] items-center ${
+          isMobile ? "mt-5 justify-between" : "mt-[40px]"
+        }`}
+      >
+        {!isMobile && (
+          <button onClick={() => setvisible(false)}>
+            <img src={Back.src} alt="Back" />
+          </button>
+        )}
+
+        <p
+          className={`font-semibold text-2xl leading-6`}
+          style={{ letterSpacing: "-0.04em" }}
+        >
+          Add WBTC
+        </p>
+        {isMobile && (
+          <button onClick={() => setvisible(false)} className="p-1">
+            <img src={Cross.src} alt="" />
+          </button>
+        )}
       </div>
+      <div id="widget" className=" w-full h-full pb-3"></div>
     </Modal>
   );
 };

@@ -7,6 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import Head from "next/head";
 import Script from "next/script";
 import ReactGA from "react-ga4";
+
 import ToasterComponent from "@/components/ToastComponent";
 
 ReactGA.initialize("G-ECM3YKQBD3");
