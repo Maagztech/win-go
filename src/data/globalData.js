@@ -89,19 +89,24 @@ export const fetchSeed = async (
     accessToken,
     address
 ) => {
-    const result = await axios.post(
-        `${BASE_URL}userSeed/fetch?walletAddress=${address}`,
-        {
-            token,
-        },
-        {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
+    try {
+        const result = await axios.post(
+            `${BASE_URL}userSeed/fetch?walletAddress=${address}`,
+            {
+                token,
             },
-        }
-    );
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        );
 
-    return result;
+        return result;
+    } catch (error) {
+        console.log("an error occured");
+    }
+
 };
 
 

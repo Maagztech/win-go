@@ -115,7 +115,7 @@ let outcomes = [
   },
   { combination: [Bobo, Bobo, Bobo], points: 2, type: "multiplier" },
   { combination: [Bull, Bull, Bull], points: 1.5, type: "multiplier" },
-  { combination: [Rocket, Rocket, Rocket], points: 1, type: "spin" }
+  { combination: [Rocket, Rocket, Rocket], points: 1, type: "spin" },
 ];
 
 const generateUniqueCombination = (existingCombinations) => {
@@ -267,7 +267,9 @@ const JackpotGame = () => {
               outcomes[jack].type === "btc" || outcomes[jack].type === "berry"
                 ? `+ ${outcomes[jack].type === "btc" ? "$" : ""}${
                     outcomes[jack].points
-                  } X ${multiplier} = ${outcomes[jack].points * multiplier} ${
+                  } X ${multiplier} = ${(
+                    outcomes[jack].points * multiplier
+                  ).toFixed(2)} ${
                     outcomes[jack].type === "btc" ? "$ WBTC" : "Bery  Points"
                   }`
                 : `+ ${outcomes[jack].points} ${outcomes[jack].type} `

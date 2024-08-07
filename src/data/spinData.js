@@ -99,7 +99,7 @@ export const getMultiplier = async (token) => {
                 }
             }
         );
-        return response.data.multiplier;
+        return response.data.multiplier.toFixed(1);
     } catch (error) {
         return 1;
     }
