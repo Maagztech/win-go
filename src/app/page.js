@@ -22,13 +22,13 @@ export default function Home() {
           <div className="relative flex flex-col items-center">
             <img src={OnboardMobileBg.src} alt="" className="w-full absolute z-0 bottom-0" />
             <p style={{ fontFamily: "Overpass, sans-serif" }} className="font-medium text-[32px] leading-[38.4px] z-20 mt-[62.65px]">Bitcoin Cashout</p>
-            <div className="relative h-[42px] w-[311px] mt-[28px] mb-[35px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out flex justify-center">
+            <div className="relative h-[42px] w-[311px] mt-[28px] mb-[35px] flex justify-center">
               <div
                 style={{ zIndex: 3 }}
-                className="opacity-0 absolute top-0 right-0 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+                className="opacity-0 absolute top-0 right-0 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out "
               >
                 <GoogleLogin
-                  width="300px"
+                  width="400px"
                   onSuccess={(credentialResponse) => {
                     getEmail(credentialResponse);
                     localStorage.setItem(
@@ -46,7 +46,7 @@ export default function Home() {
                   e.preventDefault();
                 }}
                 style={{ zIndex: 1 }}
-                className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out opacity-100 rounded-[8px] flex flex-row justify-center items-center h-[42px] absolute top-[3px]"
+                className="opacity-100 rounded-[8px] flex flex-row justify-center items-center h-[42px] absolute top-[3px]"
               >
                 <img src={EnterButton.src} alt="" />
               </button>

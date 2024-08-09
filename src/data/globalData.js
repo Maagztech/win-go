@@ -1,7 +1,7 @@
 import cryptojs from "crypto-js";
 import { ethers } from "ethers";
 import axios from "axios";
-import bip39 from "bip39"
+import { entropyToMnemonic } from "bip39";
 import { deleteCookie } from "cookies-next";
 import { randomBytes } from "crypto-browserify";
 const BASE_URL = "https://prod-api.komet.me/";
@@ -171,7 +171,7 @@ export const spin3 = async (token) => {
 
 export const generateSeedPhrase = async () => {
     const random = randomBytes(16);
-    const mnemonic = await bip39.entropyToMnemonic(random.toString("hex"));
+    const mnemonic = entropyToMnemonic(random.toString("hex"));
     return mnemonic;
 };
 

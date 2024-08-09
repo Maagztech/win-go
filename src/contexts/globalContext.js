@@ -2,7 +2,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { setCookie, getCookie, deleteCookie } from "cookies-next";
-import { generateSeedPhrase, checkUserName, fetchUserStatus, fetchUser, parseJwt, checkEmailAccountExists, login, fetchSeed, decryptData, encryptData, getOneAccountDetails, slotRegister } from "@/data/globalData"
+import { generateSeedPhrase, checkUserName, fetchUserStatus, fetchUser, parseJwt, checkEmailAccountExists, login, fetchSeed, decryptData, encryptData, getOneAccountDetails, slotRegister, RegisterNewUser, linkAddress, SaveSeedToBackend } from "@/data/globalData"
 import { useRouter } from "next/navigation";
 const APIKEY = "hl23n6dgigp2pgvtzt7sm0nw4caiau11";
 const KEY = "W4DRnUcof83pbRzEFp8U24vbTr7vzSil";
@@ -151,7 +151,6 @@ export const GlobalProvider = ({ children }) => {
                 const userData = await fetchUser(bearerToken);
                 const userId = userData?.success?.data?.userId;
                 localStorage.setItem("userid", userId);
-                console.log(response.response);
                 if (response.status == 200) {
                     const text = await encryptData(phrase, key);
                     const WalletInfo = getOneAccountDetails(phrase);
@@ -190,7 +189,7 @@ export const GlobalProvider = ({ children }) => {
                             share: share,
                             wallets: [
                                 {
-                                    email: email,
+                                    email: emailAdd,
                                     type: "KOMET_WALLET",
                                     userId: userId,
                                     username: username,
