@@ -31,7 +31,6 @@ import TimeandBar from "./TimeandBar";
 import Success from "@/assets/Success.svg";
 import Collect from "@/assets/collect.svg";
 import toast from "react-hot-toast";
-import Fire from "@/assets/fire.gif";
 import BuySpinModal from "./BuySpinModal";
 
 const icons = [
