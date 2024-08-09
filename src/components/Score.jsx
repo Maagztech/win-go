@@ -45,31 +45,41 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
       overlayClassName="Overlay"
       contentLabel="Modal"
     >
-      {spinResult?.type ? (
+      {spinResult && (
         <>
-          <img src={Success.src} alt="" />
-          <p className="font-bold text-[20px] leading-[25px] mt-[-12px] mb-[19px]">
-            {outputText}
-          </p>
-          <button
-            onClick={async () => {
-              setvisible(false);
-            }}
-            className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
-          >
-            <img src={Collect.src} alt="" />
-          </button>
+          {spinResult?.type ? (
+            <>
+              <img src={Success.src} alt="" />
+              <p className="font-bold text-[20px] leading-[25px] mt-[-12px] mb-[19px]">
+                {outputText}
+              </p>
+              <button
+                onClick={async () => {
+                  setvisible(false);
+                }}
+                className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+              >
+                <img src={Collect.src} alt="" />
+              </button>
+            </>
+          ) : (
+            imageLoaded && (
+              <>
+                <img
+                  src={Noreward.src}
+                  alt=""
+                  className="mb-[67px] mt-[83px]"
+                />
+                <p className="font-bold text-[16px] leading-[20px]">
+                  No Rewards!
+                </p>
+                <p className="font-bold text-[20px] leading-[25px] mt-[12px] mx-[30]">
+                  Better luck next time!
+                </p>
+              </>
+            )
+          )}
         </>
-      ) : (
-        imageLoaded && (
-          <>
-            <img src={Noreward.src} alt="" className="mb-[67px] mt-[83px]" />
-            <p className="font-bold text-[16px] leading-[20px]">No Rewards!</p>
-            <p className="font-bold text-[20px] leading-[25px] mt-[12px] mx-[30]">
-              Better luck next time!
-            </p>
-          </>
-        )
       )}
     </Modal>
   );

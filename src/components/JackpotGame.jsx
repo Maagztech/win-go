@@ -241,13 +241,13 @@ const JackpotGame = () => {
             getRandomIcon(),
           ]);
         else if (index == 1)
-          setLeftIcons([
+          setMiddleIcons([
             getRandomIcon(),
             outcomes[jack].combination[1],
             getRandomIcon(),
           ]);
         else {
-          setLeftIcons([
+          setRightIcons([
             getRandomIcon(),
             outcomes[jack].combination[1],
             getRandomIcon(),
