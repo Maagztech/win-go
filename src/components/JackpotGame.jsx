@@ -204,9 +204,7 @@ const JackpotGame = () => {
       toast("No spins left ,Buy spin.");
       return;
     }
-    outcomes.pop();
-    const newUniqueCombination = generateUniqueCombination(outcomes);
-    outcomes.push({ combination: newUniqueCombination, points: 0, type: null });
+
     setSpinResult(null);
     setSpinning(true);
     const spinDurations = [4000, 4000, 4000];
@@ -276,6 +274,14 @@ const JackpotGame = () => {
             setScoreVisible(true);
             setshowGradient(false);
             setIconSize(["w-[38px]", "w-[90px]"]);
+
+            outcomes.pop();
+            const newUniqueCombination = generateUniqueCombination(outcomes);
+            outcomes.push({
+              combination: newUniqueCombination,
+              points: 0,
+              type: null,
+            });
           }, 2000);
         }
       }, duration);
@@ -299,30 +305,34 @@ const JackpotGame = () => {
                   !imageLoaded ? "hidden" : "successBg"
                 }`}
               >
-                {spinResult.type ? (
+                {spinResult && (
                   <>
-                    <img src={Success.src} alt="" className="w-[180px]" />
-                    <p className="font-bold text-[20px] leading-[25px] mt-[-15px] mb-[15px]">
-                      {outputText}
-                    </p>
-                    <button
-                      onClick={async () => {
-                        setScoreVisible(false);
-                      }}
-                      className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
-                    >
-                      <img src={Collect.src} alt="" />
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <img src={Noreward.src} alt="" className="my-[30px]" />
-                    <p className="font-bold text-[16px] leading-[20px]">
-                      No Rewards!{" "}
-                    </p>
-                    <p className="font-bold text-[20px] leading-[25px] mt-[12px] mb-[7px]">
-                      Better luck next time!
-                    </p>
+                    {spinResult.type ? (
+                      <>
+                        <img src={Success.src} alt="" className="w-[180px]" />
+                        <p className="font-bold text-[20px] leading-[25px] mt-[-15px] mb-[15px]">
+                          {outputText}
+                        </p>
+                        <button
+                          onClick={async () => {
+                            setScoreVisible(false);
+                          }}
+                          className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+                        >
+                          <img src={Collect.src} alt="" />
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <img src={Noreward.src} alt="" className="my-[30px]" />
+                        <p className="font-bold text-[16px] leading-[20px]">
+                          No Rewards!{" "}
+                        </p>
+                        <p className="font-bold text-[20px] leading-[25px] mt-[12px] mb-[7px]">
+                          Better luck next time!
+                        </p>
+                      </>
+                    )}
                   </>
                 )}
               </div>
