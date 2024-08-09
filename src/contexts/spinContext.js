@@ -166,11 +166,12 @@ export const SpinProvider = ({ children }) => {
   }, [spinResult])
 
 
-  const refaral = async (referal_code) => {
+  const refaral = async (referal_code, setvisible) => {
     try {
       await referalApi(referal_code, userData.auth);
       await fetchData();
       toast("Success...")
+      setvisible(false);
     } catch (error) {
       toast("An error occured. Try again...")
     }

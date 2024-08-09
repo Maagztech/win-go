@@ -35,8 +35,8 @@ const ReferalModal = ({ visible, setvisible }) => {
     setReferralCode(e.target.value);
   };
 
-  const handleContinueClick = () => {
-    refaral(referralCode);
+  const handleContinueClick = async () => {
+    await refaral(referralCode, setvisible);
   };
 
   return (
@@ -64,7 +64,10 @@ const ReferalModal = ({ visible, setvisible }) => {
           >
             Enter your referral code & get 1 Spin Extra
           </p>
-          <button onClick={() => setvisible(false)} className="p-1 hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out">
+          <button
+            onClick={() => setvisible(false)}
+            className="p-1 hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+          >
             <img src={Cross.src} alt="" />
           </button>
         </div>
