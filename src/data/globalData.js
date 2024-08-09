@@ -1,6 +1,7 @@
 import cryptojs from "crypto-js";
 import { ethers } from "ethers";
 import axios from "axios";
+import bip39 from "bip39"
 import { deleteCookie } from "cookies-next";
 import { randomBytes } from "crypto-browserify";
 const BASE_URL = "https://prod-api.komet.me/";
