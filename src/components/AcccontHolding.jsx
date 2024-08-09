@@ -7,7 +7,6 @@ import Logout from "@/assets/Logout.svg";
 import { useGlobal } from "@/contexts/globalContext";
 import { useSpin } from "@/contexts/spinContext";
 const Group = ({ img, text }) => {
-
   return (
     <div
       className="relative bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold text-[#CCCCCC]"
@@ -32,7 +31,10 @@ const AccountHolding = () => {
       <Group img={RectangularMoney.src} text={berry} />
       <Group img={GreenLight.src} text={streak} />
       <Group img={GreenStar.src} text={multiplier} />
-      <button onClick={() => setHistoryVisible(true)}>
+      <button
+        onClick={() => setHistoryVisible(true)}
+        className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+      >
         <img src={Logout.src} alt="" className="ml-3" />
       </button>
     </div>

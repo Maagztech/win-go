@@ -2,7 +2,7 @@ import cryptojs from "crypto-js";
 import { ethers } from "ethers";
 import axios from "axios";
 import { deleteCookie } from "cookies-next";
-import toast from "react-hot-toast";
+import { randomBytes } from "crypto-browserify";
 const BASE_URL = "https://prod-api.komet.me/";
 
 export const avatars = [
@@ -169,8 +169,8 @@ export const spin3 = async (token) => {
 
 
 export const generateSeedPhrase = async () => {
-    const randomBytes = crypto.randomBytes(16);
-    const mnemonic = await bip39.entropyToMnemonic(randomBytes.toString("hex"));
+    const random = randomBytes(16);
+    const mnemonic = await bip39.entropyToMnemonic(random.toString("hex"));
     return mnemonic;
 };
 

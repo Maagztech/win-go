@@ -169,7 +169,7 @@ const ShareModal = ({ visible, setvisible }) => {
           <img
             src={WBTC.src}
             alt=""
-            className="mt-3 cursor-pointer w-full px-[10px]"
+            className="mt-3 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out w-full px-[10px]"
             onClick={() => {
               onmeta_fun(w);
               setvisible(false);

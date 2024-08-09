@@ -60,7 +60,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
               <img
                 src={Back.src}
                 alt="Back Button"
-                className="pt-[30px] ml-[18px] cursor-pointer z-20"
+                className="pt-[30px] ml-[18px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                 onClick={() => {
                   setvisible(false);
                 }}
@@ -68,7 +68,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
               <img
                 src={Logout.src}
                 alt="Back Button"
-                className="pt-[30px] mr-[18px] cursor-pointer z-20"
+                className="pt-[30px] mr-[18px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                 onClick={() => {
                   setvisible(false);
                   setLogout(true);
@@ -85,7 +85,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
               </p>
               <div className="mt-[35px] flex w-[340px] justify-between">
                 <div
-                  className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center rounded-bl-[24px] cursor-pointer z-20"
+                  className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center rounded-bl-[24px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
                     console.log("Top-Up clicked");
                     setTopup(true);
@@ -99,7 +99,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                   <p className="text-[12px] font-medium mt-[9px]">TOP-UP</p>
                 </div>
                 <div
-                  className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center cursor-pointer z-20"
+                  className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
                     console.log("Share clicked");
                     setShare(true);
@@ -113,7 +113,7 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                   <p className="text-[12px] font-medium mt-[9px]">SHARE</p>
                 </div>
                 <div
-                  className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center rounded-br-[24px] cursor-pointer z-20"
+                  className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center rounded-br-[24px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
                     console.log("Withdraw clicked");
                     toast("Can only be withdrawn after Pool Ends.");

@@ -28,7 +28,7 @@ const RulesModal = ({ visible, setvisible, outcome }) => {
     },
   };
 
-  const filteredOutcome = outcome.filter(icons => icons.points !== 0);
+  const filteredOutcome = outcome.filter((icons) => icons.points !== 0);
 
   return (
     <Modal
@@ -50,7 +50,10 @@ const RulesModal = ({ visible, setvisible, outcome }) => {
               isMobile ? "text-center mt-5" : "mt-[40px]"
             }`}
           >
-            <button onClick={() => setvisible(false)}>
+            <button
+              onClick={() => setvisible(false)}
+              className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+            >
               {!isMobile && <img src={Back.src} alt="Back" />}
             </button>
             <p
@@ -79,7 +82,9 @@ const RulesModal = ({ visible, setvisible, outcome }) => {
                   </div>
                   <span className="text-[11px]">
                     {icons.type === "btc" || icons.type === "berry"
-                      ? `+ ${icons.type === "btc" ? "$" : ""} ${icons.points} ${icons.type === "btc" ? "WBTC" : "Bery Points"}`
+                      ? `+ ${icons.type === "btc" ? "$" : ""} ${icons.points} ${
+                          icons.type === "btc" ? "WBTC" : "Bery Points"
+                        }`
                       : `+ ${icons.points} ${icons.type} `}
                   </span>
                 </div>
@@ -121,7 +126,7 @@ const RulesModal = ({ visible, setvisible, outcome }) => {
           <img
             src={Okay.src}
             alt="Okay"
-            className="mt-3 cursor-pointer"
+            className="mt-3 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
             onClick={() => setvisible(false)}
           />
           <img src={LongLine.src} alt="Line" className="mt-7 mb-3" />

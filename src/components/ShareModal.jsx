@@ -76,7 +76,10 @@ const ShareModal = ({ visible, setvisible }) => {
           }`}
         >
           {!isMobile && (
-            <button onClick={() => setvisible(false)}>
+            <button
+              onClick={() => setvisible(false)}
+              className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+            >
               <img src={Back.src} alt="Back" />
             </button>
           )}
@@ -88,7 +91,10 @@ const ShareModal = ({ visible, setvisible }) => {
             Refer & Earn
           </p>
           {isMobile && (
-            <button onClick={() => setvisible(false)} className="p-1">
+            <button
+              onClick={() => setvisible(false)}
+              className="p-1 hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+            >
               <img src={Cross.src} alt="" />
             </button>
           )}
@@ -140,7 +146,7 @@ const ShareModal = ({ visible, setvisible }) => {
         <img
           src={Continue.src}
           alt="Continue"
-          className="mt-[8px] cursor-pointer"
+          className="mt-[8px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
           onClick={() => shareReferral()}
         />
         <img src={LongLine.src} alt="Long Line" className="mt-7 mb-3" />

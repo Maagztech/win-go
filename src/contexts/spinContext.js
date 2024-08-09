@@ -27,6 +27,8 @@ export const SpinProvider = ({ children }) => {
   const [order, setOrder] = useState(false);
   const [referalPoints, setReferalPoints] = useState(0);
 
+
+
   const fetchData = async () => {
     let result = await userSpin(userData.auth);
     setSpin(result);
@@ -38,7 +40,10 @@ export const SpinProvider = ({ children }) => {
     setBalance(result);
     result = await getHistory(userData.auth)
     setHistory(result.reverse());
-    const berryPoints = result.filter(item => item.type === 'berry').reduce((acc, item) => acc + item.points, 0);
+    let berryPoints = result
+      .filter(item => item.type === 'berry')
+      .reduce((acc, item) => acc + item.points, 0);
+    berryPoints = berryPoints % 1 ? berryPoints.toFixed(1) : berryPoints.toFixed(0);
     const btcPoints = result.filter(item => item.type === 'btc').reduce((acc, item) => acc + item.points, 0);
     setBerry(berryPoints);
     setBit(btcPoints);

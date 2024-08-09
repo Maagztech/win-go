@@ -54,7 +54,10 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
           }`}
         >
           {!isMobile && (
-            <button onClick={() => setvisible(false)}>
+            <button
+              onClick={() => setvisible(false)}
+              className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+            >
               <img src={Back.src} alt="" />
             </button>
           )}
@@ -122,7 +125,10 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
                 <p className="text-white text-opacity-60 text-[12px] leading-[15px]">
                   Balance
                 </p>
-                <button onClick={() => fetchBal()}>
+                <button
+                  onClick={() => fetchBal()}
+                  className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+                >
                   <img src={Refresh.src} alt="" />
                 </button>
               </div>
@@ -142,7 +148,7 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
         <img
           src={Continue.src}
           alt=""
-          className="mt-3 cursor-pointer"
+          className="mt-3 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
           onClick={() => {
             if (s) buySpin(s, setTopup);
           }}

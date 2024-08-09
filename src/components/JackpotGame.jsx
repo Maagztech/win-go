@@ -310,6 +310,7 @@ const JackpotGame = () => {
                       onClick={async () => {
                         setScoreVisible(false);
                       }}
+                      className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
                     >
                       <img src={Collect.src} alt="" />
                     </button>
@@ -412,19 +413,19 @@ const JackpotGame = () => {
           <img
             src={Rules.src}
             alt="Rules"
-            className={`cursor-pointer`}
+            className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out`}
             onClick={() => setRuleVisible(true)}
           />
           <img
             src={Share.src}
             alt="Share"
-            className={`cursor-pointer`}
+            className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out`}
             onClick={() => setShareVisible(true)}
           />
           <img
             src={Topup.src}
             alt="Topup"
-            className={`cursor-pointer `}
+            className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out `}
             onClick={() => setBuySpin(true)}
           />
         </div>
@@ -435,7 +436,10 @@ const JackpotGame = () => {
               : "flex flex-col items-center mt-[16px]"
           }`}
         >
-          <button onClick={handleSpinClick} className="">
+          <button
+            onClick={handleSpinClick}
+            className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+          >
             <img src={SpinButton.src} alt="Spin" />
           </button>
           <p
@@ -446,7 +450,7 @@ const JackpotGame = () => {
             {spin} spin left
           </p>
           <div
-            className={`cursor-pointer relative ${
+            className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out relative ${
               isMobile ? "mt-[10px] mb-3" : ""
             } bg-[#262526] rounded-full py-[7px] pl-[20px] pr-[10px] text-[8px] leading-[10px] font-semibold flex items-center ${
               low ? "text-[#DE3150]" : "text-[#CCCCCC]"

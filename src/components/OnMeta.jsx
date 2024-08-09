@@ -47,7 +47,7 @@ const OnMetaModal = ({ visible, setvisible }) => {
         }`}
       >
         {!isMobile && (
-          <button onClick={() => setvisible(false)}>
+          <button onClick={() => setvisible(false)} className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out">
             <img src={Back.src} alt="Back" />
           </button>
         )}
@@ -59,7 +59,7 @@ const OnMetaModal = ({ visible, setvisible }) => {
           Add WBTC
         </p>
         {isMobile && (
-          <button onClick={() => setvisible(false)} className="p-1">
+          <button onClick={() => setvisible(false)} className="p-1 hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out">
             <img src={Cross.src} alt="" />
           </button>
         )}

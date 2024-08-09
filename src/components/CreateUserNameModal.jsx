@@ -48,7 +48,10 @@ const CreateUsernameModal = ({ visible, setvisible }) => {
             isMobile ? "text-center mt-5" : "mt-[40px]"
           }`}
         >
-          <button onClick={() => setvisible(false)}>
+          <button
+            onClick={() => setvisible(false)}
+            className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
+          >
             {!isMobile && <img src={Back.src} alt="Back" />}
           </button>
           <p
@@ -120,7 +123,7 @@ const CreateUsernameModal = ({ visible, setvisible }) => {
         <img
           src={Continue.src}
           alt=""
-          className="mt-3 cursor-pointer"
+          className="mt-3 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
           onClick={() => {
             if (available) {
               handleSubmit();

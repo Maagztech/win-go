@@ -55,6 +55,7 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
             onClick={async () => {
               setvisible(false);
             }}
+            className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
           >
             <img src={Collect.src} alt="" />
           </button>
