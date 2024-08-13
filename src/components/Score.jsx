@@ -9,12 +9,29 @@ import Noreward from "@/assets/noreward.svg";
 const ScoreModal = ({ visible, setvisible, outputText }) => {
   const { spinResult } = useSpin();
   const { isMobile } = useGlobal();
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState({
+    success: false,
+    noreward: false
+  });
 
   useEffect(() => {
-    const img = new Image();
-    img.src = Noreward.src;
-    img.onload = () => setImageLoaded(true);
+    const loadImage = (src, key) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          setImagesLoaded((prev) => ({ ...prev, [key]: true }));
+          resolve();
+        };
+      });
+    };
+
+    Promise.all([
+      loadImage(Success.src, 'success'),
+      loadImage(Noreward.src, 'noreward')
+    ]).then(() => {
+      // Optionally handle when all images are loaded
+    });
   }, []);
 
   const customStylesModal = {
@@ -39,8 +56,8 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
       isOpen={visible}
       onRequestClose={() => setvisible(false)}
       style={customStylesModal}
-      className={`Modal overflow-x-hidden flex flex-col items-center px-[17px] pb-[36px] rounded-[15px] ${
-        !imageLoaded ? "hidden" : "successBg"
+      className={`Modal overflow-hidden flex flex-col items-center px-[17px] pb-[36px] rounded-[15px] ${
+        !imagesLoaded.success || !imagesLoaded.noreward ? "hidden" : "successBg"
       }`}
       overlayClassName="Overlay"
       contentLabel="Modal"
@@ -49,7 +66,9 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
         <>
           {spinResult?.type ? (
             <>
-              <img src={Success.src} alt="" />
+              {imagesLoaded.success && (
+                <img src={Success.src} alt="Success" />
+              )}
               <p className="font-bold text-[20px] leading-[25px] mt-[-12px] mb-[19px]">
                 {outputText}
               </p>
@@ -59,15 +78,15 @@ const ScoreModal = ({ visible, setvisible, outputText }) => {
                 }}
                 className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
               >
-                <img src={Collect.src} alt="" />
+                <img src={Collect.src} alt="Collect" />
               </button>
             </>
           ) : (
-            imageLoaded && (
+            imagesLoaded.noreward && (
               <>
                 <img
                   src={Noreward.src}
-                  alt=""
+                  alt="No Reward"
                   className="mb-[67px] mt-[83px]"
                 />
                 <p className="font-bold text-[16px] leading-[20px]">

@@ -168,7 +168,10 @@ const JackpotGame = () => {
     getRandomIcon(),
     getRandomIcon(),
   ]);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState({
+    success: false,
+    noreward: false,
+  });
   const [spinning, setSpinning] = useState(false);
   const [ruleVisible, setRuleVisible] = useState(false);
   const [shareVisible, setShareVisible] = useState(false);
@@ -193,9 +196,23 @@ const JackpotGame = () => {
   };
 
   useEffect(() => {
-    const img = new Image();
-    img.src = Noreward.src;
-    img.onload = () => setImageLoaded(true);
+    const loadImage = (src, key) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          setImagesLoaded((prev) => ({ ...prev, [key]: true }));
+          resolve();
+        };
+      });
+    };
+
+    Promise.all([
+      loadImage(Success.src, "success"),
+      loadImage(Noreward.src, "noreward"),
+    ]).then(() => {
+      // Optionally handle when all images are loaded
+    });
   }, []);
   const handleSpinClick = () => {
     setScoreVisible(false);
@@ -302,14 +319,22 @@ const JackpotGame = () => {
             {scoreVisible && (
               <div
                 className={`mt-[15px] flex flex-col items-center px-[17px] pb-[15px] rounded-[15px] ${
-                  !imageLoaded ? "hidden" : "successBg"
+                  !imagesLoaded.success || !imagesLoaded.noreward
+                    ? "hidden"
+                    : "successBg"
                 }`}
               >
                 {spinResult && (
                   <>
                     {spinResult.type ? (
                       <>
-                        <img src={Success.src} alt="" className="w-[180px]" />
+                        {imagesLoaded.success && (
+                          <img
+                            src={Success.src}
+                            alt="Success"
+                            className="w-[180px]"
+                          />
+                        )}
                         <p className="font-bold text-[20px] leading-[25px] mt-[-15px] mb-[15px]">
                           {outputText}
                         </p>
@@ -319,18 +344,26 @@ const JackpotGame = () => {
                           }}
                           className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
                         >
-                          <img src={Collect.src} alt="" />
+                          <img src={Collect.src} alt="Collect" />
                         </button>
                       </>
                     ) : (
                       <>
-                        <img src={Noreward.src} alt="" className="my-[30px]" />
-                        <p className="font-bold text-[16px] leading-[20px]">
-                          No Rewards!{" "}
-                        </p>
-                        <p className="font-bold text-[20px] leading-[25px] mt-[12px] mb-[7px]">
-                          Better luck next time!
-                        </p>
+                        {imagesLoaded.noreward && (
+                          <>
+                            <img
+                              src={Noreward.src}
+                              alt="No Reward"
+                              className="my-[30px]"
+                            />
+                            <p className="font-bold text-[16px] leading-[20px]">
+                              No Rewards!
+                            </p>
+                            <p className="font-bold text-[20px] leading-[25px] mt-[12px] mb-[7px]">
+                              Better luck next time!
+                            </p>
+                          </>
+                        )}
                       </>
                     )}
                   </>
