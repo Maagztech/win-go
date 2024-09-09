@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import Bar from "@/assets/Bar.svg";
 import Box from "@/assets/Box.svg";
 import { useSpin } from "@/contexts/spinContext";
+import { useEffect, useState } from "react";
 
 const TimeandBar = () => {
   const { pool } = useSpin();
   
   const calculateRemainingTime = () => {
     const currentDate = new Date();
-    const targetDate = new Date("2024-08-31T23:59:59");
+    const targetDate = new Date("2024-10-30T23:59:59");
 
     const totalSeconds = Math.floor((targetDate - currentDate) / 1000);
     const days = Math.floor(totalSeconds / (3600 * 24));
