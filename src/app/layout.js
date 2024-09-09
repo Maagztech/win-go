@@ -1,14 +1,13 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import "./font.css";
-import { SpinProvider } from '@/contexts/spinContext';
+import ToasterComponent from "@/components/ToastComponent";
 import { GlobalProvider } from "@/contexts/globalContext";
+import { SpinProvider } from '@/contexts/spinContext';
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Inter } from "next/font/google";
 import Head from "next/head";
 import Script from "next/script";
 import ReactGA from "react-ga4";
-
-import ToasterComponent from "@/components/ToastComponent";
+import "./font.css";
+import "./globals.css";
 
 ReactGA.initialize("G-ECM3YKQBD3");
 const inter = Inter({ subsets: ["latin"] });
@@ -19,6 +18,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  
   return (
     <html lang="en">
       <Head>

@@ -1,11 +1,10 @@
-import React from "react";
 import CircularCoin from "@/assets/circularCoin.png";
-import RectangularMoney from "@/assets/rectangularMoney.png";
 import GreenLight from "@/assets/greenLight.svg";
 import GreenStar from "@/assets/greenStar.svg";
 import Logout from "@/assets/Logout.svg";
-import { useGlobal } from "@/contexts/globalContext";
+import RectangularMoney from "@/assets/rectangularMoney.png";
 import { useSpin } from "@/contexts/spinContext";
+import { eventTrack } from "@/data/googleAnalyticsTrack";
 const Group = ({ img, text }) => {
   return (
     <div
@@ -32,7 +31,14 @@ const AccountHolding = () => {
       <Group img={GreenLight.src} text={streak} />
       <Group img={GreenStar.src} text={multiplier} />
       <button
-        onClick={() => setHistoryVisible(true)}
+        onClick={() => {
+          eventTrack(
+            "HISTORY",
+            "HISTORY_TAB_CLICKED",
+            "USER_CLICKED_ON_HISTORY_TAB"
+          );
+          setHistoryVisible(true);
+        }}
         className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
       >
         <img src={Logout.src} alt="" className="ml-3" />

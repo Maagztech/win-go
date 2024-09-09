@@ -1,11 +1,10 @@
-import { useGlobal } from "@/contexts/globalContext";
-import React, { useEffect } from "react";
-import Modal from "react-modal";
-import Line from "@/assets/modalLine.svg";
+import Back from "@/assets/Back.svg";
 import Continue from "@/assets/continue.svg";
 import LongLine from "@/assets/longLine.svg";
-import Back from "@/assets/Back.svg";
+import Line from "@/assets/modalLine.svg";
+import { useGlobal } from "@/contexts/globalContext";
 import toast from "react-hot-toast";
+import Modal from "react-modal";
 
 const CreateUsernameModal = ({ visible, setvisible }) => {
   const { isMobile, handleSubmit, username, setUsername, available } =

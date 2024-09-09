@@ -1,9 +1,10 @@
 "use client";
-import React, { createContext, useState, useEffect, useContext } from 'react';
-import { useMediaQuery } from 'react-responsive';
-import { setCookie, getCookie, deleteCookie } from "cookies-next";
-import { generateSeedPhrase, checkUserName, fetchUserStatus, fetchUser, parseJwt, checkEmailAccountExists, login, fetchSeed, decryptData, encryptData, getOneAccountDetails, slotRegister, RegisterNewUser, linkAddress, SaveSeedToBackend } from "@/data/globalData"
+import { checkEmailAccountExists, checkUserName, decryptData, encryptData, fetchSeed, fetchUser, fetchUserStatus, generateSeedPhrase, getOneAccountDetails, linkAddress, login, parseJwt, RegisterNewUser, SaveSeedToBackend, slotRegister } from "@/data/globalData";
+import { eventTrack } from "@/data/googleAnalyticsTrack";
+import { deleteCookie, getCookie, setCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { createContext, useContext, useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 const APIKEY = "hl23n6dgigp2pgvtzt7sm0nw4caiau11";
 const KEY = "W4DRnUcof83pbRzEFp8U24vbTr7vzSil";
 const GlobalContext = createContext();
@@ -45,6 +46,11 @@ export const GlobalProvider = ({ children }) => {
     const loginHandleSubmit = async (email) => {
         try {
             setLoading(true);
+            eventTrack(
+                "USER_AUTHENTICATION",
+                "GOOGLE_SIGN_IN_CLICKED",
+                "USER_SIGNED_IN_USING_GOOGLE"
+            );
             const token = localStorage.getItem("token") || "";
             if (email != null) {
                 const resp = await login(email, token);
@@ -66,7 +72,6 @@ export const GlobalProvider = ({ children }) => {
                 const username = userData?.success?.data?.username;
                 const res = await fetchSeed(token, bearerToken, address);
                 if (res.data?.seedPhrase) {
-
                     localStorage.setItem("auth", bearerToken || null);
                     setCookie("auth", bearerToken, { maxAge: 60 * 60 * 24 * 14 });
                     const seedPhrase = await decryptData(res.data.seedPhrase, APIKEY);
@@ -128,6 +133,11 @@ export const GlobalProvider = ({ children }) => {
 
     const handleSubmit = async () => {
         try {
+            eventTrack(
+                "USER_AUTHENTICATION",
+                "GOOGLE_SIGN_UP_CLICKED",
+                "USER_SIGNED_UP_USING_GOOGLE"
+            );
             const key = APIKEY;
             const emailAdd = localStorage.getItem("email");
             const phrase = await generateSeedPhrase();

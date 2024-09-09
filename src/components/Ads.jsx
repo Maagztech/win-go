@@ -1,9 +1,8 @@
-import React from "react";
 import Banner1 from "@/assets/banner1.svg";
 import Banner2 from "@/assets/banner2.svg";
 import { useGlobal } from "@/contexts/globalContext";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 const Banners = () => {
   const { isMobile } = useGlobal();

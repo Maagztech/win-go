@@ -1,18 +1,17 @@
-import { useGlobal } from "@/contexts/globalContext";
-import React, { useState } from "react";
-import Modal from "react-modal";
-import HistoryBg from "@/assets/historyBg.svg";
 import Back from "@/assets/Back.svg";
 import Logout from "@/assets/BackButton.svg";
 import Coin from "@/assets/circularMoney.svg";
-import Berry from "@/assets/rectangularMoney.svg";
 import Down from "@/assets/Down.svg";
+import HistoryBg from "@/assets/historyBg.svg";
+import Berry from "@/assets/rectangularMoney.svg";
 import Scan from "@/assets/Scan.svg";
 import Up from "@/assets/Up.svg";
-import toast from "react-hot-toast";
+import { useGlobal } from "@/contexts/globalContext";
 import { useSpin } from "@/contexts/spinContext";
 import { format } from "date-fns";
-import Backlines from "@/assets/Historylinesback.svg";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import Modal from "react-modal";
 import LogoutModal from "./LogoutModal";
 
 const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
@@ -87,7 +86,11 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                 <div
                   className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center rounded-bl-[24px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
-                    console.log("Top-Up clicked");
+                    eventTrack(
+                      "SPIN",
+                      "SPIN_TOPUP_STARTED",
+                      "USER_STARTED_TOPUP_FOR_SPIN"
+                    );
                     setTopup(true);
                   }}
                 >
@@ -101,7 +104,11 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                 <div
                   className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
-                    console.log("Share clicked");
+                    eventTrack(
+                      "REFERRAL",
+                      "REFERRAL_INITIATED",
+                      "USER_STARTED_REFERRAL_PROCESS"
+                    );
                     setShare(true);
                   }}
                 >
@@ -115,7 +122,11 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                 <div
                   className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center rounded-br-[24px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
-                    console.log("Withdraw clicked");
+                    eventTrack(
+                      "WITHDRAW",
+                      "WITHDRAW_STARTED",
+                      "USER_STARTED_WITHDRAW_FOR_BALANCE"
+                    );
                     toast("Can only be withdrawn after Pool Ends.");
                   }}
                 >

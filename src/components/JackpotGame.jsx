@@ -1,37 +1,38 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { useSpin } from "@/contexts/spinContext";
-import { useGlobal } from "@/contexts/globalContext";
-import Noreward from "@/assets/noreward.svg";
-import SpinButton from "@/assets/spinButton.svg";
-import Bitcoin from "@/assets/bitcoin.jpg";
-import Brett from "@/assets/brett.svg";
-import Pepe from "@/assets/pepe.svg";
-import Bobo from "@/assets/bobo.jpg";
-import Rocket from "@/assets/rocket.jpg";
 import Berry from "@/assets/Berry.svg";
-import Doge from "@/assets/doge.svg";
-import Bull from "@/assets/bull.jpeg";
-import Deathskull from "@/assets/deathskull.jpg";
-import Thunder from "@/assets/thunder.jpg";
-import SpinFrame from "@/assets/spinFrame.svg";
+import Rupey from "@/assets/RectangleRupey.svg";
 import Rules from "@/assets/Rules.svg";
 import Share from "@/assets/Share.svg";
+import Success from "@/assets/Success.svg";
 import Topup from "@/assets/Topup.svg";
-import Rupey from "@/assets/RectangleRupey.svg";
-import RulesModal from "./RulesModal";
-import ShareModal from "./ShareModal";
-import TopupModal from "./TopupModal";
-import ScoreModal from "./Score";
+import Bitcoin from "@/assets/bitcoin.jpg";
+import Bobo from "@/assets/bobo.jpg";
+import Brett from "@/assets/brett.svg";
+import Bull from "@/assets/bull.jpeg";
+import Collect from "@/assets/collect.svg";
+import Deathskull from "@/assets/deathskull.jpg";
+import Doge from "@/assets/doge.svg";
+import Noreward from "@/assets/noreward.svg";
+import Pepe from "@/assets/pepe.svg";
+import Rocket from "@/assets/rocket.jpg";
+import SpinButton from "@/assets/spinButton.svg";
+import SpinFrame from "@/assets/spinFrame.svg";
+import Thunder from "@/assets/thunder.jpg";
+import { useGlobal } from "@/contexts/globalContext";
+import { useSpin } from "@/contexts/spinContext";
+import { eventTrack } from "@/data/googleAnalyticsTrack";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import Ads from "./Ads";
+import BuySpinModal from "./BuySpinModal";
 import HistoryModal from "./HistoryModal";
 import ReferalModal from "./ReferalModal";
-import Ads from "./Ads";
+import RulesModal from "./RulesModal";
+import ScoreModal from "./Score";
+import ShareModal from "./ShareModal";
 import TimeandBar from "./TimeandBar";
-import Success from "@/assets/Success.svg";
-import Collect from "@/assets/collect.svg";
-import toast from "react-hot-toast";
-import BuySpinModal from "./BuySpinModal";
+import TopupModal from "./TopupModal";
 
 const icons = [
   Bitcoin,
@@ -382,18 +383,6 @@ const JackpotGame = () => {
             alt="Spin Frame"
             className={`${isMobile ? "" : "w-full"} z-[0]`}
           />
-
-          {/* <div
-    id="fire-animation"
-    className="hidden absolute top-0 left-0 w-full h-full z-10"
-  >
-    <img
-      src={Fire.src}
-      alt="Fire Animation"
-      className="w-full h-full"
-    />
-  </div> */}
-
           <div className="absolute z-20 flex items-center justify-center w-full h-full">
             {showGradient && (
               <div
@@ -456,19 +445,40 @@ const JackpotGame = () => {
             src={Rules.src}
             alt="Rules"
             className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out`}
-            onClick={() => setRuleVisible(true)}
+            onClick={() => {
+              eventTrack(
+                "GAME_RULES",
+                "GAME_RULES_INITIATED",
+                "USER_INITIATED_VIEWING_GAME_RULES"
+              );
+              setRuleVisible(true);
+            }}
           />
           <img
             src={Share.src}
             alt="Share"
             className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out`}
-            onClick={() => setShareVisible(true)}
+            onClick={() => {
+              eventTrack(
+                "REFERRAL",
+                "REFERRAL_INITIATED",
+                "USER_STARTED_REFERRAL_PROCESS"
+              );
+              setShareVisible(true);
+            }}
           />
           <img
             src={Topup.src}
             alt="Topup"
             className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out `}
-            onClick={() => setBuySpin(true)}
+            onClick={() => {
+              eventTrack(
+                "SPIN",
+                "SPIN_TOPUP_STARTED",
+                "USER_STARTED_TOPUP_FOR_SPIN"
+              );
+              setBuySpin(true);
+            }}
           />
         </div>
         <div
@@ -479,7 +489,14 @@ const JackpotGame = () => {
           }`}
         >
           <button
-            onClick={handleSpinClick}
+            onClick={() => {
+              handleSpinClick();
+              eventTrack(
+                "SLOT_MACHINE",
+                "SPIN_CLICKED",
+                "USER_INITIATED_A_SLOT_SPIN"
+              );
+            }}
             className="hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
           >
             <img src={SpinButton.src} alt="Spin" />
@@ -499,6 +516,11 @@ const JackpotGame = () => {
             }`}
             style={{ fontFamily: "Oxanium" }}
             onClick={() => {
+              eventTrack(
+                "SPIN",
+                "SPIN_TOPUP_STARTED",
+                "USER_STARTED_TOPUP_FOR_SPIN"
+              );
               setBuySpin(true);
             }}
           >

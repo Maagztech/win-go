@@ -1,15 +1,15 @@
-import { useGlobal } from "@/contexts/globalContext";
-import React, { useState } from "react";
-import Modal from "react-modal";
-import Line from "@/assets/modalLine.svg";
-import Continue from "@/assets/continue.svg";
-import LongLine from "@/assets/longLine.svg";
-import Selected from "@/assets/filledRadio.svg";
-import Refresh from "@/assets/refresh.svg";
-import { useSpin } from "@/contexts/spinContext";
-import Polygon from "@/assets/polygon.svg";
-import { getProfileImage } from "@/data/globalData";
 import Back from "@/assets/Back.svg";
+import Continue from "@/assets/continue.svg";
+import Selected from "@/assets/filledRadio.svg";
+import LongLine from "@/assets/longLine.svg";
+import Line from "@/assets/modalLine.svg";
+import Polygon from "@/assets/polygon.svg";
+import Refresh from "@/assets/refresh.svg";
+import { useGlobal } from "@/contexts/globalContext";
+import { useSpin } from "@/contexts/spinContext";
+import { getProfileImage } from "@/data/globalData";
+import { useState } from "react";
+import Modal from "react-modal";
 const BuySpinModal = ({ visible, setvisible, setTopup }) => {
   const { isMobile, userData } = useGlobal();
   const { balance, fetchBal, buySpin } = useSpin();
@@ -150,6 +150,11 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
           alt=""
           className="mt-3 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
           onClick={() => {
+            eventTrack(
+              "TOPUP",
+              "SPIN_TOPUP_STARTED_STAGE_2",
+              "USER_STARTED_TOPUP_STAGE_2"
+            );
             if (s) buySpin(s, setTopup);
           }}
         />

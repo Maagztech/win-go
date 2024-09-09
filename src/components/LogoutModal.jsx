@@ -1,9 +1,9 @@
-import React from "react";
-import Modal from "react-modal";
 import Cancel from "@/assets/cancel.svg";
 import LogoutButton from "@/assets/Logoutbutton.svg";
 import LogoutImage from "@/assets/Logoutmodal.svg";
 import { useGlobal } from "@/contexts/globalContext";
+import { eventTrack } from "@/data/googleAnalyticsTrack";
+import Modal from "react-modal";
 const LogoutModal = ({ visible, setvisible }) => {
   const { isMobile, logoutFromKomet } = useGlobal();
   const customStylesModal = {
@@ -43,6 +43,11 @@ const LogoutModal = ({ visible, setvisible }) => {
       </p>
       <button
         onClick={async () => {
+          eventTrack(
+            "USER_AUTHENTICATION",
+            "LOGOUT_CLICKED",
+            "USER_LOGGED_OUT_OF_THE_APPLICATION"
+          );
           logoutFromKomet();
         }}
         className={isMobile ? "mt-[46px]" : "mt-[26px]"}

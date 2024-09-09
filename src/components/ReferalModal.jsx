@@ -1,11 +1,12 @@
-import { useGlobal } from "@/contexts/globalContext";
-import React, { useState } from "react";
-import Modal from "react-modal";
-import Line from "@/assets/modalLine.svg";
 import Continue from "@/assets/continue.svg";
-import LongLine from "@/assets/longLine.svg";
 import Cross from "@/assets/cross.svg";
+import LongLine from "@/assets/longLine.svg";
+import Line from "@/assets/modalLine.svg";
+import { useGlobal } from "@/contexts/globalContext";
 import { useSpin } from "@/contexts/spinContext";
+import { eventTrack } from "@/data/googleAnalyticsTrack";
+import { useState } from "react";
+import Modal from "react-modal";
 
 const ReferalModal = ({ visible, setvisible }) => {
   const { isMobile } = useGlobal();
@@ -91,7 +92,14 @@ const ReferalModal = ({ visible, setvisible }) => {
           src={Continue.src}
           alt=""
           className="mt-[8px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out mb-2"
-          onClick={handleContinueClick}
+          onClick={() => {
+            handleContinueClick();
+            eventTrack(
+              "REFERRAL",
+              "REFERRAL_CONFIRMED",
+              "USER_CONFIRMED_REFERRAL"
+            );
+          }}
         />
         <button className="opacity-60 text-[12px] leading-[15px] tracking-[-0.04em] hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out">
           Continue without Code
