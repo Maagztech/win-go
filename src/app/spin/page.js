@@ -1,13 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
+import PoweredBy from "@/assets/poweredBy.svg";
 import AccountHolding from "@/components/AcccontHolding";
 import Ads from "@/components/Ads";
 import JackpotGame from "@/components/JackpotGame";
+import OnMetaModal from "@/components/OnMeta";
 import TimeandBar from "@/components/TimeandBar";
 import { useGlobal } from "@/contexts/globalContext";
-import PoweredBy from "@/assets/poweredBy.svg";
-import OnMetaModal from "@/components/OnMeta";
 import { useSpin } from "@/contexts/spinContext";
+import { useEffect } from "react";
 export default function Home() {
     const { isMobile, loading, setLoading } = useGlobal();
     const { onmeta, setOnmeta } = useSpin();
@@ -35,7 +35,6 @@ export default function Home() {
                     <JackpotGame />
                 </div>
             )}
-
             <OnMetaModal visible={onmeta} setvisible={setOnmeta} />
         </main >
     );
