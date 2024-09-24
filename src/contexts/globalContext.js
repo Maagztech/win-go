@@ -2,7 +2,7 @@
 import { checkEmailAccountExists, checkUserName, decryptData, encryptData, fetchSeed, fetchUser, fetchUserStatus, generateSeedPhrase, getOneAccountDetails, linkAddress, login, parseJwt, RegisterNewUser, SaveSeedToBackend, slotRegister } from "@/data/globalData";
 import { eventTrack } from "@/data/googleAnalyticsTrack";
 import { deleteCookie, getCookie, setCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 const APIKEY = "hl23n6dgigp2pgvtzt7sm0nw4caiau11";
@@ -13,11 +13,21 @@ export const GlobalProvider = ({ children }) => {
     const isMobileQuery = useMediaQuery({ query: '(max-width: 800px)' });
     const [isMobile, setIsMobile] = useState(null);
     const [newUser, setNewUser] = useState(false);
+    const searchParams = useSearchParams()
+ 
+    const authToken = searchParams.get('auth')
     useEffect(() => {
         if (typeof window !== "undefined") {
             setIsMobile(isMobileQuery);
         }
     }, [isMobileQuery]);
+
+    useEffect(() => {
+        if (typeof window !== "undefined" && authToken) {
+            loginUsingToken(authToken)
+            //setIsMobile(isMobileQuery);
+        }
+    }, [authToken]);
 
     const router = useRouter();
     const [userData, setUserData] = useState();
@@ -42,6 +52,67 @@ export const GlobalProvider = ({ children }) => {
         }
     };
 
+    const loginUsingToken=async(bearerToken)=>{
+        try {
+            setLoading(true);
+            eventTrack(
+                "USER_AUTHENTICATION",
+                "GOOGLE_SIGN_IN_CLICKED",
+                "USER_SIGNED_IN_USING_GOOGLE"
+            );
+            //const token = localStorage.getItem("token") || "";
+            if (bearerToken!==null) {
+                //const resp = await login(email, token);
+                //const bearerToken = resp.data?.success?.data?.oneFaToken;
+                localStorage.setItem("auth", bearerToken);
+                const u = await slotRegister(bearerToken);
+                setNewUser(u);
+                setMustReward(u);
+                const userData = await fetchUser(bearerToken);
+                const primaryAddress = userData?.success?.data?.userWallets?.filter(
+                    (item) => {
+                        return item?.type === "KOMET_WALLET";
+                    }
+                )[0];
+                const userId = userData?.success?.data?.userId;
+                localStorage.setItem("userid", userId);
+                const address = primaryAddress?.walletAddress;
+                const userEmail = userData?.success?.data?.email;
+                const username = userData?.success?.data?.username;
+                const res = await fetchSeed('', bearerToken, address).catch((err)=>{
+                    console.log(err)
+                })
+                if (res.data?.seedPhrase) {
+                    localStorage.setItem("auth", bearerToken || null);
+                    setCookie("auth", bearerToken, { maxAge: 60 * 60 * 24 * 14 });
+                    const seedPhrase = await decryptData(res.data.seedPhrase, APIKEY);
+                    const WalletInfo = getOneAccountDetails(seedPhrase);
+                    if (WalletInfo) {
+                        const share = await encryptData(
+                            WalletInfo.privateKey,
+                            KEY
+                        );
+                        localStorage.setItem("share", share);
+                        const userInfo = {
+                            username: username,
+                            address: WalletInfo.address,
+                            userId: userId,
+                            email: userEmail,
+                            auth: bearerToken,
+                            share: share,
+                            wallets: userData?.success?.data?.userWallets,
+                        };
+                        localStorage.setItem("address", WalletInfo?.address);
+                        setUserData(userInfo);
+                        router.push("/spin");
+
+                    }
+                }
+            }
+        } catch (err) {
+            console.log("An error occured.", err)
+        }
+    }
 
     const loginHandleSubmit = async (email) => {
         try {
