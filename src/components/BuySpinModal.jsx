@@ -1,13 +1,9 @@
 import Back from "@/assets/Back.svg";
 import Continue from "@/assets/continue.svg";
-import Selected from "@/assets/filledRadio.svg";
 import LongLine from "@/assets/longLine.svg";
 import Line from "@/assets/modalLine.svg";
-import Polygon from "@/assets/polygon.svg";
-import Refresh from "@/assets/refresh.svg";
 import { useGlobal } from "@/contexts/globalContext";
 import { useSpin } from "@/contexts/spinContext";
-import { getProfileImage } from "@/data/globalData";
 import { useState } from "react";
 import Modal from "react-modal";
 const BuySpinModal = ({ visible, setvisible, setTopup }) => {
@@ -49,9 +45,8 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
           {isMobile && <img src={Line.src} alt="Line" />}
         </div>
         <div
-          className={`flex gap-[8px] justify-start mb-[8px] items-center ${
-            isMobile ? "text-center mt-5" : "mt-[40px]"
-          }`}
+          className={`flex gap-[8px] justify-start mb-[8px] items-center ${isMobile ? "text-center mt-5" : "mt-[40px]"
+            }`}
         >
           {!isMobile && (
             <button
@@ -61,15 +56,15 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
               <img src={Back.src} alt="" />
             </button>
           )}
-          <p
+          {/* <p
             className={`text-[14px] text-white  leading-[18px] text-opacity-60`}
             style={{ letterSpacing: "-0.04em" }}
           >
             Enter Spin
-          </p>
+          </p> */}
         </div>
 
-        <div className="flex items-center gap-2 mb-[8px]">
+        {/* <div className="flex items-center gap-2 mb-[8px]">
           <div className="relative flex items-center">
             <input
               className="w-[2ch] font-medium text-[24px] leading-[30px] tracking-[-0.04em] bg-transparent text-white focus:outline-none"
@@ -138,24 +133,23 @@ const BuySpinModal = ({ visible, setvisible, setTopup }) => {
             </div>
             <img src={Selected.src} alt="" className="h-[20px] w-[20px]" />
           </div>
-        </div>
+        </div> */}
       </div>
       <div
-        className={`${
-          !isMobile ? "bottomShadow" : ""
-        } sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center px-[30px]`}
+        className={`${!isMobile ? "bottomShadow" : ""
+          } sticky bottom-0 w-full bg-[#252A3E] flex flex-col items-center px-[30px]`}
       >
         <img
           src={Continue.src}
           alt=""
           className="mt-3 cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out"
           onClick={() => {
-            eventTrack(
-              "TOPUP",
-              "SPIN_TOPUP_STARTED_STAGE_2",
-              "USER_STARTED_TOPUP_STAGE_2"
-            );
-            if (s) buySpin(s, setTopup);
+            // eventTrack(
+            //   "TOPUP",
+            //   "SPIN_TOPUP_STARTED_STAGE_2",
+            //   "USER_STARTED_TOPUP_STAGE_2"
+            // );
+            // if (s) buySpin(s, setTopup);
           }}
         />
         <img src={LongLine.src} alt="" className="mt-7 mb-3" />

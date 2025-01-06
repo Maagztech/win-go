@@ -1,8 +1,4 @@
-import CircularCoin from "@/assets/circularCoin.png";
-import GreenLight from "@/assets/greenLight.svg";
-import GreenStar from "@/assets/greenStar.svg";
 import Logout from "@/assets/Logout.svg";
-import RectangularMoney from "@/assets/rectangularMoney.png";
 import { useSpin } from "@/contexts/spinContext";
 import { eventTrack } from "@/data/googleAnalyticsTrack";
 const Group = ({ img, text }) => {
@@ -26,10 +22,10 @@ const AccountHolding = () => {
   const { bit, streak, multiplier, berry } = useSpin();
   return (
     <div className="flex justify-end items-center mt-[20px] mx-[18px] gap-[19px]">
-      <Group img={CircularCoin.src} text={bit} />
+      {/* <Group img={CircularCoin.src} text={bit} />
       <Group img={RectangularMoney.src} text={berry} />
       <Group img={GreenLight.src} text={streak} />
-      <Group img={GreenStar.src} text={multiplier} />
+      <Group img={GreenStar.src} text={multiplier} /> */}
       <button
         onClick={() => {
           eventTrack(

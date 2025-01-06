@@ -1,7 +1,5 @@
 "use client";
 
-import Bar from "@/assets/Bar.svg";
-import Box from "@/assets/Box.svg";
 import { useSpin } from "@/contexts/spinContext";
 import { useEffect, useState } from "react";
 
@@ -10,7 +8,7 @@ const TimeandBar = () => {
   
   const calculateRemainingTime = () => {
     const currentDate = new Date();
-    const targetDate = new Date("2024-10-30T23:59:59");
+    const targetDate = new Date("2025-02-01T23:59:59");
 
     const totalSeconds = Math.floor((targetDate - currentDate) / 1000);
     const days = Math.floor(totalSeconds / (3600 * 24));
@@ -62,7 +60,7 @@ const TimeandBar = () => {
         <Time time={time.minutes} label="MIN" />
         <Time time={time.seconds} label="SEC" />
       </div>
-      <div className="w-full relative mt-[17px]">
+      {/* <div className="w-full relative mt-[17px]">
         <div className="relative w-full">
           <img src={Bar.src} alt="Bar" className="w-full" />
           <div
@@ -90,7 +88,7 @@ const TimeandBar = () => {
           </p>
         </div>
         <img src={Box.src} alt="" className="absolute right-0 top-[-13px]" />
-      </div>
+      </div> */}
     </div>
   );
 };

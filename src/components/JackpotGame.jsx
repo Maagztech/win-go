@@ -3,7 +3,6 @@
 import Berry from "@/assets/Berry.svg";
 import Rupey from "@/assets/RectangleRupey.svg";
 import Rules from "@/assets/Rules.svg";
-import Share from "@/assets/Share.svg";
 import Success from "@/assets/Success.svg";
 import Topup from "@/assets/Topup.svg";
 import Bitcoin from "@/assets/bitcoin.jpg";
@@ -24,7 +23,6 @@ import { useSpin } from "@/contexts/spinContext";
 import { eventTrack } from "@/data/googleAnalyticsTrack";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import Ads from "./Ads";
 import BuySpinModal from "./BuySpinModal";
 import HistoryModal from "./HistoryModal";
 import ReferalModal from "./ReferalModal";
@@ -315,7 +313,7 @@ const JackpotGame = () => {
       <div className={`flex items-start justify-between`}>
         {!isMobile && (
           <div>
-            <Ads />
+            {/* <Ads /> */}
             <TimeandBar />
             {scoreVisible && (
               <div
@@ -395,7 +393,7 @@ const JackpotGame = () => {
             )}
           </div>
 
-          <div
+          {/* <div
             className={`flex items-center justify-center h-full py-[12px] w-full absolute ${
               isMobile ? "px-[10px] py-[12px]" : "px-[30px] py-[30px]"
             }`}
@@ -425,7 +423,7 @@ const JackpotGame = () => {
                 ))}
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -454,7 +452,7 @@ const JackpotGame = () => {
               setRuleVisible(true);
             }}
           />
-          <img
+          {/* <img
             src={Share.src}
             alt="Share"
             className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out`}
@@ -466,7 +464,7 @@ const JackpotGame = () => {
               );
               setShareVisible(true);
             }}
-          />
+          /> */}
           <img
             src={Topup.src}
             alt="Topup"
@@ -501,13 +499,13 @@ const JackpotGame = () => {
           >
             <img src={SpinButton.src} alt="Spin" />
           </button>
-          <p
+          {/* <p
             className={`text-[#737476] text-[8.41px] leading-[10.18px] ${
               isMobile ? "mt-[8px]" : ""
             }`}
           >
             {spin} spin left
-          </p>
+          </p> */}
           <div
             className={`cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out relative ${
               isMobile ? "mt-[10px] mb-3" : ""
@@ -529,7 +527,7 @@ const JackpotGame = () => {
               alt="Rupey"
               className="absolute left-[-11px] w-[21.18px] top-0"
             />
-            {balance} WBTC{" "}
+            ₹ {balance} {" "}
             {low && (
               <span className="font-normal underline ml-[2px]">
                 Low on Balance

@@ -1,13 +1,11 @@
 "use client";
-import { useGlobal } from "@/contexts/globalContext";
-import OnboardMobile from "@/assets/onboardMobile.svg";
-import OnboardMobileBg from "@/assets/onboardMobileBg.svg";
 import EnterButton from "@/assets/enterButton.svg";
 import EnterButtonComp from "@/assets/enterButtonComp.svg";
-import { useRouter } from "next/navigation";
-import { GoogleLogin } from "@react-oauth/google";
+import OnboardMobile from "@/assets/onboardMobile.svg";
+import OnboardMobileBg from "@/assets/onboardMobileBg.svg";
 import CreateUsernameModal from "@/components/CreateUserNameModal";
-import Head from "next/head";
+import { useGlobal } from "@/contexts/globalContext";
+import { GoogleLogin } from "@react-oauth/google";
 
 export default function Home() {
   const { isMobile, getEmail, loading, userPannel, setUserPannel } = useGlobal();
@@ -30,11 +28,12 @@ export default function Home() {
                 <GoogleLogin
                   width="400px"
                   onSuccess={(credentialResponse) => {
-                    getEmail(credentialResponse);
-                    localStorage.setItem(
-                      "token",
-                      credentialResponse.credential?.toString() || ""
-                    );
+                    // getEmail(credentialResponse);
+                    // localStorage.setItem(
+                    //   "token",
+                    //   credentialResponse.credential?.toString() || ""
+                    // );
+                    router.push("/spin");
                   }}
                   onError={() => {
                     console.log("Login Failed");

@@ -1,7 +1,6 @@
 "use client";
 import PoweredBy from "@/assets/poweredBy.svg";
 import AccountHolding from "@/components/AcccontHolding";
-import Ads from "@/components/Ads";
 import JackpotGame from "@/components/JackpotGame";
 import OnMetaModal from "@/components/OnMeta";
 import TimeandBar from "@/components/TimeandBar";
@@ -20,7 +19,7 @@ export default function Home() {
                     <div className="flex-grow overflow-auto z-[1]">
                         <AccountHolding />
                         <TimeandBar />
-                        <Ads />
+                        {/* <Ads /> */}
                         <JackpotGame />
                     </div>
                     <div className="w-full flex justify-center mb-3">

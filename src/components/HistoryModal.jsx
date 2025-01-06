@@ -86,11 +86,6 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                 <div
                   className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center rounded-bl-[24px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
-                    eventTrack(
-                      "SPIN",
-                      "SPIN_TOPUP_STARTED",
-                      "USER_STARTED_TOPUP_FOR_SPIN"
-                    );
                     setTopup(true);
                   }}
                 >
@@ -104,11 +99,6 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                 <div
                   className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
-                    eventTrack(
-                      "REFERRAL",
-                      "REFERRAL_INITIATED",
-                      "USER_STARTED_REFERRAL_PROCESS"
-                    );
                     setShare(true);
                   }}
                 >
@@ -122,11 +112,6 @@ const HistoryModal = ({ visible, setvisible, setTopup, setShare }) => {
                 <div
                   className="bg-[#000000] w-[110px] py-[20px] rounded-md flex flex-col items-center rounded-br-[24px] cursor-pointer hover:scale-105 active:scale-95 transition-transform duration-150 ease-in-out z-20"
                   onClick={() => {
-                    eventTrack(
-                      "WITHDRAW",
-                      "WITHDRAW_STARTED",
-                      "USER_STARTED_WITHDRAW_FOR_BALANCE"
-                    );
                     toast("Can only be withdrawn after Pool Ends.");
                   }}
                 >

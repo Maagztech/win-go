@@ -1,10 +1,9 @@
-import { useGlobal } from "@/contexts/globalContext";
-import React from "react";
-import Modal from "react-modal";
+import Back from "@/assets/Back.svg";
+import LongLine from "@/assets/longLine.svg";
 import Line from "@/assets/modalLine.svg";
 import Okay from "@/assets/Okay.svg";
-import LongLine from "@/assets/longLine.svg";
-import Back from "@/assets/Back.svg";
+import { useGlobal } from "@/contexts/globalContext";
+import Modal from "react-modal";
 
 const RulesModal = ({ visible, setvisible, outcome }) => {
   const { isMobile } = useGlobal();
@@ -65,7 +64,7 @@ const RulesModal = ({ visible, setvisible, outcome }) => {
               Rules & Regulation
             </p>
           </div>
-          <div className="mt-5 gradientText text-center">
+          {/* <div className="mt-5 gradientText text-center">
             <p className="font-semibold">Paytable</p>
             <div className="pl-5 mt-3 grid grid-cols-2 gap-4">
               {filteredOutcome.map((icons, index) => (
@@ -116,7 +115,7 @@ const RulesModal = ({ visible, setvisible, outcome }) => {
                 consider self-exclusion options provided by the app.
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
         <div
           className={`${
